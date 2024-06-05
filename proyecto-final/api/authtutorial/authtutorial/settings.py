@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': 'postgres', #os.environ.get('PG_DB', 'postgres'),
         'USER':'postgres', #os.environ.get('PG_USER', 'postgres'),
         'PASSWORD': 'postgres',#os.environ.get('PG_PASSWORD', 'postgres'),
-        'HOST': '0.0.0.0',#os.environ.get('PG_HOST', '0.0.0.0),
+        'HOST': 'localhost',#os.environ.get('PG_HOST', '0.0.0.0),
         'PORT': '5432' #os.environ.get('PG_PORT', '5432'),
     }
 }
