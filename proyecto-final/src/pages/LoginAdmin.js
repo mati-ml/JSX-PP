@@ -12,12 +12,14 @@ function LoginAdmin({ onLoginSuccess }) {
   const handleLogin = async () => {
     setIsLoading(true);
     setError(null);
+    console.debug('Entrando a Función')
     try {
       const formData = {
         email: username,
         password: password
       };
 
+      
       const response = await fetch("http://127.0.0.1:8000/api/login/", {
         method: "POST",
         headers: {
@@ -25,7 +27,7 @@ function LoginAdmin({ onLoginSuccess }) {
         },
         body: JSON.stringify(formData)
       });
-
+      console.info("Realizando solicitud de inicio de sesión...");
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || "Error en la solicitud");
@@ -38,8 +40,10 @@ function LoginAdmin({ onLoginSuccess }) {
       
       document.cookie = `user_role=${data.user_role}; path=/`;
       onLoginSuccess(data);
+      console.info("Inicio de sesión exitoso.");
     } catch (error) {
       setError(error.message || "Error al iniciar sesión. Por favor, inténtalo de nuevo.");
+      console.error("Error al iniciar sesión:", error);
     } finally {
       setIsLoading(false);
     }
