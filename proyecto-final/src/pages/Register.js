@@ -8,7 +8,7 @@ const Register = () => {
   const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {
-    console.debug("corriendo función para llamda a la api")
+    console.debug("corriendo función para llamda a la api");
     e.preventDefault();
 
     const user = {
@@ -26,7 +26,7 @@ const Register = () => {
         },
         body: JSON.stringify(user),
       });
-      console.info("Enviando datos...")
+      console.info("Enviando datos...");
       const data = await response.json();
 
       if (response.ok) {
