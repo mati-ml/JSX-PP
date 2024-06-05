@@ -1,0 +1,4 @@
+Primero Hagan el "docker compose up" para correr la base de datos y todo. 
+Despues para correr la api pongan en la terminal: python3 manage.py runserver
+
+pip install -r requirements.txt
