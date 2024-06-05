@@ -30,11 +30,14 @@ const Register = () => {
 
       if (response.ok) {
         setMessage('Registration successful!');
+        console.info('Registration successful!', data);
       } else {
         setMessage(`Registration failed: ${data.message}`);
+        console.error('Registration failed:', data.message);
       }
     } catch (error) {
       setMessage(`Registration failed: ${error.message}`);
+      console.error('Registration failed:', error);
     }
   };
 
@@ -52,15 +55,6 @@ const Register = () => {
           />
         </div>
         <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div>
           <label>Email:</label>
           <input
             type="email"
@@ -69,6 +63,16 @@ const Register = () => {
             required
           />
         </div>
+        <div>
+          <label>Password:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+
         <div>
           <label>Role:</label>
           <select
@@ -81,7 +85,7 @@ const Register = () => {
             <option value="student">Student</option>
           </select>
         </div>
-        <button onClick={handleSubmit}>Register</button>
+        <button type="submit">Register</button>
       </form>
       {message && <p>{message}</p>}
     </div>
