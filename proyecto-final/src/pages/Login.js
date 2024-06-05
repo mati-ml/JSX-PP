@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link,  } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Login.css"; // Asegúrate de crear este archivo CSS y enlazarlo
 
 function Login({ onLoginSuccess }) {
@@ -12,12 +12,14 @@ function Login({ onLoginSuccess }) {
   const handleLogin = async () => {
     setIsLoading(true);
     setError(null);
+    console.debug('Corriendo Funcion handleLogin');
     try {
       const formData = {
         email: username,
         password: password
       };
 
+      console.info('Enviando solicitud de inicio de sesión...');
       const response = await fetch("http://127.0.0.1:8000/api/login/", {
         method: "POST",
         headers: {
@@ -34,8 +36,10 @@ function Login({ onLoginSuccess }) {
       const data = await response.json();
       document.cookie = `user_role=${data.user_role}; path=/`;
       onLoginSuccess(data);
+      console.info('Inicio de sesión exitoso.');
     } catch (error) {
       setError(error.message || "Error al iniciar sesión. Por favor, inténtalo de nuevo.");
+      console.error('Error al iniciar sesión:', error);
     } finally {
       setIsLoading(false);
     }
@@ -86,7 +90,6 @@ function Login({ onLoginSuccess }) {
 }
 
 export default Login;
-
 
 
 
