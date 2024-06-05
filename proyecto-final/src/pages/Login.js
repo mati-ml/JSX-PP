@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./Login.css"; // Asegúrate de crear este archivo CSS y enlazarlo
 
 function Login({ onLoginSuccess }) {
   const [username, setUsername] = useState("");
@@ -31,29 +32,31 @@ function Login({ onLoginSuccess }) {
   };
 
   return (
-    <div>
-      <h2>Iniciar sesión</h2>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleLogin();
-        }}
-      >
-        <input
-          type="text"
-          placeholder="Nombre de usuario"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {error && <p>{error}</p>}
-        <button type="submit" onClick={handleLogin}>Iniciar sesión</button>
-      </form>
+    <div className="login-container">
+      <div className="login-box">
+        <h2>Iniciar sesión</h2>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleLogin();
+          }}
+        >
+          <input
+            type="text"
+            placeholder="Nombre de usuario"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Contraseña"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          {error && <p>{error}</p>}
+          <button type="submit" onClick={handleLogin}>Iniciar sesión</button>
+        </form>
+      </div>
     </div>
   );
 }
