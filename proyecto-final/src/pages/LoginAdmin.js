@@ -12,7 +12,7 @@ function LoginAdmin({ onLoginSuccess }) {
   const handleLogin = async () => {
     setIsLoading(true);
     setError(null);
-    console.debug('Entrando a Función')
+    console.debug('Entrando a Función');
     try {
       const formData = {
         email: username,
