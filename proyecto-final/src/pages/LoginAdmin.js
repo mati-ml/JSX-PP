@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Link,  } from "react-router-dom";
+
 import "./Login.css"; // Asegúrate de crear este archivo CSS y enlazarlo
 
-function Login({ onLoginSuccess }) {
+function LoginAdmin({ onLoginSuccess }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -32,6 +32,10 @@ function Login({ onLoginSuccess }) {
       }
 
       const data = await response.json();
+      if (data.user_role !== "admin") {
+        throw new Error("Usuario no autorizado");
+      }
+      
       document.cookie = `user_role=${data.user_role}; path=/`;
       onLoginSuccess(data);
     } catch (error) {
@@ -49,7 +53,7 @@ function Login({ onLoginSuccess }) {
   return (
     <div className="login-container">
       <div className="login-box">
-        <h2>Iniciar sesión</h2>
+        <h2>Iniciar sesión como administrador</h2>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -70,29 +74,9 @@ function Login({ onLoginSuccess }) {
             {isLoading ? "Cargando..." : "Iniciar sesión"}
           </button>
         </form>
-        <Link to="/loginadmin">
-          <button>
-            Inicia Sesión Admin
-          </button>
-        </Link>
-        <Link to="/register">
-          <button>
-            Registrarse
-          </button>
-        </Link>
       </div>
     </div>
   );
 }
 
-export default Login;
-
-
-
-
-
-
-
-
-
-
+export default LoginAdmin;

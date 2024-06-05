@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
+import LoginAdmin from "./pages/LoginAdmin";
 import AdminDashboard from "./components/AdminDashboard";
 import StudentDashboard from "./components/StudentDashboard";
 import TeacherDashboard from "./components/TeacherDashboard";
@@ -38,6 +40,8 @@ function App() {
   return (
     <Routes>
       <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/loginadmin" element={<LoginAdmin />} />
       <Route
         path="/admin"
         element={
