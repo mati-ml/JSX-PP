@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Register.css'; // importar el archivo CSS
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -8,7 +9,7 @@ const Register = () => {
   const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {
-    console.debug("corriendo función para llamda a la api");
+    console.debug("corriendo función para llamar a la api");
     e.preventDefault();
 
     const user = {
@@ -43,7 +44,7 @@ const Register = () => {
   };
 
   return (
-    <div>
+    <div className="container"> {/* aplicar la clase */}
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
         <div>

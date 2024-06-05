@@ -1,0 +1,49 @@
+/* Register.css */
+body {
+    background: linear-gradient(to right, #5f5cff, #feb47b); /* Degradado de naranja a rosa */
+    margin: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .container {
+    background-color: white; /* Fondo blanco para el contenedor */
+    padding: 20px; /* Espacio interno */
+    border-radius: 8px; /* Bordes redondeados */
+    max-width: 400px; /* Ancho máximo */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-top: 10px;
+  }
+  
+  button {
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    background-color: #ff7e5f;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #feb47b;
+  }
+  
+  input, select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+  }
+  
