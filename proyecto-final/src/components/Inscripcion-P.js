@@ -19,7 +19,7 @@ function EvalForm() {
       const user_id = document.cookie.replace(/(?:(?:^|.*;\s*)user_id\s*=\s*([^;]*).*$)|^.*$/, "$1");
 
       // Realizar la solicitud POST a la API
-      const response = await fetch('/api/modify-evaluation/', {
+      const response = await fetch('http://127.0.0.1:8000/api2/inscripcion-pasantias/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
