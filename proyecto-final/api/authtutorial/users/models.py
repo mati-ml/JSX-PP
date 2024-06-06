@@ -15,5 +15,7 @@ class User(AbstractUser):
 
     USERNAME_FIELD = 'email' # login w/ email, unique identifier.
     REQUIRED_FIELDS = [] 
+    def __str__(self):
+        return self.email
     #has no effect in admin ui, it is list of the field names that will be prompted for when creating a user via the createsuperuser 
 
