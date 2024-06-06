@@ -159,3 +159,23 @@ def get_column_value(request):
 
     # Retornar una respuesta JSON con el valor de la columna
     return JsonResponse({'valor': column_value}, status=200)
+
+from django.http import HttpResponse
+from users.models import User
+from evaluation.models import Eval
+
+def delete_teachers_evaluations(request):
+    # Obtener los usuarios con el rol de 'teacher'
+    teachers = User.objects.filter(role='teacher')
+
+    # Obtener los correos electrónicos de estos usuarios
+    teacher_emails = teachers.values_list('email', flat=True)
+
+    # Obtener los registros de Eval asociados con los usuarios 'teacher'
+    evals_to_delete = Eval.objects.filter(user_email__in=teacher_emails)
+
+    # Eliminar los registros de Eval asociados con los usuarios 'teacher'
+    evals_to_delete.delete()
+
+    return HttpResponse("Registros de usuarios con el rol 'teacher' eliminados de Eval.")
+
