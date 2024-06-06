@@ -74,7 +74,7 @@ function LoginAdmin({ onLoginSuccess }) {
             disabled={isLoading}
           />
           {error && <p className="error">{error}</p>}
-          <button type="submit" disabled={isLoading}>
+          <button type="submit" disabled={isLoading} id="boton-admin">
             {isLoading ? "Cargando..." : "Iniciar sesión"}
           </button>
         </form>

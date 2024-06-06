@@ -34,6 +34,9 @@ function Login({ onLoginSuccess }) {
       }
 
       const data = await response.json();
+      if (data.user_role == "admin") {
+        throw new Error("Usuario no autorizado");
+      }
       document.cookie = `user_role=${data.user_role}; path=/`;
       onLoginSuccess(data);
       console.info('Inicio de sesión exitoso.');
@@ -75,12 +78,12 @@ function Login({ onLoginSuccess }) {
           </button>
         </form>
         <Link to="/loginadmin">
-          <button>
+          <button id="boton-admin">
             Inicia Sesión Admin
           </button>
         </Link>
         <Link to="/register">
-          <button>
+          <button id="register">
             Registrarse
           </button>
         </Link>

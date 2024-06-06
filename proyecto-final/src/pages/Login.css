@@ -3,6 +3,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #4facfe, #ce0681); 
 }
 
 .login-container {
@@ -11,7 +12,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(to right, #4facfe, #ce0681); 
+
 }
 
 .header-text {
@@ -28,4 +29,11 @@ body {
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: rgba(255, 255, 255, 0.9); 
+}
+#boton-admin{
+  padding-right: 1rem;
+}
+#register{
+  padding-left: 1rem;
+
 }
