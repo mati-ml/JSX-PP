@@ -77,16 +77,22 @@ function Login({ onLoginSuccess }) {
             {isLoading ? "Cargando..." : "Iniciar sesión"}
           </button>
         </form>
-        <Link to="/loginadmin">
-          <button id="boton-admin">
-            Inicia Sesión Admin
-          </button>
-        </Link>
-        <Link to="/register">
-          <button id="register">
-            Registrarse
-          </button>
-        </Link>
+        
+        <div class="button-container">
+          <Link to="/loginadmin">
+            <button className="admin" id="boton-admin">
+              Inicia Sesión Admin
+            </button>
+          </Link>
+
+          <Link to="/register">
+            <button id="register">
+              Registrarse
+            </button>
+          </Link>
+        </div>
+
+
       </div>
     </div>
   );
