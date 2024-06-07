@@ -34,7 +34,7 @@ function Login({ onLoginSuccess }) {
       }
 
       const data = await response.json();
-      if (data.user_role == "admin") {
+      if (data.user_role === "admin") {
         throw new Error("Usuario no autorizado");
       }
       document.cookie = `user_role=${data.user_role}; path=/`;
