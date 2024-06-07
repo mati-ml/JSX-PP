@@ -4,7 +4,7 @@ import Login from "./pages/Login";
 import AdminDashboard from "./components/AdminDashboard";
 import StudentDashboard from "./components/StudentDashboard";
 import TeacherDashboard from "./components/TeacherDashboard";
-
+import Inscripcion from "./components/Inscripcion-P";
 function App() {
   const [userRole, setUserRole] = useState(null);
   const navigate = useNavigate();
@@ -61,6 +61,14 @@ function App() {
             <TeacherDashboard />
           </ProtectedRoute>
         }
+      />
+      <Route 
+        path="/inscripcion" 
+        element={
+          <ProtectedRoute role="student">
+            <Inscripcion />
+          </ProtectedRoute>
+        } 
       />
       <Route path="*" element={<Navigate to="/login" />} />
     </Routes>

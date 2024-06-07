@@ -52,7 +52,6 @@ class LoginAPIView(APIView):
         #response.set_cookie('user_id', user.id)
         response.data = {
             'user_role': user.role,
-            'jwt': token,
             'user_id': user.id
         }
 

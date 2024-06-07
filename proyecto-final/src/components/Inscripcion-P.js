@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-function EvalForm() {
+function Inscripcion() {
   // Estados para almacenar los valores del formulario
   const [fecha_ini, setFecha_ini] = useState('');
   const [fecha_ter, setFecha_ter] = useState('');
@@ -10,6 +10,27 @@ function EvalForm() {
   const [nombre_sup, setNombre_sup] = useState('');
   const [rut_sup, setRut_sup] = useState('');
   const [resumen, setResumen] = useState('');
+  const [profesor, setProfesor] = useState('');
+  const [profesores, setProfesores] = useState([]);
+
+  // Cargar la lista de profesores al montar el componente
+  useEffect(() => {
+    const fetchProfesores = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api2/teachers/');
+        if (response.ok) {
+          const data = await response.json();
+          setProfesores(data);
+        } else {
+          console.error('Error al obtener la lista de profesores.');
+        }
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error);
+      }
+    };
+
+    fetchProfesores();
+  }, []);
 
   // Manejar el envío del formulario
   const handleSubmit = async (event) => {
@@ -34,6 +55,7 @@ function EvalForm() {
           nombre_sup,
           rut_sup,
           resumen,
+          profesor,
         }),
       });
       if (response.ok) {
@@ -81,9 +103,20 @@ function EvalForm() {
         Resumen:
         <textarea value={resumen} onChange={(e) => setResumen(e.target.value)} />
       </label>
+      <label>
+        Seleccionar Profesor:
+        <select value={profesor} onChange={(e) => setProfesor(e.target.value)} required>
+          <option value="">Selecciona un profesor</option>
+          {profesores.map((prof) => (
+            <option key={prof.id} value={prof.id}>
+              {prof.name}
+            </option>
+          ))}
+        </select>
+      </label>
       <button type="submit">Modificar Evaluación</button>
     </form>
   );
 }
 
-export default EvalForm;
+export default Inscripcion;
