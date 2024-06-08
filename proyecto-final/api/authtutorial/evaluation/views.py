@@ -15,7 +15,6 @@ class ModifyEvaluation(APIView):
     def post(self, request):
         # Obtener los datos de la solicitud
         user_id = request.data.get('user_id')
-        eval_id = request.data.get('eval_id')
         fecha_ini = request.data.get('fecha_ini')
         fecha_ter = request.data.get('fecha_ter')
         nombre_emp = request.data.get('nombre_emp')
@@ -24,9 +23,10 @@ class ModifyEvaluation(APIView):
         nombre_sup = request.data.get('nombre_sup')
         rut_sup = request.data.get('rut_sup')
         resumen = request.data.get('resumen')
+        teacher=request.data.get('teacher')
 
         # Validar que se proporciona un ID de usuario y un ID de evaluación
-        if not user_id or not eval_id:
+        if not user_id or not user_id:
             return Response({"error": "Se requieren un ID de usuario y un ID de evaluación válidos."}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
@@ -52,6 +52,8 @@ class ModifyEvaluation(APIView):
             eval_instance.rut_sup = rut_sup
         if resumen:
             eval_instance.resumen = resumen
+        if teacher:
+            eval_instance.teacher= teacher
 
         # Guardar los cambios en la base de datos
         eval_instance.save()

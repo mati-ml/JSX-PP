@@ -8,8 +8,8 @@ class Eval(models.Model):
     estado = models.CharField(max_length=20,default='Pendiente')  # Terminado o Pendiente
     
     # Nuevas columnas
-    fecha_ini = models.DateTimeField(null=True, blank=True)
-    fecha_ter = models.DateTimeField(null=True, blank=True)
+    fecha_ini = models.DateField(null=True, blank=True)
+    fecha_ter = models.DateField(null=True, blank=True)
     nombre_emp = models.CharField(max_length=100, null=True, blank=True)
     rut_emp = models.CharField(max_length=50, null=True, blank=True)
     sup_email = models.EmailField(null=True, blank=True)

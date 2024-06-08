@@ -38,6 +38,7 @@ function Login({ onLoginSuccess }) {
         throw new Error("Usuario no autorizado");
       }
       document.cookie = `user_role=${data.user_role}; path=/`;
+      document.cookie = `user_id=${data.user_id}; path=/`;
       onLoginSuccess(data);
       console.info('Inicio de sesión exitoso.');
     } catch (error) {

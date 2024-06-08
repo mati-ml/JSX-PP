@@ -7,6 +7,7 @@ from .models import User
 from rest_framework.exceptions import AuthenticationFailed
 import jwt
 import datetime
+import json
 
 # Create your views here.
 
@@ -92,14 +93,19 @@ class LogoutView(APIView):
 
 class TeacherListView(APIView):
     def get(self, request):
-        # Filtra los usuarios por el rol 'teacher'
-        teachers = User.objects.filter(role='teacher')
+        # Filtra los usuarios por el nombre 'teacher'
+        teachers = User.objects.filter(role__iexact='teacher')
 
         if not teachers.exists():
             raise NotFound('No users found with the role "teacher".')
 
         # Serializa solo los nombres de los usuarios
-        serializer = UserSerializer(teachers, many=True)
-        teacher_names = [teacher['name'] for teacher in serializer.data]
+        teacher_names = [teacher.name for teacher in teachers]
 
-        return Response(teacher_names)
+        # Devuelve los nombres como JSON
+        response_data = {'teacher_names': teacher_names}
+
+        # Imprime los nombres en la consola del servidor
+        print("Nombres de profesores:", json.dumps(response_data))
+
+        return Response(response_data)
