@@ -12,6 +12,7 @@ class User(AbstractUser):
     password = models.CharField(max_length=255)
     username = None
     role= models.CharField(max_length=20)
+    carrera= models.CharField(max_length=50)
 
     USERNAME_FIELD = 'email' # login w/ email, unique identifier.
     REQUIRED_FIELDS = [] 

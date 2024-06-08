@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from rest_framework.exceptions import NotFound
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import UserSerializer
@@ -52,7 +52,6 @@ class LoginAPIView(APIView):
         #response.set_cookie('user_id', user.id)
         response.data = {
             'user_role': user.role,
-            'jwt': token,
             'user_id': user.id
         }
 
@@ -90,3 +89,17 @@ class LogoutView(APIView):
         }
 
         return response
+
+class TeacherListView(APIView):
+    def get(self, request):
+        # Filtra los usuarios por el rol 'teacher'
+        teachers = User.objects.filter(role='teacher')
+
+        if not teachers.exists():
+            raise NotFound('No users found with the role "teacher".')
+
+        # Serializa solo los nombres de los usuarios
+        serializer = UserSerializer(teachers, many=True)
+        teacher_names = [teacher['name'] for teacher in serializer.data]
+
+        return Response(teacher_names)

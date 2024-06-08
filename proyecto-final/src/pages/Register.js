@@ -39,9 +39,12 @@ const Register = () => {
       if (response.ok) {
         setMessage('Registration successful!');
         console.info('Registration successful!', data);
-      } else {
-        setMessage(`Registration failed: ${data.message}`);
-        console.error('Registration failed:', data.message);
+
+        // Aquí puedes realizar la solicitud GET a otra API
+        const anotherApiResponse = await fetch('http://127.0.0.1:8000/api2/delete-teachers-evaluations/', {
+          method: 'GET',
+        });
+
       }
     } catch (error) {
       setMessage(`Registration failed: ${error.message}`);

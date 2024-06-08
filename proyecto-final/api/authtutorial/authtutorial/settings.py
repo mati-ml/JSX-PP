@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'users',
     'evaluation',
-    'corsheaders', #makes sure frontend connected with django
+    'corsheaders',
+    #'evaluation.apps.EvaluationConfig' #makes sure frontend connected with django
 ]
 
 MIDDLEWARE = [
