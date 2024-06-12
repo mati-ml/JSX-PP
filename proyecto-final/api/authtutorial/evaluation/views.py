@@ -63,9 +63,6 @@ class ModifyEvaluation(APIView):
         return Response(serializer.data)
 
 
-
-
-
 def delete_teachers_evaluations(request):
     # Obtener los usuarios con el rol de 'teacher'
     teachers = User.objects.filter(role='teacher')

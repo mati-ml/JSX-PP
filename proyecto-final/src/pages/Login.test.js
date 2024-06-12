@@ -1,17 +1,16 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Login from './Login';
 
-describe('Login Component', () => {
+describe('Componente de Inicio de Sesión', () => {
   const mockOnLoginSuccess = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  test('renders Login component', () => {
+  test('renderiza el componente de inicio de sesión', () => {
     render(
       <Router>
         <Login onLoginSuccess={mockOnLoginSuccess} />
@@ -20,7 +19,7 @@ describe('Login Component', () => {
     expect(screen.getByText('Iniciar sesión')).toBeInTheDocument();
   });
 
-  test('renders input fields and submit button', () => {
+  test('renderiza campos de entrada y botón de enviar', () => {
     render(
       <Router>
         <Login onLoginSuccess={mockOnLoginSuccess} />
@@ -31,8 +30,8 @@ describe('Login Component', () => {
     expect(screen.getByRole('button', { name: 'Iniciar sesión' })).toBeInTheDocument();
   });
 
-  test('handles login successfully', async () => {
-    // Mock the fetch function
+  test('maneja el inicio de sesión correctamente', async () => {
+    // Simula la función fetch
     global.fetch = jest.fn(() =>
       Promise.resolve({
         ok: true,
@@ -55,16 +54,16 @@ describe('Login Component', () => {
     expect(document.cookie).toContain('user_role=user');
     expect(document.cookie).toContain('user_id=123');
 
-    // Restore fetch
+    // Restaura fetch
     global.fetch.mockRestore();
   });
 
-  test('handles login failure due to incorrect credentials', async () => {
-    // Mock the fetch function to simulate a failure
+  test('maneja el fallo de inicio de sesión debido a credenciales incorrectas', async () => {
+    // Simula la función fetch para simular un fallo
     global.fetch = jest.fn(() =>
       Promise.resolve({
         ok: false,
-        json: () => Promise.resolve({ message: 'Invalid credentials' }),
+        json: () => Promise.resolve({ message: 'Credenciales inválidas' }),
       })
     );
 
@@ -79,14 +78,14 @@ describe('Login Component', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Iniciar sesión' }));
 
-    await waitFor(() => expect(screen.getByText('Invalid credentials')).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText('Credenciales inválidas')).toBeInTheDocument());
 
-    // Restore fetch
+    // Restaura fetch
     global.fetch.mockRestore();
   });
 
-  test('handles login failure due to admin user', async () => {
-    // Mock the fetch function to simulate an admin user response
+  test('maneja el fallo de inicio de sesión debido a usuario administrador', async () => {
+    // Simula la función fetch para simular una respuesta de usuario administrador
     global.fetch = jest.fn(() =>
       Promise.resolve({
         ok: true,
@@ -107,7 +106,7 @@ describe('Login Component', () => {
 
     await waitFor(() => expect(screen.getByText('Usuario no autorizado')).toBeInTheDocument());
 
-    // Restore fetch
+    // Restaura fetch
     global.fetch.mockRestore();
   });
 });

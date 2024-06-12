@@ -1,78 +1,77 @@
-//npm install @testing-library/react @testing-library/jest-dom Hay que instalarlo
-
-
-
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
 import Register from './Register';
 
-describe('Register Component', () => {
-  test('renders Register component', () => {
+describe('Componente de Registro', () => {
+  test('renderiza el componente de registro', () => {
     render(<Register />);
     expect(screen.getByText('Register')).toBeInTheDocument();
   });
 
-  test('renders input fields and submit button', () => {
+  test('renderiza campos de entrada y botón de enviar', () => {
     render(<Register />);
-    expect(screen.getByLabelText('First Name:')).toBeInTheDocument();
+    expect(screen.getByLabelText('Nombre:')).toBeInTheDocument();
     expect(screen.getByLabelText('Apellido Paterno:')).toBeInTheDocument();
     expect(screen.getByLabelText('Apellido Materno:')).toBeInTheDocument();
     expect(screen.getByLabelText('Email:')).toBeInTheDocument();
-    expect(screen.getByLabelText('Password:')).toBeInTheDocument();
-    expect(screen.getByLabelText('Role:')).toBeInTheDocument();
+    expect(screen.getByLabelText('Contraseña:')).toBeInTheDocument();
+    expect(screen.getByLabelText('Rol:')).toBeInTheDocument();
     expect(screen.getByLabelText('Carrera:')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Register' })).toBeInTheDocument();
   });
 
-  test('handles form submission successfully', async () => {
-    // Mock the fetch function
+  test('maneja el envío del formulario exitosamente', async () => {
+    // Simula la función fetch
     global.fetch = jest.fn(() =>
       Promise.resolve({
         ok: true,
-        json: () => Promise.resolve({ message: 'Registration successful!' }),
+        json: () => Promise.resolve({ message: '¡Registro exitoso!' }),
       })
     );
 
     render(<Register />);
 
-    fireEvent.change(screen.getByLabelText('First Name:'), { target: { value: 'John' } });
+    fireEvent.change(screen.getByLabelText('Nombre:'), { target: { value: 'John' } });
     fireEvent.change(screen.getByLabelText('Apellido Paterno:'), { target: { value: 'Doe' } });
     fireEvent.change(screen.getByLabelText('Apellido Materno:'), { target: { value: 'Smith' } });
     fireEvent.change(screen.getByLabelText('Email:'), { target: { value: 'john.doe@example.com' } });
-    fireEvent.change(screen.getByLabelText('Password:'), { target: { value: 'password' } });
-    fireEvent.change(screen.getByLabelText('Role:'), { target: { value: 'student' } });
+    fireEvent.change(screen.getByLabelText('Contraseña:'), { target: { value: 'password' } });
+    fireEvent.change(screen.getByLabelText('Rol:'), { target: { value: 'estudiante' } });
     fireEvent.change(screen.getByLabelText('Carrera:'), { target: { value: 'Derecho' } });
 
     fireEvent.click(screen.getByRole('button', { name: 'Register' }));
 
-    await waitFor(() => expect(screen.getByText('Registration successful!')).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText('¡Registro exitoso!')).toBeInTheDocument());
 
-    // Restore fetch
+    // Restaura fetch
     global.fetch.mockRestore();
   });
 
-  test('handles form submission failure', async () => {
-    // Mock the fetch function to simulate a failure
+  test('maneja el fallo del envío del formulario', async () => {
+    // Simula la función fetch para simular un fallo
     global.fetch = jest.fn(() =>
-      Promise.reject(new Error('Network error'))
+      Promise.reject(new Error('Error de red'))
     );
 
     render(<Register />);
 
-    fireEvent.change(screen.getByLabelText('First Name:'), { target: { value: 'John' } });
+    fireEvent.change(screen.getByLabelText('Nombre:'), { target: { value: 'John' } });
     fireEvent.change(screen.getByLabelText('Apellido Paterno:'), { target: { value: 'Doe' } });
     fireEvent.change(screen.getByLabelText('Apellido Materno:'), { target: { value: 'Smith' } });
     fireEvent.change(screen.getByLabelText('Email:'), { target: { value: 'john.doe@example.com' } });
-    fireEvent.change(screen.getByLabelText('Password:'), { target: { value: 'password' } });
-    fireEvent.change(screen.getByLabelText('Role:'), { target: { value: 'student' } });
+    fireEvent.change(screen.getByLabelText('Contraseña:'), { target: { value: 'password' } });
+    fireEvent.change(screen.getByLabelText('Rol:'), { target: { value: 'estudiante' } });
     fireEvent.change(screen.getByLabelText('Carrera:'), { target: { value: 'Derecho' } });
 
     fireEvent.click(screen.getByRole('button', { name: 'Register' }));
 
-    await waitFor(() => expect(screen.getByText('Registration failed: Network error')).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText('Registro fallido: Error de red')).toBeInTheDocument());
 
-    // Restore fetch
+    // Restaura fetch
     global.fetch.mockRestore();
   });
 });
+
+
+
+

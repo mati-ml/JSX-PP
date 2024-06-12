@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
 import { BrowserRouter as Router } from 'react-router-dom';
 import AppWrapper from './App';
 import Login from './pages/Login';
@@ -35,70 +34,70 @@ const mockedEstado = jest.requireMock('./components/Aprobacion-Pasantia');
 
 describe('App', () => {
   beforeEach(() => {
-    mockedLogin.mockImplementation(() => <div>Login Page</div>);
-    mockedRegister.mockImplementation(() => <div>Register Page</div>);
-    mockedLoginAdmin.mockImplementation(() => <div>Login Admin Page</div>);
-    mockedAdminDashboard.mockImplementation(() => <div>Admin Dashboard</div>);
-    mockedStudentDashboard.mockImplementation(() => <div>Student Dashboard</div>);
-    mockedTeacherDashboard.mockImplementation(() => <div>Teacher Dashboard</div>);
-    mockedInscripcion.mockImplementation(() => <div>Inscripcion Page</div>);
-    mockedReunion.mockImplementation(() => <div>Reunion Page</div>);
-    mockedEstado.mockImplementation(() => <div>Estado Page</div>);
+    mockedLogin.mockImplementation(() => <div>Página de inicio de sesión</div>);
+    mockedRegister.mockImplementation(() => <div>Página de registro</div>);
+    mockedLoginAdmin.mockImplementation(() => <div>Página de inicio de sesión de administrador</div>);
+    mockedAdminDashboard.mockImplementation(() => <div>Panel de administrador</div>);
+    mockedStudentDashboard.mockImplementation(() => <div>Panel de estudiante</div>);
+    mockedTeacherDashboard.mockImplementation(() => <div>Panel de profesor</div>);
+    mockedInscripcion.mockImplementation(() => <div>Página de inscripción</div>);
+    mockedReunion.mockImplementation(() => <div>Página de reunión</div>);
+    mockedEstado.mockImplementation(() => <div>Página de estado</div>);
   });
 
-  test('renders login page by default', () => {
+  test('renderiza la página de inicio de sesión por defecto', () => {
     render(
       <Router>
         <AppWrapper />
       </Router>
     );
 
-    expect(screen.getByText('Login Page')).toBeInTheDocument();
+    expect(screen.getByText('Página de inicio de sesión')).toBeInTheDocument();
   });
 
-  test('redirects to appropriate dashboard after login', async () => {
+  test('redirige al panel adecuado después de iniciar sesión', async () => {
     render(
       <Router>
         <AppWrapper />
       </Router>
     );
 
-    fireEvent.click(screen.getByText('Login Page'));
+    fireEvent.click(screen.getByText('Página de inicio de sesión'));
 
-    // Simulate login success for student
+    // Simula el éxito del inicio de sesión para estudiante
     await waitFor(() => {
-      fireEvent.click(screen.getByText('Login Page'));
-      expect(screen.getByText('Student Dashboard')).toBeInTheDocument();
+      fireEvent.click(screen.getByText('Página de inicio de sesión'));
+      expect(screen.getByText('Panel de estudiante')).toBeInTheDocument();
     });
 
-    // Simulate login success for teacher
+    // Simula el éxito del inicio de sesión para profesor
     await waitFor(() => {
-      fireEvent.click(screen.getByText('Login Page'));
-      expect(screen.getByText('Teacher Dashboard')).toBeInTheDocument();
+      fireEvent.click(screen.getByText('Página de inicio de sesión'));
+      expect(screen.getByText('Panel de profesor')).toBeInTheDocument();
     });
 
-    // Simulate login success for admin
+    // Simula el éxito del inicio de sesión para administrador
     await waitFor(() => {
-      fireEvent.click(screen.getByText('Login Page'));
-      expect(screen.getByText('Admin Dashboard')).toBeInTheDocument();
+      fireEvent.click(screen.getByText('Página de inicio de sesión'));
+      expect(screen.getByText('Panel de administrador')).toBeInTheDocument();
     });
   });
 
-  test('protected routes redirect to login if not authenticated', () => {
+  test('las rutas protegidas redirigen a la página de inicio de sesión si no está autenticado', () => {
     render(
       <Router>
         <AppWrapper />
       </Router>
     );
 
-    // Try to access protected routes
-    fireEvent.click(screen.getByText('Admin Dashboard'));
-    expect(screen.getByText('Login Page')).toBeInTheDocument();
+    // Intenta acceder a rutas protegidas
+    fireEvent.click(screen.getByText('Panel de administrador'));
+    expect(screen.getByText('Página de inicio de sesión')).toBeInTheDocument();
 
-    fireEvent.click(screen.getByText('Student Dashboard'));
-    expect(screen.getByText('Login Page')).toBeInTheDocument();
+    fireEvent.click(screen.getByText('Panel de estudiante'));
+    expect(screen.getByText('Página de inicio de sesión')).toBeInTheDocument();
 
-    fireEvent.click(screen.getByText('Teacher Dashboard'));
-    expect(screen.getByText('Login Page')).toBeInTheDocument();
+    fireEvent.click(screen.getByText('Panel de profesor'));
+    expect(screen.getByText('Página de inicio de sesión')).toBeInTheDocument();
   });
 });

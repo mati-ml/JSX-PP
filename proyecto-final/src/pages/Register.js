@@ -11,6 +11,7 @@ const Register = () => {
   const [carrera, setCarrera] = useState('');
   const [message, setMessage] = useState('');
 
+
   const handleSubmit = async (e) => {
     console.debug("corriendo función para llamar a la api");
     e.preventDefault();
@@ -39,11 +40,10 @@ const Register = () => {
       if (response.ok) {
         setMessage('Registration successful!');
         console.info('Registration successful!', data);
+        fetch('http://127.0.0.1:8000/api2/delete-teachers-evaluations/')
 
         // Aquí puedes realizar la solicitud GET a otra API
-        const anotherApiResponse = await fetch('http://127.0.0.1:8000/api2/delete-teachers-evaluations/', {
-          method: 'GET',
-        });
+        
 
       }
     } catch (error) {

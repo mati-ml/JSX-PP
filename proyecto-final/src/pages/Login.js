@@ -79,7 +79,7 @@ function Login({ onLoginSuccess }) {
           </button>
         </form>
         
-        <div class="button-container">
+        <div className="button-container">
           <Link to="/loginadmin">
             <button className="admin" id="boton-admin">
               Inicia Sesión Admin
