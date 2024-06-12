@@ -5,8 +5,8 @@ class Eval(models.Model):
     user_id = models.IntegerField()
     user_email = models.EmailField()
     user_role= models.CharField(max_length=50, null=True, blank=True)
-    estado = models.CharField(max_length=20,default='Pendiente')  # Terminado o Pendiente
-    
+    estado = models.CharField(max_length=20,default='Pendiente') 
+    reunion=models.CharField(max_length=11, default='Pendiente')
     # Nuevas columnas
     fecha_ini = models.DateField(null=True, blank=True)
     fecha_ter = models.DateField(null=True, blank=True)

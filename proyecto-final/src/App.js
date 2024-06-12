@@ -7,6 +7,9 @@ import AdminDashboard from "./components/AdminDashboard";
 import StudentDashboard from "./components/StudentDashboard";
 import TeacherDashboard from "./components/TeacherDashboard";
 import Inscripcion from "./components/Inscripcion-P";
+import Reunion from "./components/Reunion";
+import Estado from "./components/Aprobacion-Pasantia";
+
 function App() {
   const [userRole, setUserRole] = useState(null);
   const navigate = useNavigate();
@@ -41,7 +44,7 @@ function App() {
     <Routes>
       <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/loginadmin" element={<LoginAdmin />} />
+      <Route path="/loginadmin" element={<LoginAdmin onLoginSuccess={handleLoginSuccess} />} />
       <Route
         path="/admin"
         element={
@@ -74,6 +77,22 @@ function App() {
           </ProtectedRoute>
         } 
       />
+      <Route 
+        path="/estado-reunion" 
+        element={
+          <ProtectedRoute role="teacher">
+            <Reunion />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/estado-pasantia" 
+        element={
+          <ProtectedRoute role="admin">
+            <Estado />
+          </ProtectedRoute>
+        } 
+      />
       <Route path="*" element={<Navigate to="/login" />} />
     </Routes>
   );
@@ -88,6 +107,7 @@ function AppWrapper() {
 }
 
 export default AppWrapper;
+
 
 
 

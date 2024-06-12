@@ -4,7 +4,7 @@ from rest_framework import status
 from evaluation.models import Eval
 import json
 from .serializer import OtherModelSerializer
-
+from rest_framework.exceptions import NotFound
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -81,3 +81,91 @@ def delete_teachers_evaluations(request):
 
     return HttpResponse("Registros de usuarios con el rol 'teacher' eliminados de Eval.")
 
+class PendientesListView(APIView):
+    def get(self, request):
+        # Filtra los usuarios por el nombre 'teacher'
+        teachers = Eval.objects.filter(estado__iexact='Pendiente')
+
+        if not teachers.exists():
+            raise NotFound('No hay pendientes')
+
+        # Serializa solo los nombres de los usuarios
+        Pendientes_emails = [teacher.user_email for teacher in teachers]
+
+        # Devuelve los nombres como JSON
+        response_data = {'Pendientes': Pendientes_emails}
+
+        # Imprime los nombres en la consola del servidor
+        print("Mail de pendientes", json.dumps(response_data))
+
+        return Response(response_data)
+    
+class ReunionListView(APIView):
+    def get(self, request):
+        # Filtra los usuarios por el nombre 'teacher'
+        teachers = Eval.objects.filter(reunion__iexact='Pendiente')
+
+        if not teachers.exists():
+            raise NotFound('No hay pendientes')
+
+        # Serializa solo los nombres de los usuarios
+        Reunion_emails = [teacher.user_email for teacher in teachers]
+
+        # Devuelve los nombres como JSON
+        response_data = {'Pendientes': Reunion_emails}
+
+        # Imprime los nombres en la consola del servidor
+        print("Mail_de_pendientes", json.dumps(response_data))
+
+        return Response(response_data)
+
+class UpdateReunionStatus(APIView):
+    def post(self, request):
+        # Obtener los datos de la solicitud
+        user_email = request.data.get('user_email')
+        nuevo_estado = request.data.get('reunion')
+
+        # Validar que se proporciona un email y un nuevo estado de la reunión
+        if not user_email or not nuevo_estado:
+            return Response({"error": "Se requieren un email y un nuevo estado de reunión válidos."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            # Obtener la instancia de evaluación asociada al correo electrónico proporcionado
+            eval_instance = Eval.objects.get(user_email=user_email)
+        except Eval.DoesNotExist:
+            return Response({"error": "No se encontró ninguna evaluación asociada al correo electrónico proporcionado."}, status=status.HTTP_404_NOT_FOUND)
+
+        # Actualizar el estado de la reunión
+        eval_instance.reunion = nuevo_estado
+
+        # Guardar los cambios en la base de datos
+        eval_instance.save()
+
+        # Serializar la instancia modificada y devolverla como respuesta
+        serializer = OtherModelSerializer(eval_instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+class UpdateEstadoStatus(APIView):
+    def post(self, request):
+        # Obtener los datos de la solicitud
+        user_email = request.data.get('user_email')
+        nuevo_estado = request.data.get('estado')
+
+        # Validar que se proporciona un email y un nuevo estado de la reunión
+        if not user_email or not nuevo_estado:
+            return Response({"error": "Se requieren un email y un nuevo estado de reunión válidos."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            # Obtener la instancia de evaluación asociada al correo electrónico proporcionado
+            eval_instance = Eval.objects.get(user_email=user_email)
+        except Eval.DoesNotExist:
+            return Response({"error": "No se encontró ninguna evaluación asociada al correo electrónico proporcionado."}, status=status.HTTP_404_NOT_FOUND)
+
+        # Actualizar el estado de la reunión
+        eval_instance.estado = nuevo_estado
+
+        # Guardar los cambios en la base de datos
+        eval_instance.save()
+
+        # Serializar la instancia modificada y devolverla como respuesta
+        serializer = OtherModelSerializer(eval_instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
