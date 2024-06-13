@@ -65,7 +65,7 @@ function Estado() {
           onChange={(e) => setUser_email(e.target.value)}
           required
         >
-          <option value="">Selecciona un profesor</option>
+          <option value="">Selecciona un alumno</option>
           {profesores.map((prof, index) => (
             <option key={index} value={prof}>
               {prof}
@@ -83,6 +83,7 @@ function Estado() {
           <option value="">Selecciona el estado</option>
           <option value="Rechazado">Rechazado</option>
           <option value="Aprobado">Aprobado</option>
+          <option value="Pendiente">Pendiente</option>
         </select>
       </label>
       <button type="submit">Modificar Evaluación</button>
