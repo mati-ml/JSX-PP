@@ -100,7 +100,7 @@ class TeacherListView(APIView):
             raise NotFound('No users found with the role "teacher".')
 
         # Serializa solo los nombres de los usuarios
-        teacher_names = [teacher.name for teacher in teachers]
+        teacher_names = [teacher.email for teacher in teachers]
 
         # Devuelve los nombres como JSON
         response_data = {'teacher_names': teacher_names}

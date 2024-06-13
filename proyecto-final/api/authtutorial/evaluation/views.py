@@ -24,6 +24,7 @@ class ModifyEvaluation(APIView):
         rut_sup = request.data.get('rut_sup')
         resumen = request.data.get('resumen')
         teacher=request.data.get('teacher')
+        estado=request.data.get('Estado')
 
         # Validar que se proporciona un ID de usuario y un ID de evaluación
         if not user_id or not user_id:
@@ -53,8 +54,9 @@ class ModifyEvaluation(APIView):
         if resumen:
             eval_instance.resumen = resumen
         if teacher:
-            eval_instance.teacher= teacher
-
+            eval_instance.profesor = teacher
+        if estado:
+            eval_instance.estado= estado
         # Guardar los cambios en la base de datos
         eval_instance.save()
 

@@ -12,7 +12,7 @@ function Inscripcion() {
   const [resumen, setResumen] = useState('');
   const [profesores, setProfesores] = useState([]);
   const [teacher, setTeacher] = useState('');
-  
+  const Estado= 'Pendiente'
   // Cargar la lista de profesores al montar el componente
   useEffect(() => {
     const fetchProfesores = async () => {
@@ -62,7 +62,8 @@ function Inscripcion() {
           nombre_sup,
           rut_sup,
           resumen,
-          teacher
+          teacher,
+          Estado
         }),
       });
       if (response.ok) {
