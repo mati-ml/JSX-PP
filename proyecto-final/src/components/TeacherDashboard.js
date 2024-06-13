@@ -19,6 +19,7 @@ function TeacherDashboard() {
         
         {/* Agrega el enlace al menú de inscripción */}
         <Link to="/estado-reunion">Inscripción</Link>
+        <Link to="/evaluar">Evaluación</Link>
       </div>
     );
 }

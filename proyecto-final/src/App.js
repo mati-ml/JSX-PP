@@ -9,6 +9,7 @@ import TeacherDashboard from "./components/TeacherDashboard";
 import Inscripcion from "./components/Inscripcion-P";
 import Reunion from "./components/Reunion";
 import Estado from "./components/Aprobacion-Pasantia";
+import Evaluaciones from "./components/Evaluación-profesores";
 
 function App() {
   const [userRole, setUserRole] = useState(null);
@@ -90,6 +91,14 @@ function App() {
         element={
           <ProtectedRoute role="admin">
             <Estado />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/evaluar" 
+        element={
+          <ProtectedRoute role="teacher">
+            <Evaluaciones/>
           </ProtectedRoute>
         } 
       />
