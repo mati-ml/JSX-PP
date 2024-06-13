@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-
 function Estado() {
   const [user_email, setUser_email] = useState('');
   const [estado, setEstado] = useState('');
   const [profesores, setProfesores] = useState([]);
+  const [datosAlumno, setDatosAlumno] = useState(null);
 
   useEffect(() => {
     const fetchProfesores = async () => {
@@ -13,9 +13,7 @@ function Estado() {
         
         if (response.ok) {
           const data = await response.json();
-          // Verificar si la respuesta tiene la clave 'teacher_names'
           if (data && data.Pendientes) {
-            // Actualizar el estado con los nombres de los profesores obtenidos
             setProfesores(data.Pendientes);
           } else {
             console.error('Error: La respuesta de la API no tiene el formato esperado.');
@@ -31,10 +29,39 @@ function Estado() {
     fetchProfesores();
   }, []);
 
+  const handleEmailChange = async (e) => {
+    const email = e.target.value;
+    setUser_email(email);
+    
+    if (email) {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api2/get-evaluation-details/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ user_email: email }),
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          setDatosAlumno(data);
+        } else {
+          console.error('Error al obtener los datos del alumno.');
+          setDatosAlumno(null);
+        }
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error);
+        setDatosAlumno(null);
+      }
+    } else {
+      setDatosAlumno(null);
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      // Realizar la solicitud POST a la API
       const response = await fetch('http://127.0.0.1:8000/api2/estado-pasantia/', {
         method: 'POST',
         headers: {
@@ -57,37 +84,61 @@ function Estado() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Seleccionar Mail del Alumno:
-        <select
-          value={user_email}
-          onChange={(e) => setUser_email(e.target.value)}
-          required
-        >
-          <option value="">Selecciona un alumno</option>
-          {profesores.map((prof, index) => (
-            <option key={index} value={prof}>
-              {prof}
-            </option>
-          ))}
-        </select>
-      </label>
-      <label>
-        Estado de la Pasantia:
-        <select
-          value={estado}
-          onChange={(e) => setEstado(e.target.value)}
-          required
-        >
-          <option value="">Selecciona el estado</option>
-          <option value="Rechazado">Rechazado</option>
-          <option value="Aprobado">Aprobado</option>
-          <option value="Pendiente">Pendiente</option>
-        </select>
-      </label>
-      <button type="submit">Modificar Evaluación</button>
-    </form>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Seleccionar Mail del Alumno:
+          <select
+            value={user_email}
+            onChange={handleEmailChange}
+            required
+          >
+            <option value="">Selecciona un alumno</option>
+            {profesores.map((prof, index) => (
+              <option key={index} value={prof}>
+                {prof}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Estado de la Pasantia:
+          <select
+            value={estado}
+            onChange={(e) => setEstado(e.target.value)}
+            required
+          >
+            <option value="">Selecciona el estado</option>
+            <option value="Rechazado">Rechazado</option>
+            <option value="Aprobado">Aprobado</option>
+            <option value="Pendiente">Pendiente</option>
+          </select>
+        </label>
+        <button type="submit">Modificar Evaluación</button>
+      </form>
+
+      {datosAlumno && (
+        <div>
+          <h3>Datos del Alumno</h3>
+          <table>
+            <thead>
+              <tr>
+                {Object.keys(datosAlumno).map((key) => (
+                  <th key={key}>{key}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                {Object.values(datosAlumno).map((value, index) => (
+                  <td key={index}>{value}</td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
   );
 }
 

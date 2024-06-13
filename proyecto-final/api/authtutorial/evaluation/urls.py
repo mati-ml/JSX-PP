@@ -7,5 +7,6 @@ urlpatterns = [
     path('pendientes/',PendientesListView.as_view()),
     path('reunion/',ReunionListView.as_view()),
     path('estado-reunion/',UpdateReunionStatus.as_view()),
-    path('estado-pasantia/',UpdateEstadoStatus.as_view())
+    path('estado-pasantia/',UpdateEstadoStatus.as_view()),
+    path('get-evaluation-details/', GetEvaluationDetails.as_view(), name='get-evaluation-details'),
 ]

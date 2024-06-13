@@ -166,3 +166,32 @@ class UpdateEstadoStatus(APIView):
         # Serializar la instancia modificada y devolverla como respuesta
         serializer = OtherModelSerializer(eval_instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
+class GetEvaluationDetails(APIView):
+    def post(self, request):
+        # Get the user_email from the request data
+        user_email = request.data.get('user_email')
+        
+        # Validate that user_email is provided
+        if not user_email:
+            return Response({"error": "Se requiere un email de usuario válido."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            # Get the Eval instance associated with the provided user_email
+            eval_instance = Eval.objects.get(user_email=user_email)
+        except Eval.DoesNotExist:
+            return Response({"error": "No se encontró ninguna evaluación asociada al correo electrónico proporcionado."}, status=status.HTTP_404_NOT_FOUND)
+
+        # Extract the required fields
+        response_data = {
+            'fecha_ini': eval_instance.fecha_ini,
+            'fecha_ter': eval_instance.fecha_ter,
+            'nombre_emp': eval_instance.nombre_emp,
+            'rut_emp': eval_instance.rut_emp,
+            'sup_email': eval_instance.sup_email,
+            'nombre_sup': eval_instance.nombre_sup,
+            'rut_sup': eval_instance.rut_sup,
+            'resumen': eval_instance.resumen,
+        }
+
+        # Return the data as a JSON response
+        return Response(response_data, status=status.HTTP_200_OK)
