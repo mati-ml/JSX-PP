@@ -34,7 +34,7 @@ function StudentDashboard() {
           <Dropdown.Item>Notas pasantía y feedbacks</Dropdown.Item>
           <Dropdown.Item>Profesores</Dropdown.Item>
           <Dropdown.Item>Subir archivos</Dropdown.Item>
-          <Dropdown.Item>rubrica</Dropdown.Item>
+          <Dropdown.Item href="proyecto-final/Rúbrica Evaluación de Desempeño Alumno en Práctica (ED).pdf">rubrica</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
       
