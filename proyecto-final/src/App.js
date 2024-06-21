@@ -11,6 +11,8 @@ import Reunion from "./components/Reunion";
 import Estado from "./components/Aprobacion-Pasantia";
 import Evaluaciones from "./components/Evaluación-profesores";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Rubrica from "./components/vistaRubrica";
+import Sylabus from "./components/Sylabus";
 
 function App() {
   const [userRole, setUserRole] = useState(null);
@@ -92,6 +94,22 @@ function App() {
         element={
           <ProtectedRoute role="admin">
             <Estado />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/rubrica" 
+        element={
+          <ProtectedRoute role="student">
+            <Rubrica />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/syllabus" 
+        element={
+          <ProtectedRoute role="student">
+            <Sylabus />
           </ProtectedRoute>
         } 
       />
