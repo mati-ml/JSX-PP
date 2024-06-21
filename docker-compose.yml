@@ -10,25 +10,30 @@ services:
       - POSTGRES_DB=postgres
     ports:
       - "5432:5432"
+    expose:
+      - "5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
 
   
+  #django:
+  #  build: 
+  #    context: proyecto-final/api
+  #    dockerfile: Dockerfile
+  #  command: sh -c "cd authtutorial && python manage.py runserver 0.0.0.0:8000"
+  #  ports:
+  #    - "8000:8000"
+  #  expose:
+  #    - "8000"
+  #
+  #  environment:
+  #    - ENV DJANGO_SETTINGS_MODULE=authtutorial.settings
+  #  depends_on:
+  #    - db
+    
+    
 
 volumes:
   pgdata: {}
 
 
-  #djangoapp:
-  #  container_name: djangoapp
-  #  build: .
-  #  ports:
-  #   - "8000:8000"
-  #  environment:
-  #    - PG_USER=postgres
-  #    - PG_PASSWORD=postgres
-  #    - PG_DB=postgres
-  #    - PG_HOST=db
-  #    - PG_PORT=5432
-  #  depends_on:
-  #    - db
