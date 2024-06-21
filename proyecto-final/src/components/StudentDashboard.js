@@ -1,5 +1,7 @@
 import React from "react";
 import { Navigate, Link } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Dropdown } from 'react-bootstrap';
 
 function StudentDashboard() {
   // Obtiene todas las cookies y las divide en un objeto
@@ -18,35 +20,25 @@ function StudentDashboard() {
       <h2>Panel de Estudiante</h2>
       <p>Menú para estudiantes</p>
       
-      {/* Agrega el enlace al menú de inscripción */}
-      <Link to="/inscripcion">Menú de Inscripción</Link>
-      <br />
-      {/* Agrega el enlace al documento PDF */}
-      <a href="https://alumnosfic.uai.cl/static/media/Reglamentopasantia2023.03a7175a58d5eebf27ea.pdf" target="_blank" rel="noopener noreferrer">
-        Reglamento de Pasantía  versión 2023
-      </a> 
-      <br />
-      <a >
-        Estado de pasantía
-      </a> 
-      <br />  
-      <a >
-        Notas pasantía y feedbacks
-      </a> 
-      <br />  
-      <a >
-        Profesores
-      </a> 
-      <br />  
-      <a >
-        Subir archivos
-      </a> 
+      <Dropdown>
+        <Dropdown.Toggle variant="success" id="dropdown-basic">
+          Menú de Estudiante
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu>
+          <Dropdown.Item as={Link} to="/inscripcion">Menú de Inscripción</Dropdown.Item>
+          <Dropdown.Item href="https://alumnosfic.uai.cl/static/media/Reglamentopasantia2023.03a7175a58d5eebf27ea.pdf" target="_blank" rel="noopener noreferrer">
+            Reglamento de Pasantía versión 2023
+          </Dropdown.Item>
+          <Dropdown.Item>Estado de pasantía</Dropdown.Item>
+          <Dropdown.Item>Notas pasantía y feedbacks</Dropdown.Item>
+          <Dropdown.Item>Profesores</Dropdown.Item>
+          <Dropdown.Item>Subir archivos</Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
       
-      </div> 
+    </div>
   );
-     
- 
-      
 }
 
 export default StudentDashboard;

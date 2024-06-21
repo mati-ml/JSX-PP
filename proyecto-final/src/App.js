@@ -10,6 +10,7 @@ import Inscripcion from "./components/Inscripcion-P";
 import Reunion from "./components/Reunion";
 import Estado from "./components/Aprobacion-Pasantia";
 import Evaluaciones from "./components/Evaluación-profesores";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [userRole, setUserRole] = useState(null);
