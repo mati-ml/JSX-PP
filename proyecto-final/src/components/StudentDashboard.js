@@ -19,9 +19,17 @@ function StudentDashboard() {
       <p>Menú para estudiantes</p>
       
       {/* Agrega el enlace al menú de inscripción */}
-      <Link to="/inscripcion">Inscripción</Link>
-    </div>
+      <Link to="/inscripcion">Menú de Inscripción</Link>
+      <br />
+      {/* Agrega el enlace al documento PDF */}
+      <a href="https://alumnosfic.uai.cl/static/media/Reglamentopasantia2023.03a7175a58d5eebf27ea.pdf" target="_blank" rel="noopener noreferrer">
+        Reglamento de Pasantía  versión 2023
+      </a>   
+      </div> 
   );
+     
+ 
+      
 }
 
 export default StudentDashboard;
