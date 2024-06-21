@@ -24,7 +24,24 @@ function StudentDashboard() {
       {/* Agrega el enlace al documento PDF */}
       <a href="https://alumnosfic.uai.cl/static/media/Reglamentopasantia2023.03a7175a58d5eebf27ea.pdf" target="_blank" rel="noopener noreferrer">
         Reglamento de Pasantía  versión 2023
-      </a>   
+      </a> 
+      <br />
+      <a >
+        Estado de pasantía
+      </a> 
+      <br />  
+      <a >
+        Notas pasantía y feedbacks
+      </a> 
+      <br />  
+      <a >
+        Profesores
+      </a> 
+      <br />  
+      <a >
+        Subir archivos
+      </a> 
+      
       </div> 
   );
      
