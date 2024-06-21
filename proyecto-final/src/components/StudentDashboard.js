@@ -34,6 +34,7 @@ function StudentDashboard() {
           <Dropdown.Item>Notas pasantía y feedbacks</Dropdown.Item>
           <Dropdown.Item>Profesores</Dropdown.Item>
           <Dropdown.Item>Subir archivos</Dropdown.Item>
+          <Dropdown.Item>rubrica</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
       
@@ -42,4 +43,5 @@ function StudentDashboard() {
 }
 
 export default StudentDashboard;
+
 
