@@ -197,3 +197,22 @@ class GetEvaluationDetails(APIView):
 
         # Return the data as a JSON response
         return Response(response_data, status=status.HTTP_200_OK)
+
+class Evaluar(APIView):
+    def post(self, request):
+        user_mail= request.data.get('user_email')
+        evaluacion= request.data.get('evalucion')
+        nota= request.data.get('nota')
+        comentario= request.data.get('comentario')
+        eval_instance = Eval.objects.get(user_email=user_mail)
+        if evaluacion== 'Evaluacion 1':
+            eval_instance.nota1= nota
+            eval_instance.evaluacion1= comentario
+        if evaluacion== 'Evaluacion 2':
+            eval_instance.nota2= nota
+            eval_instance.evaluacion2= comentario
+        if evaluacion== 'Evaluacion 3':
+            eval_instance.nota3= nota
+            eval_instance.evaluacion3= comentario
+
+        return Response(status=status.HTTP_200_OK)
