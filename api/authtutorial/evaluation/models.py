@@ -26,7 +26,7 @@ class Eval(models.Model):
     paso = models.IntegerField(null=True, blank=True,default=0)
     comentarioemp= models.CharField(max_length=1000)
     notaemp= models.DecimalField(max_digits=3, decimal_places=2,null=True, blank=True)
-
+    estadosup= models.CharField(max_length=10, default='Pendiente')
     def __str__(self):
         return f"{self.pasantia} - {self.user_email}"
 

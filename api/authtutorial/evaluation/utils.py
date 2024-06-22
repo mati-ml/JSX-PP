@@ -28,7 +28,7 @@ def send_email(email,asunto,body):
         print(f"Error al enviar correo: {e}")
 
 
-'''
+
 def programar_envio(email, asunto, body, year, month, day, hour, minute):
     schedule_date = datetime(year, month, day, hour, minute)
     current_time = datetime.now()
@@ -40,4 +40,5 @@ def programar_envio(email, asunto, body, year, month, day, hour, minute):
         send_email(email, asunto, body)
     else:
         print("La fecha y hora especificadas ya han pasado.")
-'''
+
+send_email('mmullerlanas@gmail.com','Nuevo alumno','Para aceptar la pasantia del alumno haga click aqui http://127.0.0.1:8000/api2/update/mm2@gmail.om')

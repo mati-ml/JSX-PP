@@ -5,13 +5,14 @@ from evaluation.models import Eval
 import json
 from .serializer import OtherModelSerializer
 from rest_framework.exceptions import NotFound
+from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from evaluation.models import Eval
 from .serializer import OtherModelSerializer
 from .utils import send_email
-#from .utils import programar_envio
+from .utils import programar_envio
 class ModifyEvaluation(APIView):
     def post(self, request):
         # Obtener los datos de la solicitud
@@ -28,6 +29,7 @@ class ModifyEvaluation(APIView):
         estado=request.data.get('Estado')
         nombres= User.objects.get(id=user_id)
         nombre_alumno= nombres.name
+
         # Validar que se proporciona un ID de usuario y un ID de evaluación
         if not user_id or not user_id:
             return Response({"error": "Se requieren un ID de usuario y un ID de evaluación válidos."}, status=status.HTTP_400_BAD_REQUEST)
@@ -35,6 +37,7 @@ class ModifyEvaluation(APIView):
         try:
             # Obtener la instancia de evaluación asociada al usuario y al ID de evaluación
             eval_instance = Eval.objects.get(user_id=user_id)
+            email= eval_instance.user_email
         except Eval.DoesNotExist:
             return Response({"error": "No se encontró ninguna evaluación asociada al usuario y al ID de evaluación proporcionados."}, status=status.HTTP_404_NOT_FOUND)
 
@@ -61,7 +64,7 @@ class ModifyEvaluation(APIView):
             eval_instance.estado= estado
         # Guardar los cambios en la base de datos
         eval_instance.save()
-        send_email(sup_email,'Nuevo alumno', f'El alumno {nombre_alumno} solicito hacer la pasantia en su empresa')
+        send_email(sup_email,'Nuevo alumno', f'El alumno {nombre_alumno} solicito hacer la pasantia en su empresa \n Para aceptar al alumno haga click aqui: \n http://127.0.0.1:8000/api2/update/{email}')
         # Serializar la instancia modificada y devolverla como respuesta
         serializer = OtherModelSerializer(eval_instance)
         return Response(serializer.data)
@@ -231,3 +234,15 @@ class Evaluar(APIView):
         eval_instance.save()
         send_email(user_mail, f'La {evaluacion} ha sido subida', f'Su nota correspondiente es {nota} y la retroalimentacion hecha por le profersor es: \n {comentario}')
         return Response(status=status.HTTP_200_OK)
+
+
+
+def update_data(request, email):
+    try:
+        user_profile = get_object_or_404(Eval, user_email=email)
+        user_profile.estadosup = "Aprobado"
+        user_profile.save()
+        return JsonResponse({'status': 'success', 'message': 'Estado actualizado correctamente'})
+    except:
+        return JsonResponse({'status': 'error', 'message': 'No se pudo actualizar el estado del usuario'}, status=500)
+

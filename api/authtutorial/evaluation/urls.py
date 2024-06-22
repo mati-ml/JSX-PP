@@ -9,5 +9,6 @@ urlpatterns = [
     path('estado-reunion/',UpdateReunionStatus.as_view()),
     path('estado-pasantia/',UpdateEstadoStatus.as_view()),
     path('get-evaluation-details/', GetEvaluationDetails.as_view(), name='get-evaluation-details'),
-    path('evaluacion/',Evaluar.as_view())
+    path('evaluacion/',Evaluar.as_view()),
+    path('update/<str:email>/', update_data, name='update_data')
 ]
