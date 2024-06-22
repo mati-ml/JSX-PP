@@ -23,7 +23,9 @@ class Eval(models.Model):
     nota2 = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
     evaluacion3 = models.CharField(max_length=1000, null=True, blank=True)
     nota3 = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
-    paso = models.IntegerField(null=True, blank=True)
+    paso = models.IntegerField(null=True, blank=True,default=0)
+    comentarioemp= models.CharField(max_length=1000)
+    notaemp= models.DecimalField(max_digits=3, decimal_places=2,null=True, blank=True)
 
     def __str__(self):
         return f"{self.pasantia} - {self.user_email}"
