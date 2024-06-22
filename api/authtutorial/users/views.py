@@ -42,14 +42,14 @@ class LoginAPIView(APIView):
             "iat": datetime.datetime.utcnow()
         }
 
-        token = jwt.encode(payload, 'secret', algorithm='HS256')
+        #token = jwt.encode(payload, 'secret', algorithm='HS256')
         # token.decode('utf-8')
         #we set token via cookies
         
 
         response = Response() 
         #response.set_cookie('user_email', user.email)
-        response.set_cookie(key='jwt', value=token, httponly=True)  #httonly - frontend can't access cookie, only for backend
+        #response.set_cookie(key='jwt', value=token, httponly=True)  #httonly - frontend can't access cookie, only for backend
         #response.set_cookie('user_id', user.id)
         response.data = {
             'user_role': user.role,

@@ -18,7 +18,7 @@ function Login({ onLoginSuccess }) {
         email: username,
         password: password
       };
-
+      //PARA DOCKER ES CON LOCALHOST
       console.info('Enviando solicitud de inicio de sesión...');
       const response = await fetch("http://127.0.0.1:8000/api/login/", {
         method: "POST",
