@@ -11,7 +11,7 @@ from rest_framework import status
 from evaluation.models import Eval
 from .serializer import OtherModelSerializer
 from .utils import send_email
-from .utils import programar_envio
+#from .utils import programar_envio
 class ModifyEvaluation(APIView):
     def post(self, request):
         # Obtener los datos de la solicitud
@@ -203,19 +203,31 @@ class GetEvaluationDetails(APIView):
 
 class Evaluar(APIView):
     def post(self, request):
-        user_mail= request.data.get('user_email')
-        evaluacion= request.data.get('evalucion')
-        nota= request.data.get('nota')
-        comentario= request.data.get('comentario')
-        eval_instance = Eval.objects.get(user_email=user_mail)
-        if evaluacion== 'Evaluacion 1':
-            eval_instance.nota1= nota
-            eval_instance.evaluacion1= comentario
-        if evaluacion== 'Evaluacion 2':
-            eval_instance.nota2= nota
-            eval_instance.evaluacion2= comentario
-        if evaluacion== 'Evaluacion 3':
-            eval_instance.nota3= nota
-            eval_instance.evaluacion3= comentario
+        user_mail = request.data.get('user_email')
+        evaluacion = request.data.get('evaluacion')
+        nota = request.data.get('nota')
+        comentario = request.data.get('comentario')
 
+        if not user_mail or not evaluacion or not nota or not comentario:
+            return Response({'error': 'Todos los campos son requeridos.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            eval_instance = Eval.objects.get(user_email=user_mail)
+        except :
+            return Response({'error': 'Usuario no encontrado.'}, status=status.HTTP_404_NOT_FOUND)
+
+        if evaluacion == 'Evaluacion 1':
+            eval_instance.nota1 = nota
+            eval_instance.evaluacion1 = comentario
+        elif evaluacion == 'Evaluacion 2':
+            eval_instance.nota2 = nota
+            eval_instance.evaluacion2 = comentario
+        elif evaluacion == 'Evaluacion 3':
+            eval_instance.nota3 = nota
+            eval_instance.evaluacion3 = comentario
+        else:
+            return Response({'error': 'Evaluación no válida.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        eval_instance.save()
+        send_email(user_mail, f'La {evaluacion} ha sido subida', f'Su nota correspondiente es {nota} y la retroalimentacion hecha por le profersor es: \n {comentario}')
         return Response(status=status.HTTP_200_OK)
