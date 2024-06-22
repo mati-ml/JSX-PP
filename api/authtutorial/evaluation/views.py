@@ -25,7 +25,8 @@ class ModifyEvaluation(APIView):
         resumen = request.data.get('resumen')
         teacher=request.data.get('teacher')
         estado=request.data.get('Estado')
-
+        nombres= User.objects.get(id=user_id)
+        nombre_alumno= nombres.name
         # Validar que se proporciona un ID de usuario y un ID de evaluación
         if not user_id or not user_id:
             return Response({"error": "Se requieren un ID de usuario y un ID de evaluación válidos."}, status=status.HTTP_400_BAD_REQUEST)
@@ -59,7 +60,7 @@ class ModifyEvaluation(APIView):
             eval_instance.estado= estado
         # Guardar los cambios en la base de datos
         eval_instance.save()
-
+        send_email(sup_email,'Nuevo alumno', f'El alumno {nombre_alumno} solicito hacer la pasantia en su empresa')
         # Serializar la instancia modificada y devolverla como respuesta
         serializer = OtherModelSerializer(eval_instance)
         return Response(serializer.data)
