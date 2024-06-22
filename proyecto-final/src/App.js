@@ -13,7 +13,7 @@ import Evaluaciones from "./components/Evaluación-profesores";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Rubrica from "./components/vistaRubrica";
 import Sylabus from "./components/Sylabus";
-
+import Evaluacionesempresa from "./components/Evaluación-empresea";
 function App() {
   const [userRole, setUserRole] = useState(null);
   const navigate = useNavigate();
