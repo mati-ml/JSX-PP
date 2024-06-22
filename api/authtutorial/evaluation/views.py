@@ -10,7 +10,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from evaluation.models import Eval
 from .serializer import OtherModelSerializer
-
+from .utils import send_email
 class ModifyEvaluation(APIView):
     def post(self, request):
         # Obtener los datos de la solicitud
@@ -167,6 +167,7 @@ class UpdateEstadoStatus(APIView):
 
         # Serializar la instancia modificada y devolverla como respuesta
         serializer = OtherModelSerializer(eval_instance)
+        send_email(user_email,'Actualizacion estado de Pasantia',f'Tu pasantia ha sido {nuevo_estado}')
         return Response(serializer.data, status=status.HTTP_200_OK)
 class GetEvaluationDetails(APIView):
     def post(self, request):
