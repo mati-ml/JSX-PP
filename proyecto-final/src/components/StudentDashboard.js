@@ -15,17 +15,33 @@ function StudentDashboard() {
     return <Navigate to="/" />;
   }
 
+  // Estilos en línea para los títulos y el contenedor
+  const titleStyle = {
+    backgroundColor: '#999991', // Cambia esto al color de fondo que desees
+    padding: '10px',
+    borderRadius: '5px',
+    textAlign: 'center'
+  };
+
+  const containerStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100vh'
+  };
+
   return (
-    <div>
-      <h2>Panel de Estudiante</h2>
-      <p>Menú para estudiantes</p>
+    <div style={containerStyle}>
+      <h2 style={titleStyle}>Panel de Estudiante</h2>
+      
       
       <Dropdown>
-        <Dropdown.Toggle variant="success" id="dropdown-basic">
+        <Dropdown.Toggle variant="success" id="dropdown-basic" style={titleStyle}>
           Menú de Estudiante
         </Dropdown.Toggle>
 
-        <Dropdown.Menu>
+        <Dropdown.Menu align="center">
           <Dropdown.Item as={Link} to="/inscripcion">Menú de Inscripción</Dropdown.Item>
           <Dropdown.Item href="https://alumnosfic.uai.cl/static/media/Reglamentopasantia2023.03a7175a58d5eebf27ea.pdf" target="_blank" rel="noopener noreferrer">
             Reglamento de Pasantía versión 2023
@@ -38,11 +54,8 @@ function StudentDashboard() {
           <Dropdown.Item as={Link} to="/syllabus">Syllabus</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
-      
     </div>
   );
 }
 
 export default StudentDashboard;
-
-

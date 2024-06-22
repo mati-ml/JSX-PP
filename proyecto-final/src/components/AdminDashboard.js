@@ -13,16 +13,32 @@ function AdminDashboard() {
     return <Navigate to="/" />;
   }
   
+  // Estilos en línea para los títulos y el contenedor
+  const titleStyle = {
+    backgroundColor: '#999991', // Cambia esto al color de fondo que desees
+    padding: '10px',
+    borderRadius: '5px',
+    textAlign: 'center'
+  };
+
+  const containerStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100vh'
+  };
+
   return (
-    <div>
-      <h2>Panel de Administrador</h2>
+    <div style={containerStyle}>
+      <h2 style={titleStyle}>Panel de Administrador</h2>
       <p>Menú para Administrador</p>
       
       <Dropdown>
-        <Dropdown.Toggle variant="primary" id="dropdown-basic">
+        <Dropdown.Toggle variant="primary" id="dropdown-basic" style={titleStyle}>
           Menú de Administrador
         </Dropdown.Toggle>
-        <Dropdown.Menu>
+        <Dropdown.Menu align="center">
           <Dropdown.Item as={Link} to="/estado-pasantia">Estado de Pasantía</Dropdown.Item>
           <Dropdown.Item as={Link} to="/gestion-usuarios">Gestión de Usuarios</Dropdown.Item>
           <Dropdown.Item as={Link} to="/reportes">Reportes</Dropdown.Item>
@@ -30,10 +46,10 @@ function AdminDashboard() {
       </Dropdown>
 
       <Dropdown className="mt-3">
-        <Dropdown.Toggle variant="secondary" id="dropdown-basic-2">
+        <Dropdown.Toggle variant="secondary" id="dropdown-basic-2" style={titleStyle}>
           Otras Opciones
         </Dropdown.Toggle>
-        <Dropdown.Menu>
+        <Dropdown.Menu align="center">
           <Dropdown.Item as={Link} to="/configuracion">Configuración</Dropdown.Item>
           <Dropdown.Item as={Link} to="/soporte">Soporte</Dropdown.Item>
           <Dropdown.Item as={Link} to="/acerca-de">Acerca de</Dropdown.Item>

@@ -13,16 +13,32 @@ function TeacherDashboard() {
       return <Navigate to="/" />;
     }
   
+    // Estilos en línea para los títulos y el contenedor
+    const titleStyle = {
+        backgroundColor: '#999991', // Cambia esto al color de fondo que desees
+        padding: '10px',
+        borderRadius: '5px',
+        textAlign: 'center'
+    };
+
+    const containerStyle = {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100vh'
+    };
+
     return (
-      <div>
-        <h2>Panel de Profesores</h2>
+      <div style={containerStyle}>
+        <h2 style={titleStyle}>Panel de Profesores</h2>
         <p>Menú para Profesores</p>
         
         <Dropdown>
-          <Dropdown.Toggle variant="primary" id="dropdown-basic">
+          <Dropdown.Toggle variant="primary" id="dropdown-basic" style={titleStyle}>
             Menú de Profesor
           </Dropdown.Toggle>
-          <Dropdown.Menu>
+          <Dropdown.Menu align="center">
             <Dropdown.Item as={Link} to="/estado-reunion">Inscripción</Dropdown.Item>
             <Dropdown.Item as={Link} to="/evaluar">Evaluación</Dropdown.Item>
             <Dropdown.Item as={Link} to="/reunion">Reuniones</Dropdown.Item>
