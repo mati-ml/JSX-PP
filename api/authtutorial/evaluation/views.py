@@ -12,7 +12,10 @@ from rest_framework import status
 from evaluation.models import Eval
 from .serializer import OtherModelSerializer
 from .utils import send_email
-from .utils import programar_envio
+import pandas as pd
+from datetime import datetime, timedelta,date
+from pandas.tseries.offsets import CustomBusinessMonthEnd
+from.utils import ciclo_envio
 class ModifyEvaluation(APIView):
     def post(self, request):
         # Obtener los datos de la solicitud
@@ -237,12 +240,26 @@ class Evaluar(APIView):
 
 
 
+
+
 def update_data(request, email):
     try:
         user_profile = get_object_or_404(Eval, user_email=email)
         user_profile.estadosup = "Aprobado"
         user_profile.save()
-        return JsonResponse({'status': 'success', 'message': 'Estado actualizado correctamente'})
-    except:
-        return JsonResponse({'status': 'error', 'message': 'No se pudo actualizar el estado del usuario'}, status=500)
-
+        if user_profile:
+            return HttpResponse('Alumno Aceptado')
+        # Asegurarse de que las fechas sean cadenas de texto en formato '%Y-%m-%d'
+        fechaini = user_profile.fecha_ini.strftime('%Y-%m-%d')
+        fechater = user_profile.fecha_ter.strftime('%Y-%m-%d')
+        
+        emailsup = user_profile.sup_email
+        
+        # Llamar a la función ciclo_envio para programar los envíos
+        
+        
+        return (ciclo_envio(fechaini, fechater, emailsup))
+    
+    except Exception as e:
+        print(f"Excepción: {e}")
+        return JsonResponse({'status': 'error', 'message': f'No se pudo actualizar el estado del usuario: {str(e)}'}, status=500)
