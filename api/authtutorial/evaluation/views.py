@@ -29,7 +29,6 @@ class ModifyEvaluation(APIView):
         sup_email = request.data.get('sup_email')
         nombre_sup = request.data.get('nombre_sup')
         rut_sup = request.data.get('rut_sup')
-        resumen = request.data.get('resumen')
         teacher=request.data.get('teacher')
         estado=request.data.get('Estado')
         nombres= User.objects.get(id=user_id)
@@ -57,13 +56,11 @@ class ModifyEvaluation(APIView):
             eval_instance.rut_emp = rut_emp
         if sup_email:
             eval_instance.sup_email = sup_email
+            eval_instance.paso= 2
         if nombre_sup:
             eval_instance.nombre_sup = nombre_sup
         if rut_sup:
             eval_instance.rut_sup = rut_sup
-        if resumen:
-            eval_instance.resumen = resumen
-        if teacher:
             eval_instance.profesor = teacher
         if estado:
             eval_instance.estado= estado
@@ -171,7 +168,7 @@ class UpdateEstadoStatus(APIView):
 
         # Actualizar el estado de la reunión
         eval_instance.estado = nuevo_estado
-
+        eval_instance.paso=4
         # Guardar los cambios en la base de datos
         eval_instance.save()
 
@@ -270,6 +267,7 @@ def update_data(request, email):
     try:
         user_profile = get_object_or_404(Eval, user_email=email)
         user_profile.estadosup = "Aprobado"
+        user_profile.paso=3
         user_profile.save()
         
         return HttpResponse('Alumno aceptado')
@@ -300,3 +298,32 @@ def ciclo(request, email):
     except Exception as e:
         print(f"Excepción: {e}")
         return JsonResponse({'status': 'error', 'message': f'No se pudo actualizar el estado del usuario: {str(e)}'}, status=500)
+
+
+#Paso 5 Incripcion proyecto (Tiene ue hacerce por resumen)
+class ModifyResumen(APIView):
+    def post(self, request):
+        # Obtener los datos de la solicitud
+        user_id = request.data.get('user_id')
+        resumen = request.data.get('resumen')
+
+        # Validar que se proporciona un ID de usuario y un ID de evaluación
+        if not user_id or not user_id:
+            return Response({"error": "Se requieren un ID de usuario y un ID de evaluación válidos."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            # Obtener la instancia de evaluación asociada al usuario y al ID de evaluación
+            eval_instance = Eval.objects.get(user_id=user_id)
+            email= eval_instance.user_email
+        except Eval.DoesNotExist:
+            return Response({"error": "No se encontró ninguna evaluación asociada al usuario y al ID de evaluación proporcionados."}, status=status.HTTP_404_NOT_FOUND)
+
+        # Actualizar los campos si se proporcionan nuevos valores
+        if resumen:
+            eval_instance.resumen = resumen
+            eval_instance.paso=5
+        # Guardar los cambios en la base de datos
+        eval_instance.save()
+        # Serializar la instancia modificada y devolverla como respuesta
+        serializer = OtherModelSerializer(eval_instance)
+        return Response(serializer.data)

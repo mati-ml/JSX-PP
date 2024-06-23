@@ -9,7 +9,6 @@ function Inscripcion() {
   const [sup_email, setSup_email] = useState('');
   const [nombre_sup, setNombre_sup] = useState('');
   const [rut_sup, setRut_sup] = useState('');
-  const [resumen, setResumen] = useState('');
   const [profesores, setProfesores] = useState([]);
   const [teacher, setTeacher] = useState('');
   const Estado= 'Pendiente'
@@ -61,7 +60,6 @@ function Inscripcion() {
           sup_email,
           nombre_sup,
           rut_sup,
-          resumen,
           teacher,
           Estado
         }),
@@ -106,10 +104,6 @@ function Inscripcion() {
       <label>
         Rut Supervisor:
         <input type="text" value={rut_sup} onChange={(e) => setRut_sup(e.target.value)} />
-      </label>
-      <label>
-        Resumen:
-        <textarea value={resumen} onChange={(e) => setResumen(e.target.value)} />
       </label>
       <label>
         Seleccionar Profesor:
