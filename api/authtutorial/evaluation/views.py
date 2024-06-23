@@ -314,7 +314,6 @@ class ModifyResumen(APIView):
         try:
             # Obtener la instancia de evaluación asociada al usuario y al ID de evaluación
             eval_instance = Eval.objects.get(user_id=user_id)
-            email= eval_instance.user_email
         except Eval.DoesNotExist:
             return Response({"error": "No se encontró ninguna evaluación asociada al usuario y al ID de evaluación proporcionados."}, status=status.HTTP_404_NOT_FOUND)
 

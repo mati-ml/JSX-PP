@@ -3,7 +3,7 @@ from evaluation .views import *
 
 urlpatterns = [
     path('delete-teachers-evaluations/', delete_teachers_evaluations, name='delete_teachers_evaluations'),
-    path('inscripcion-pasantias/', ModifyEvaluation.as_view(), name='modify_evaluation'),
+    path('inscripcion-pasantias/', ModifyEvaluation.as_view()),
     path('pendientes/',PendientesListView.as_view()),
     path('reunion/',ReunionListView.as_view()),
     path('estado-reunion/',UpdateReunionStatus.as_view()),
@@ -12,4 +12,5 @@ urlpatterns = [
     path('evaluacion/',Evaluar.as_view()),
     path('update/<str:email>/', update_data, name='update_data'),
     path('formulario/<str:email>/',ciclo),
+    path('proyecto/',ModifyResumen.as_view())
 ]

@@ -14,6 +14,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Rubrica from "./components/vistaRubrica";
 import Sylabus from "./components/Sylabus";
 import Evaluacionesempresa from "./components/Evaluación-empresea";
+import Proyecto from "./components/Proyecto";
 function App() {
   const [userRole, setUserRole] = useState(null);
   const navigate = useNavigate();
@@ -102,6 +103,14 @@ function App() {
         element={
           <ProtectedRoute role="student">
             <Rubrica />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/proyecto" 
+        element={
+          <ProtectedRoute role="student">
+            <Proyecto />
           </ProtectedRoute>
         } 
       />

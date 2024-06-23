@@ -49,6 +49,7 @@ function StudentDashboard() {
               <Dropdown.Item>Subir archivos</Dropdown.Item>
               <Dropdown.Item as={Link} to="/rubrica">Rubrica</Dropdown.Item>
               <Dropdown.Item as={Link} to="/syllabus">Syllabus</Dropdown.Item>
+              <Dropdown.Item as={Link} to="/proyecto">Inscripcion Proyecto</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </Col>
