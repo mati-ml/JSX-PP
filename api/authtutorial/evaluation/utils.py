@@ -3,6 +3,9 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from datetime import datetime
 import time
+from django.http import HttpResponse
+import pandas as pd
+from pandas.tseries.offsets import CustomBusinessMonthEnd
 def send_email(email,asunto,body):
     smtp_server = 'smtp.gmail.com'
     smtp_port = 587
@@ -38,7 +41,32 @@ def programar_envio(email, asunto, body, year, month, day, hour, minute):
         print(f"Esperando para enviar el correo el {schedule_date.strftime('%d/%m/%Y %H:%M')}")
         time.sleep(time_to_wait)
         send_email(email, asunto, body)
+
     else:
         print("La fecha y hora especificadas ya han pasado.")
+    
+def respuesta():
+    return HttpResponse("Alumno Aceptado")  # o el mensaje de error que desees mostrar
 
-send_email('mmullerlanas@gmail.com','Nuevo alumno','Para aceptar la pasantia del alumno haga click aqui http://127.0.0.1:8000/api2/update/mm2@gmail.om')
+def ciclo_envio(fechaini, fechater, emailsup):
+    try:
+        print(f"ciclo_envio recibido - fechaini: {fechaini}, fechater: {fechater}, emailsup: {emailsup}")
+        
+        # Convertir fechas de string a datetime
+        fechaini = datetime.strptime(fechaini, '%Y-%m-%d')
+        fechater = datetime.strptime(fechater, '%Y-%m-%d')
+        
+        date_range = pd.date_range(start=fechaini, end=fechater, freq='MS')
+        
+        for date in date_range:
+            # Encontrar el último día hábil del mes
+            ultimo_dia_habil = date + CustomBusinessMonthEnd(1)
+            
+            # Llamar a la función para programar el envío del correo electrónico
+            programar_envio(emailsup, 'Formulario de evaluación', 
+                            'Haz la evaluación acá:\n https://forms.gle/ct9U4rNqJSzSebmL8',
+                            int(ultimo_dia_habil.year), int(ultimo_dia_habil.month), int(ultimo_dia_habil.day),
+                            8, 0)
+    except Exception as e:
+        print(f"Error en ciclo_envio: {e}")
+        raise e
