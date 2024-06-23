@@ -15,7 +15,7 @@ i18n
       en: { translation: translationEN },
       //es: { translation: translationES },
     },
-    lng: 'auto', // Set default language (can be 'auto' for browser detection)
+    lng: 'es', // Set default language (can be 'auto' for browser detection)
     interpolation: {
       escapeValue: false, // This ensures raw HTML in translations is displayed correctly
     },
