@@ -10,5 +10,6 @@ urlpatterns = [
     path('estado-pasantia/',UpdateEstadoStatus.as_view()),
     path('get-evaluation-details/', GetEvaluationDetails.as_view(), name='get-evaluation-details'),
     path('evaluacion/',Evaluar.as_view()),
-    path('update/<str:email>/', update_data, name='update_data')
+    path('update/<str:email>/', update_data, name='update_data'),
+    path('formulario/<str:email>/',ciclo),
 ]

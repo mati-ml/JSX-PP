@@ -12,10 +12,12 @@ from rest_framework import status
 from evaluation.models import Eval
 from .serializer import OtherModelSerializer
 from .utils import send_email
+from .utils import programar_envio
 import pandas as pd
 from datetime import datetime, timedelta,date
 from pandas.tseries.offsets import CustomBusinessMonthEnd
-from.utils import ciclo_envio
+from django.shortcuts import redirect
+# from.utils import ciclo_envio
 class ModifyEvaluation(APIView):
     def post(self, request):
         # Obtener los datos de la solicitud
@@ -241,25 +243,60 @@ class Evaluar(APIView):
 
 
 
-
+def ciclo_envio(fechaini, fechater, emailsup):
+    try:
+        print(f"ciclo_envio recibido - fechaini: {fechaini}, fechater: {fechater}, emailsup: {emailsup}")
+        
+        # Convertir fechas de string a datetime
+        fechaini = datetime.strptime(fechaini, '%Y-%m-%d')
+        fechater = datetime.strptime(fechater, '%Y-%m-%d')
+        
+        date_range = pd.date_range(start=fechaini, end=fechater, freq='MS')
+        for date in date_range:
+            # Encontrar el último día hábil del mes
+            ultimo_dia_habil = date + CustomBusinessMonthEnd(1)
+            
+            # Llamar a la función para programar el envío del correo electrónico
+            programar_envio(emailsup, 'Formulario de evaluación', 
+                            'Haz la evaluación acá:\n https://forms.gle/ct9U4rNqJSzSebmL8',
+                            int(ultimo_dia_habil.year), int(ultimo_dia_habil.month), int(ultimo_dia_habil.day),
+                            8, 0)
+            pass
+        pass
+    except Exception as e:
+        print(f"Error en ciclo_envio: {e}")
+        raise e
 def update_data(request, email):
     try:
         user_profile = get_object_or_404(Eval, user_email=email)
         user_profile.estadosup = "Aprobado"
         user_profile.save()
+        
+        return HttpResponse('Alumno aceptado')
+        
+    except Exception as e:
+        print(f"Excepción: {e}")
+        return JsonResponse({'status': 'error', 'message': f'No se pudo actualizar el estado del usuario: {str(e)}'}, status=500)
+
+def ciclo(request, email):
+    try:
+        user_profile = get_object_or_404(Eval, user_email=email)
+        
         if user_profile:
-            return HttpResponse('Alumno Aceptado')
-        # Asegurarse de que las fechas sean cadenas de texto en formato '%Y-%m-%d'
-        fechaini = user_profile.fecha_ini.strftime('%Y-%m-%d')
-        fechater = user_profile.fecha_ter.strftime('%Y-%m-%d')
-        
-        emailsup = user_profile.sup_email
-        
-        # Llamar a la función ciclo_envio para programar los envíos
-        
-        
-        return (ciclo_envio(fechaini, fechater, emailsup))
-    
+            
+            
+            # Asegurarse de que las fechas sean cadenas de texto en formato '%Y-%m-%d'
+            fechaini = user_profile.fecha_ini.strftime('%Y-%m-%d')
+            fechater = user_profile.fecha_ter.strftime('%Y-%m-%d')
+            emailsup = user_profile.sup_email
+            
+            if fechaini:
+                print('se esta enviando')
+            return ciclo_envio(fechaini, fechater, emailsup)
+
+            
+            
+
     except Exception as e:
         print(f"Excepción: {e}")
         return JsonResponse({'status': 'error', 'message': f'No se pudo actualizar el estado del usuario: {str(e)}'}, status=500)

@@ -74,6 +74,7 @@ function Estado() {
       });
       if (response.ok) {
         alert('Evaluación modificada correctamente.');
+        fetch('http://127.0.0.1:8000/api2/formulario/'+user_email+'/')
       } else {
         alert('Error al modificar la evaluación.');
       }
