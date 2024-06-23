@@ -48,5 +48,12 @@
   "Resumen": "Summary",
   "Seleccionar Profesor": "Select Teacher",
   "Selecciona un profesor": "Select a teacher",
-  "Estado de la Reunión": "Meeting Status"
+  "Estado de la Reunión": "Meeting Status",
+  "Iniciar sesión": "Log in",
+  "Eres Admin?": "You are Administrator?",
+  "Registrarse": "Ckeck in",
+  "Apellido Paterno": "Last name",
+  "Apellido Materno": "Second last name",
+  "Email": "E-mail",
+  "Carrera": "Career"
 }
