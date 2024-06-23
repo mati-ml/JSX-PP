@@ -12,5 +12,7 @@ urlpatterns = [
     path('evaluacion/',Evaluar.as_view()),
     path('update/<str:email>/', update_data, name='update_data'),
     path('formulario/<str:email>/',ciclo),
-    path('proyecto/',ModifyResumen.as_view())
+    path('proyecto/',ModifyResumen.as_view()),
+    path('upload/',FileUploadView.as_view()),
+    path('document/',DocumentDownloadView.as_view())
 ]

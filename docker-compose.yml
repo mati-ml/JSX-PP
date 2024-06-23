@@ -16,33 +16,33 @@ services:
       - pgdata:/var/lib/postgresql/data
 
   
-  #django:
-  #  build: 
-  #    context: ./api
-  #    dockerfile: Dockerfile
-  #  command: sh -c "cd authtutorial && python manage.py runserver 0.0.0.0:8000"
-  #  ports:
-  #    - "8000:8000"
-  #  expose:
-  #    - "8000"
-  
-  #  environment:
-  #    - ENV DJANGO_SETTINGS_MODULE=authtutorial.settings
-  #  depends_on:
-  #    - db
+  django:
+    build: 
+      context: ./api
+      dockerfile: Dockerfile
+    command: sh -c "cd authtutorial && python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    expose:
+      - "8000"
+    
+    environment:
+      - ENV DJANGO_SETTINGS_MODULE=authtutorial.settings
+    depends_on:
+      - db
   
 
-  #react-app:
-  #  build:
-  #    context: ./proyecto-final
-  #    dockerfile: Dockerfile
-  #  ports:
-  #    - "3000:3000"
-  #  volumes:
-  #    - .:/app
-  #  environment:
-  #    - CHOKIDAR_USEPOLLING=true
-  #  command: npm run dev
+  react-app:
+    build:
+      context: ./proyecto-final
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: npm run dev
     
 
 volumes:

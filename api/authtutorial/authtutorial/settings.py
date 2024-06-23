@@ -11,11 +11,11 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 CELERY_TASK_ALWAYS_EAGER = False
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -57,6 +57,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'authtutorial.urls'
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]
+
 
 TEMPLATES = [
     {

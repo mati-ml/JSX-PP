@@ -17,6 +17,9 @@ import pandas as pd
 from datetime import datetime, timedelta,date
 from pandas.tseries.offsets import CustomBusinessMonthEnd
 from django.shortcuts import redirect
+from rest_framework.parsers import MultiPartParser, FormParser
+import os
+from django.views.decorators.csrf import csrf_exempt
 # from.utils import ciclo_envio
 class ModifyEvaluation(APIView):
     def post(self, request):
@@ -326,3 +329,84 @@ class ModifyResumen(APIView):
         # Serializar la instancia modificada y devolverla como respuesta
         serializer = OtherModelSerializer(eval_instance)
         return Response(serializer.data)
+    
+
+
+
+class FileUploadView(APIView):
+    parser_classes = [MultiPartParser, FormParser]
+
+    def post(self, request, *args, **kwargs):
+        user_id = request.data.get('user_id')
+        
+        try:
+            eval_instance = Eval.objects.get(user_id=user_id)
+        except Eval.DoesNotExist:
+            return Response({"error": "Eval instance not found for this user"}, status=404)
+        
+        # Obtener el archivo subido
+        uploaded_file = request.data.get('file')
+        
+        # Guardar el archivo en un directorio de uploads
+        if uploaded_file:
+            # Define el directorio de uploads (asegúrate de que exista)
+            upload_dir = 'upload/'
+            if not os.path.exists(upload_dir):
+                os.makedirs(upload_dir)
+            
+            # Construir la ruta completa del archivo
+            file_path = os.path.join(upload_dir, uploaded_file.name)
+            
+            # Guardar el archivo en el servidor
+            with open(file_path, 'wb') as file_object:
+                for chunk in uploaded_file.chunks():
+                    file_object.write(chunk)
+            
+            # Actualizar el campo 'resumen' en el objeto Eval
+            eval_instance.resumen = file_path
+            eval_instance.save()
+            
+            # Crear un serializer específico para Eval
+            serializer = OtherModelSerializer(eval_instance)
+            
+            return Response(serializer.data, status=201)
+        
+        return Response({"error": "No file uploaded"}, status=400)
+
+
+class DocumentDownloadView(APIView):
+    
+    def post(self, request, *args, **kwargs):
+        try:
+            data = json.loads(request.body)
+            user_id = data.get('user_id')
+            eval_instance = get_object_or_404(Eval, user_id=user_id)
+            document_filename = eval_instance.resumen  # Obtén el nombre del archivo desde el modelo
+            
+            # Define la ruta completa al archivo basado en la ruta relativa almacenada en el modelo
+            base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+            document_path = os.path.join(base_path, document_filename)
+            
+            print(f"Ruta completa al archivo: {document_path}")  # Imprime la ruta para depurar
+            
+            if os.path.exists(document_path):
+                with open(document_path, 'rb') as document:
+                    response = HttpResponse(document.read(), content_type='application/pdf')
+                    response['Content-Disposition'] = f'attachment; filename="{os.path.basename(document_path)}"'
+                    return response
+            else:
+                return HttpResponse("Documento no encontrado en la ruta especificada", status=404)
+        
+        except Eval.DoesNotExist:
+            return HttpResponse("No se encontró la instancia de Eval para este user_id", status=404)
+        
+        except json.JSONDecodeError:
+            return HttpResponse("Datos no válidos en la solicitud JSON", status=400)
+        
+        except OSError as e:
+            print(f"Error al abrir el archivo: {str(e)}")
+            return HttpResponse(f"Error al abrir el archivo: {str(e)}", status=500)
+        
+        except Exception as e:
+            return HttpResponse(f"Error inesperado al procesar la solicitud: {str(e)}", status=500)
+

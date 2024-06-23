@@ -1,3 +1,4 @@
+/*
 import React, { useState, useEffect } from 'react';
 
 function Proyecto() {
@@ -44,5 +45,61 @@ function Proyecto() {
     </form>
   );
 }
+
+export default Proyecto;
+*/
+import React, { useState } from 'react';
+
+const Proyecto = () => {
+  const [file, setFile] = useState(null);
+  const [uploadedFile, setUploadedFile] = useState(null);
+  const [userId, setUserId] = useState(''); // Estado para almacenar user_id
+
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
+
+  const handleUserIdChange = (event) => {
+    setUserId(event.target.value); // Actualiza el estado de user_id
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('user_id', userId); // Añade user_id al FormData
+
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api2/upload/', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Error uploading file');
+      }
+
+      const data = await response.json();
+      setUploadedFile(data);
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    }
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input 
+          type="text" 
+          placeholder="User ID" 
+          value={userId} 
+          onChange={handleUserIdChange} 
+        />
+        <input type="file" onChange={handleFileChange} />
+        <button type="submit">Upload</button>
+      </form>
+    </div>
+  );
+};
 
 export default Proyecto;
