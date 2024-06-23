@@ -6,6 +6,7 @@ function Evaluaciones() {
   const [evaluacion, setEvaluacion] = useState('Evaluación 1');
   const [comentarios, setComentarios] = useState('');
   const [nota, setNota] = useState('');
+  const [file, setFile] = useState(null);
 
   const getUserEmailCookie = () => {
     const name = 'user_email=';
@@ -51,18 +52,19 @@ function Evaluaciones() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const formData = new FormData();
+    formData.append('user_email', selectedAlumno);
+    formData.append('evaluacion', evaluacion);
+    formData.append('comentarios', comentarios);
+    formData.append('nota', nota);
+    if (file) {
+      formData.append('file', file);
+    }
+
     try {
       const response = await fetch('http://127.0.0.1:8000/api2/evaluacion/', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          "user_email": selectedAlumno,
-          "evaluacion": evaluacion,
-          "comentarios": comentarios,
-          "nota": nota
-        }),
+        body: formData
       });
 
       if (response.ok) {
@@ -71,6 +73,7 @@ function Evaluaciones() {
         setEvaluacion('Evaluación 1');
         setComentarios('');
         setNota('');
+        setFile(null);
       } else {
         alert('Error al modificar la evaluación.');
       }
@@ -126,6 +129,13 @@ function Evaluaciones() {
           min="1"
           max="7"
           required
+        />
+      </label>
+      <label>
+        Subir Archivo:
+        <input
+          type="file"
+          onChange={(e) => setFile(e.target.files[0])}
         />
       </label>
       <button type="submit">Modificar Evaluación</button>

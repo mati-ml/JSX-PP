@@ -225,14 +225,65 @@ class Evaluar(APIView):
                 if evaluacion == 'Evaluación 1':
                     eval_instance.nota1 = nota
                     eval_instance.evaluacion1 = comentario
-                    
+                    uploaded_file = request.data.get('file')
+                    if uploaded_file:
+                        # Define el directorio de uploads (asegúrate de que exista)
+                        upload_dir = 'upload/'
+                        if not os.path.exists(upload_dir):
+                            os.makedirs(upload_dir)
+                        
+                        # Construir la ruta completa del archivo
+                        file_path = os.path.join(upload_dir, uploaded_file.name)
+                        
+                        # Guardar el archivo en el servidor
+                        with open(file_path, 'wb') as file_object:
+                            for chunk in uploaded_file.chunks():
+                                file_object.write(chunk)
+                        
+                        # Actualizar el campo 'resumen' en el objeto Eval
+                        eval_instance.rubrica1 = file_path
+                        eval_instance.save()
                 elif evaluacion == 'Evaluación 2':
                     eval_instance.nota2 = nota
                     eval_instance.evaluacion2 = comentario
+                    if uploaded_file:
+                        # Define el directorio de uploads (asegúrate de que exista)
+                        upload_dir = 'upload/'
+                        if not os.path.exists(upload_dir):
+                            os.makedirs(upload_dir)
+                        
+                        # Construir la ruta completa del archivo
+                        file_path = os.path.join(upload_dir, uploaded_file.name)
+                        
+                        # Guardar el archivo en el servidor
+                        with open(file_path, 'wb') as file_object:
+                            for chunk in uploaded_file.chunks():
+                                file_object.write(chunk)
+                        
+                        # Actualizar el campo 'resumen' en el objeto Eval
+                        eval_instance.rubrica2 = file_path
+                        eval_instance.save()
 
                 elif evaluacion == 'Evaluación 3':
                     eval_instance.nota3 = nota
                     eval_instance.evaluacion3 = comentario
+                    if uploaded_file:
+                        # Define el directorio de uploads (asegúrate de que exista)
+                        upload_dir = 'upload/'
+                        if not os.path.exists(upload_dir):
+                            os.makedirs(upload_dir)
+                        
+                        # Construir la ruta completa del archivo
+                        file_path = os.path.join(upload_dir, uploaded_file.name)
+                        
+                        # Guardar el archivo en el servidor
+                        with open(file_path, 'wb') as file_object:
+                            for chunk in uploaded_file.chunks():
+                                file_object.write(chunk)
+                        
+                        # Actualizar el campo 'resumen' en el objeto Eval
+                        eval_instance.rubrica3 = file_path
+                        eval_instance.save()
                 eval_instance.save()
             else:
                 return Response({'error': 'Evaluación no válida.'}, status=status.HTTP_400_BAD_REQUEST)
