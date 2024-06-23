@@ -27,6 +27,9 @@ class Eval(models.Model):
     comentarioemp= models.CharField(max_length=1000)
     notaemp= models.DecimalField(max_digits=3, decimal_places=2,null=True, blank=True)
     estadosup= models.CharField(max_length=10, default='Pendiente')
+    rubrica1= models.CharField(max_length=100, null=True, blank=True)
+    rubrica2=models.CharField(max_length=100, null=True, blank=True)
+    rubrica3=models.CharField(max_length=100, null=True, blank=True)
     def __str__(self):
         return f"{self.pasantia} - {self.user_email}"
 

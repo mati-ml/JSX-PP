@@ -14,9 +14,8 @@ from .serializer import OtherModelSerializer
 from .utils import send_email
 from .utils import programar_envio
 import pandas as pd
-from datetime import datetime, timedelta,date
+from datetime import datetime
 from pandas.tseries.offsets import CustomBusinessMonthEnd
-from django.shortcuts import redirect
 from rest_framework.parsers import MultiPartParser, FormParser
 import os
 from django.views.decorators.csrf import csrf_exempt
@@ -211,33 +210,43 @@ class GetEvaluationDetails(APIView):
 
 class Evaluar(APIView):
     def post(self, request):
-        user_mail = request.data.get('user_email')
+        user_email = request.data.get('user_email')
         evaluacion = request.data.get('evaluacion')
         nota = request.data.get('nota')
-        comentario = request.data.get('comentario')
+        comentario = request.data.get('comentarios')  # Ajustado para coincidir con el nombre del campo
 
-        if not user_mail or not evaluacion or not nota or not comentario:
+        if not user_email or not evaluacion or not nota or not comentario:
             return Response({'error': 'Todos los campos son requeridos.'}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            eval_instance = Eval.objects.get(user_email=user_mail)
-        except :
+            eval_instance = Eval.objects.get(user_email=user_email)
+            if eval_instance:
+                print('se encontro')
+                if evaluacion == 'Evaluación 1':
+                    eval_instance.nota1 = nota
+                    eval_instance.evaluacion1 = comentario
+                    
+                elif evaluacion == 'Evaluación 2':
+                    eval_instance.nota2 = nota
+                    eval_instance.evaluacion2 = comentario
+
+                elif evaluacion == 'Evaluación 3':
+                    eval_instance.nota3 = nota
+                    eval_instance.evaluacion3 = comentario
+                eval_instance.save()
+            else:
+                return Response({'error': 'Evaluación no válida.'}, status=status.HTTP_400_BAD_REQUEST)
+        except Eval.DoesNotExist:
             return Response({'error': 'Usuario no encontrado.'}, status=status.HTTP_404_NOT_FOUND)
 
-        if evaluacion == 'Evaluacion 1':
-            eval_instance.nota1 = nota
-            eval_instance.evaluacion1 = comentario
-        elif evaluacion == 'Evaluacion 2':
-            eval_instance.nota2 = nota
-            eval_instance.evaluacion2 = comentario
-        elif evaluacion == 'Evaluacion 3':
-            eval_instance.nota3 = nota
-            eval_instance.evaluacion3 = comentario
-        else:
-            return Response({'error': 'Evaluación no válida.'}, status=status.HTTP_400_BAD_REQUEST)
+        # Asignación de nota y comentario según la evaluación seleccionada
+        
 
-        eval_instance.save()
-        send_email(user_mail, f'La {evaluacion} ha sido subida', f'Su nota correspondiente es {nota} y la retroalimentacion hecha por le profersor es: \n {comentario}')
+       
+
+        # Envío de correo electrónico
+        send_email(user_email, f'La {evaluacion} ha sido subida', f'Su nota correspondiente es {nota} y la retroalimentación hecha por el profesor es:\n{comentario}')
+
         return Response(status=status.HTTP_200_OK)
 
 
@@ -410,3 +419,26 @@ class DocumentDownloadView(APIView):
         except Exception as e:
             return HttpResponse(f"Error inesperado al procesar la solicitud: {str(e)}", status=500)
 
+class GetUserEmailsByTeacher(APIView):
+    def post(self, request):
+        # Obtener el 'user' enviado en la solicitud POST
+        user = request.data.get('user_teacher')
+
+        if not user:
+            return Response({"error": "Se requiere proporcionar un 'user' en la solicitud POST."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            # Filtrar las instancias de Eval donde 'profesor' coincide con el 'user' proporcionado
+            evals = Eval.objects.filter(profesor=user).values_list('user_email', flat=True)
+
+            # Convertir los resultados en una lista plana de user_email
+            user_emails = list(evals)
+
+            # Devolver los user_emails como respuesta JSON
+            return Response({"user_emails": user_emails}, status=status.HTTP_200_OK)
+
+        except Eval.DoesNotExist:
+            return Response({"error": f"No se encontraron instancias de Eval donde 'profesor' sea '{user}'."}, status=status.HTTP_404_NOT_FOUND)
+
+        except Exception as e:
+            return Response({"error": f"Error al procesar la solicitud: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

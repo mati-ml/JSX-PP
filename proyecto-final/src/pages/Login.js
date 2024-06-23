@@ -39,6 +39,7 @@ function Login({ onLoginSuccess }) {
       }
       document.cookie = `user_role=${data.user_role}; path=/`;
       document.cookie = `user_id=${data.user_id}; path=/`;
+      document.cookie = `user_email=${data.user_email}; path=/`;
       onLoginSuccess(data);
       console.info('Inicio de sesión exitoso.');
     } catch (error) {

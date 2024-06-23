@@ -1,23 +1,40 @@
 import React, { useState, useEffect } from 'react';
 
 function Evaluaciones() {
-  // Estados para almacenar los valores del formulario
   const [alumnos, setAlumnos] = useState([]);
   const [selectedAlumno, setSelectedAlumno] = useState('');
   const [evaluacion, setEvaluacion] = useState('Evaluación 1');
   const [comentarios, setComentarios] = useState('');
   const [nota, setNota] = useState('');
 
-  // Cargar la lista de alumnos al montar el componente
+  const getUserEmailCookie = () => {
+    const name = 'user_email=';
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const cookie = decodedCookie.split('; ').find(cookie => cookie.startsWith(name));
+    return cookie ? cookie.substring(name.length, cookie.length) : '';
+  };
+
   useEffect(() => {
     const fetchAlumnos = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/alumnos/');
-        
+        const user_email = getUserEmailCookie();
+        const response = await fetch('http://127.0.0.1:8000/api2/alumnos/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ "user_teacher": user_email }),
+          credentials: 'include'
+        });
+
         if (response.ok) {
           const data = await response.json();
-          if (data && data.alumnos) {
-            setAlumnos(data.alumnos);
+          if (data && data.user_emails) {
+            const formattedAlumnos = data.user_emails.map((email, index) => ({
+              id: email,  // Usar el correo electrónico como ID del alumno
+              nombre: email
+            }));
+            setAlumnos(formattedAlumnos);
           } else {
             console.error('Error: La respuesta de la API no tiene el formato esperado.');
           }
@@ -28,30 +45,28 @@ function Evaluaciones() {
         console.error('Error al realizar la solicitud:', error);
       }
     };
-  
+
     fetchAlumnos();
   }, []);
 
-  // Manejar el envío del formulario
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      // Realizar la solicitud POST a la API
-      const response = await fetch('http://127.0.0.1:8000/api2/inscripcion-pasantias/', {
+      const response = await fetch('http://127.0.0.1:8000/api2/evaluacion/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          alumno_id: selectedAlumno,
-          evaluacion,
-          comentarios,
-          nota
+          "user_email": selectedAlumno,
+          "evaluacion": evaluacion,
+          "comentarios": comentarios,
+          "nota": nota
         }),
       });
+
       if (response.ok) {
         alert('Evaluación modificada correctamente.');
-        // Limpiar los campos del formulario después de enviar
         setSelectedAlumno('');
         setEvaluacion('Evaluación 1');
         setComentarios('');
@@ -96,11 +111,22 @@ function Evaluaciones() {
       </label>
       <label>
         Comentarios:
-        <textarea value={comentarios} onChange={(e) => setComentarios(e.target.value)} />
+        <textarea
+          value={comentarios}
+          onChange={(e) => setComentarios(e.target.value)}
+          required
+        />
       </label>
       <label>
         Nota:
-        <input type="number" value={nota} onChange={(e) => setNota(e.target.value)} min="1" max="7" />
+        <input
+          type="number"
+          value={nota}
+          onChange={(e) => setNota(e.target.value)}
+          min="1"
+          max="7"
+          required
+        />
       </label>
       <button type="submit">Modificar Evaluación</button>
     </form>

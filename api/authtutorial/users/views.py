@@ -48,12 +48,13 @@ class LoginAPIView(APIView):
         
 
         response = Response() 
-        #response.set_cookie('user_email', user.email)
+        response.set_cookie('user_email', user.email)
         #response.set_cookie(key='jwt', value=token, httponly=True)  #httonly - frontend can't access cookie, only for backend
         #response.set_cookie('user_id', user.id)
         response.data = {
             'user_role': user.role,
-            'user_id': user.id
+            'user_id': user.id,
+            'user_email':user.email
         }
 
         #if password correct
