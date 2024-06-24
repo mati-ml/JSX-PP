@@ -21,7 +21,7 @@ function Reunion() {
         });
 
         // Configurar la solicitud con la cookie 'user_email'
-        const response = await fetch('http://127.0.0.1:8000/api2/reunion/', {
+        const response = await fetch('http://loclahost:8000/api2/reunion/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ function Reunion() {
     event.preventDefault();
     try {
       // Realizar la solicitud POST a la API
-      const response = await fetch('http://127.0.0.1:8000/api2/estado-reunion/', {
+      const response = await fetch('http://loclahost:8000/api2/estado-reunion/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

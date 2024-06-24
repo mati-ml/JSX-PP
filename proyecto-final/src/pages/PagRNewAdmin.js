@@ -27,7 +27,7 @@ const RegisterAdmin = () => {
     };
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/registeradmin/', {
+      const response = await fetch('http://localhost:8000/api/registeradmin/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ const RegisterAdmin = () => {
       if (response.ok) {
         setMessage('Registration successful!');
         console.info('Registration successful!', data);
-        fetch('http://127.0.0.1:8000/api2/delete-teachers-evaluations/')
+        fetch('http://loclahost:8000/api2/delete-teachers-evaluations/')
 
         // Aquí puedes realizar la solicitud GET a otra API
         

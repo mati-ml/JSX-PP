@@ -45,10 +45,7 @@ function StudentDashboard() {
               <Dropdown.Item href="https://alumnosfic.uai.cl/static/media/Reglamentopasantia2023.03a7175a58d5eebf27ea.pdf" target="_blank" rel="noopener noreferrer">
                 Reglamento de Pasantía versión 2023
               </Dropdown.Item>
-              <Dropdown.Item>Estado de pasantía</Dropdown.Item>
               <Dropdown.Item as={Link} to="/proyecto">Incripcion de Proyecto</Dropdown.Item>
-              <Dropdown.Item>Profesores</Dropdown.Item>
-              <Dropdown.Item>Subir archivos</Dropdown.Item>
               <Dropdown.Item as={Link} to="/rubrica">Rubrica</Dropdown.Item>
               <Dropdown.Item as={Link} to="/syllabus">Syllabus</Dropdown.Item>
               <Dropdown.Item as={Link} to="/proyecto">Inscripcion Proyecto</Dropdown.Item>

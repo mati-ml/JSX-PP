@@ -38,7 +38,7 @@ function Requi() {
     
     if (email) {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api2/get-evaluation-details/', {
+        const response = await fetch('http://localhost:8000/api2/get-evaluation-details/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ function Requi() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('http://127.0.0.1:8000/api2/editreq/', {
+      const response = await fetch('http://localhost:8000/api2/editreq/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

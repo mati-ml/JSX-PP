@@ -12,7 +12,7 @@ function Estado() {
   useEffect(() => {
     const fetchProfesores = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api2/pendientes/');
+        const response = await fetch('http://localhost:8000/api2/pendientes/');
         
         if (response.ok) {
           const data = await response.json();
@@ -38,7 +38,7 @@ function Estado() {
     
     if (email) {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api2/get-evaluation-details/', {
+        const response = await fetch('http://localhost:8000/api2/get-evaluation-details/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ function Estado() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('http://127.0.0.1:8000/api2/estado-pasantia/', {
+      const response = await fetch('http://localhost:8000/api2/estado-pasantia/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ function Estado() {
       });
       if (response.ok) {
         alert(t('evaluationModified')); // Traduce el mensaje de alerta
-        fetch('http://127.0.0.1:8000/api2/formulario/'+user_email+'/')
+        fetch('http://localhost:8000/api2/formulario/'+user_email+'/')
       } else {
         alert(t('evaluationModificationError')); // Traduce el mensaje de error
       }

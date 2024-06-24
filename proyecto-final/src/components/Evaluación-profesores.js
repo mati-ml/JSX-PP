@@ -21,7 +21,7 @@ function Evaluaciones() {
     const fetchAlumnos = async () => {
       try {
         const user_email = getUserEmailCookie();
-        const response = await fetch('http://127.0.0.1:8000/api2/alumnos/', {
+        const response = await fetch('http://localhost:8000/api2/alumnos/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -64,7 +64,7 @@ function Evaluaciones() {
     formData.append('comentario', comentario); // Añadir "comentario" al FormData
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api2/evaluacion/', {
+      const response = await fetch('http://localhost:8000/api2/evaluacion/', {
         method: 'POST',
         body: formData
       });
