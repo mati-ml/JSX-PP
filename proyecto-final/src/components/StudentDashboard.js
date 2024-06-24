@@ -53,6 +53,7 @@ function StudentDashboard() {
               <Dropdown.Item as={Link} to="/syllabus">Syllabus</Dropdown.Item>
               <Dropdown.Item as={Link} to="/proyecto">Inscripcion Proyecto</Dropdown.Item>
               <Dropdown.Item as={Link} to="/evaluaciones">Ver Evaluaciones</Dropdown.Item>
+              <Dropdown.Item as={Link} to="/tusevalpas">Ver tus Evaluaciones de la Empresa</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </Col>

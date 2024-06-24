@@ -690,3 +690,20 @@ class EvaluarEmp(APIView):
             return Response({'error': 'Usuario no encontrado.'}, status=status.HTTP_404_NOT_FOUND)
 
         return Response(status=status.HTTP_200_OK)
+    
+class ObtenerEvaluacionPas(APIView):
+    def post(self, request):
+        user_email = request.data.get('user_email')
+
+        if not user_email:
+            return Response({'error': 'El campo user_email es requerido.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            eval_instance = Eval.objects.get(user_email=user_email)
+            data = {
+                'personas': eval_instance.personas,
+                'notapemp': eval_instance.notapemp
+            }
+            return Response(data, status=status.HTTP_200_OK)
+        except Eval.DoesNotExist:
+            return Response({'error': 'Usuario no encontrado.'}, status=status.HTTP_404_NOT_FOUND)

@@ -105,36 +105,57 @@ const FileDownloadComponent = () => {
     }
   };
 
+  const containerStyle = {
+    backgroundColor: 'white',
+    padding: '20px',
+    borderRadius: '10px',
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+    maxWidth: '600px',
+    margin: '20px auto',
+    textAlign: 'center',
+  };
+
+  const evaluationStyle = {
+    marginBottom: '10px',
+  };
+
+  const buttonStyle = {
+    backgroundColor: '#007bff',
+    color: 'white',
+    border: 'none',
+    padding: '10px 20px',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    marginTop: '10px',
+  };
+
   if (fetching) {
     return <p>{t('loading')}</p>; // Mientras se obtienen las notas
   }
 
   return (
-    <div>
-      <div>
+    <div style={containerStyle}>
+      <div style={evaluationStyle}>
         <h3>{t('evaluation')} 1:</h3>
         <p>{t('evaluationLabel')}: {notas1.evaluacion}</p>
         <p>{t('gradeLabel')}: {notas1.nota}</p>
-        <button onClick={() => downloadFile('rubrica1', 'Rubrica1.pdf')}>
+        <button style={buttonStyle} onClick={() => downloadFile('rubrica1', 'Rubrica1.pdf')}>
           {t('downloadRubric')} 1
         </button>
       </div>
-      <div>
+      <div style={evaluationStyle}>
         <h3>{t('evaluation')} 2:</h3>
         <p>{t('evaluationLabel')}: {notas2.evaluacion}</p>
         <p>{t('gradeLabel')}: {notas2.nota}</p>
-
-        <button onClick={() => downloadFile('rubrica2', 'Rubrica2.pdf')}>
+        <button style={buttonStyle} onClick={() => downloadFile('rubrica2', 'Rubrica2.pdf')}>
           {t('downloadRubric')} 2
         </button>
       </div>
-
-      <div>
+      <div style={evaluationStyle}>
         <h3>{t('evaluation')} 3:</h3>
         <p>{t('evaluationLabel')}: {notas3.evaluacion}</p>
         <p>{t('gradeLabel')}: {notas3.nota}</p>
-
-        <button onClick={() => downloadFile('rubrica3', 'Rubrica3.pdf')}>
+        <button style={buttonStyle} onClick={() => downloadFile('rubrica3', 'Rubrica3.pdf')}>
           {t('downloadRubric')} 3
         </button>
       </div>
@@ -143,3 +164,4 @@ const FileDownloadComponent = () => {
 };
 
 export default FileDownloadComponent;
+

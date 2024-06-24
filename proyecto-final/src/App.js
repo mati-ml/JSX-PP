@@ -17,6 +17,7 @@ import Proyecto from "./components/Proyecto";
 import FileDownloadComponent from "./components/NotasAl";
 import Dashboard from "./components/Estadistica";
 import EvaluarEmpForm from "./components/Evati";
+import EvaluarEmp from "./components/Evaluación-empresea";
 function App() {
   const [userRole, setUserRole] = useState(null);
   const navigate = useNavigate();
@@ -129,6 +130,14 @@ function App() {
         element={
           <ProtectedRoute role="student">
             <Sylabus />
+          </ProtectedRoute>
+        } 
+      />
+<Route 
+        path="/tusevalpas" 
+        element={
+          <ProtectedRoute role="student">
+            <EvaluarEmp />
           </ProtectedRoute>
         } 
       />
