@@ -93,13 +93,19 @@ const Proyecto = () => {
       <form onSubmit={handleSubmit}>
         <input 
           type="text" 
-          placeholder="User ID" 
+          placeholder={t('enterUserId')} // Traduce el placeholder del input de user_id
           value={userId} 
           onChange={handleUserIdChange} 
         />
         <input type="file" onChange={handleFileChange} />
-        <button type="submit">Upload</button>
+        <button type="submit">{t('upload')}</button> {/* Traduce el texto del botón de subir */}
       </form>
+      {uploadedFile && (
+        <div>
+          <p>{t('fileUploaded')}:</p> {/* Traduce el mensaje de archivo subido */}
+          <p>{uploadedFile.filename}</p>
+        </div>
+      )}
     </div>
   );
 };

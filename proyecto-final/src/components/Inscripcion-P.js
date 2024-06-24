@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 function Inscripcion() {
   const { t } = useTranslation();
+
   // Estados para almacenar los valores del formulario
   const [fecha_ini, setFecha_ini] = useState('');
   const [fecha_ter, setFecha_ter] = useState('');
@@ -13,7 +14,7 @@ function Inscripcion() {
   const [rut_sup, setRut_sup] = useState('');
   const [profesores, setProfesores] = useState([]);
   const [teacher, setTeacher] = useState('');
-  const Estado= 'Pendiente'
+
   // Cargar la lista de profesores al montar el componente
   useEffect(() => {
     const fetchProfesores = async () => {
@@ -44,9 +45,9 @@ function Inscripcion() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      // Obtener el user_id de la cookie
+      // Obtener el user_id de la cookie (simulado aquí)
       const user_id = parseInt(document.cookie.replace(/(?:(?:^|.*;\s*)user_id\s*=\s*([^;]*).*$)|^.*$/, "$1"), 10);
-      console.log(user_id);
+
       // Realizar la solicitud POST a la API
       const response = await fetch('http://127.0.0.1:8000/api2/inscripcion-pasantias/', {
         method: 'POST',
@@ -63,58 +64,59 @@ function Inscripcion() {
           nombre_sup,
           rut_sup,
           teacher,
-          Estado
+          Estado: 'Pendiente'
         }),
       });
+
       if (response.ok) {
-        alert('Evaluación modificada correctamente.');
+        alert(t('applicationSubmitted')); // Traduce el mensaje de éxito
       } else {
-        alert('Error al modificar la evaluación.');
+        alert(t('errorSubmittingApplication')); // Traduce el mensaje de error
       }
     } catch (error) {
       console.error('Error al enviar la solicitud:', error);
-      alert('Error al enviar la solicitud.');
+      alert(t('errorSendingRequest')); // Traduce el mensaje de error
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <label>
-        Fecha Inicial:
+        {t('startDate')}: {/* Traduce el texto de Fecha Inicial */}
         <input type="date" value={fecha_ini} onChange={(e) => setFecha_ini(e.target.value)} />
       </label>
       <label>
-        Fecha Final:
+        {t('endDate')}: {/* Traduce el texto de Fecha Final */}
         <input type="date" value={fecha_ter} onChange={(e) => setFecha_ter(e.target.value)} />
       </label>
       <label>
-        Nombre Empresa:
+        {t('companyName')}: {/* Traduce el texto de Nombre Empresa */}
         <input type="text" value={nombre_emp} onChange={(e) => setNombre_emp(e.target.value)} />
       </label>
       <label>
-        Rut Empresa:
+        {t('companyRut')}: {/* Traduce el texto de Rut Empresa */}
         <input type="text" value={rut_emp} onChange={(e) => setRut_emp(e.target.value)} />
       </label>
       <label>
-        Email Supervisor:
+        {t('supervisorEmail')}: {/* Traduce el texto de Email Supervisor */}
         <input type="email" value={sup_email} onChange={(e) => setSup_email(e.target.value)} />
       </label>
       <label>
-        Nombre Supervisor:
+        {t('supervisorName')}: {/* Traduce el texto de Nombre Supervisor */}
         <input type="text" value={nombre_sup} onChange={(e) => setNombre_sup(e.target.value)} />
       </label>
       <label>
-        Rut Supervisor:
+        {t('supervisorRut')}: {/* Traduce el texto de Rut Supervisor */}
         <input type="text" value={rut_sup} onChange={(e) => setRut_sup(e.target.value)} />
       </label>
       <label>
-        Seleccionar Profesor:
+        {t('selectTeacher')}: {/* Traduce el texto de Seleccionar Profesor */}
         <select
           value={teacher}
           onChange={(e) => setTeacher(e.target.value)}
           required
         >
-          <option value="">Selecciona un profesor</option>
+          <option value="">{t('selectTeacherPlaceholder')}</option> {/* Traduce el texto de selección de profesor */}
           {profesores.map((prof, index) => (
             <option key={index} value={prof}>
               {prof}
@@ -122,9 +124,10 @@ function Inscripcion() {
           ))}
         </select>
       </label>
-      <button type="submit">Modificar Evaluación</button>
+      <button type="submit">{t('submitApplication')}</button> {/* Traduce el texto de enviar la solicitud */}
     </form>
   );
 }
 
 export default Inscripcion;
+

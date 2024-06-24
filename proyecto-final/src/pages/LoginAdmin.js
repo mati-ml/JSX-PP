@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import "./Login.css"; // Asegúrate de crear este archivo CSS y enlazarlo
-
+import LanguageSwitcher from "./LanguageSwitcher";
 function LoginAdmin({ onLoginSuccess }) {
 
   const [username, setUsername] = useState("");
@@ -81,7 +81,7 @@ function LoginAdmin({ onLoginSuccess }) {
         </form>
         </div>
 
-
+        <div><LanguageSwitcher></LanguageSwitcher></div>
       </div>
   );
 }

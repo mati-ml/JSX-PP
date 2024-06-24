@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const FileDownloadComponent = () => {
+  const { t } = useTranslation();
+
   const [user_id, setUserId] = useState('');
   const [notas1, setNotas1] = useState({ evaluacion: '', nota: '' });
   const [notas2, setNotas2] = useState({ evaluacion: '', nota: '' });
@@ -15,7 +18,7 @@ const FileDownloadComponent = () => {
       try {
         const userIdFromCookie = getCookie('user_id');
         if (!userIdFromCookie) {
-          throw new Error('User ID cookie not found');
+          throw new Error(t('errors.cookieNotFound'));
         }
         setUserId(userIdFromCookie);
 
@@ -34,19 +37,19 @@ const FileDownloadComponent = () => {
         ]);
 
         if (!response1.ok) {
-          throw new Error(`Error al obtener evaluación 1: ${response1.statusText}`);
+          throw new Error(`${t('errors.fetchError')} 1: ${response1.statusText}`);
         }
         const data1 = await response1.json();
         setNotas1({ evaluacion: data1.evaluacion1, nota: data1.nota1 });
 
         if (!response2.ok) {
-          throw new Error(`Error al obtener evaluación 2: ${response2.statusText}`);
+          throw new Error(`${t('errors.fetchError')} 2: ${response2.statusText}`);
         }
         const data2 = await response2.json();
         setNotas2({ evaluacion: data2.evaluacion2, nota: data2.nota2 });
 
         if (!response3.ok) {
-          throw new Error(`Error al obtener evaluación 3: ${response3.statusText}`);
+          throw new Error(`${t('errors.fetchError')} 3: ${response3.statusText}`);
         }
         const data3 = await response3.json();
         setNotas3({ evaluacion: data3.evaluacion3, nota: data3.nota3 });
@@ -55,9 +58,9 @@ const FileDownloadComponent = () => {
 
       } catch (error) {
         console.error('Error en la obtención de notas:', error);
-        setError1(`Error en la obtención de notas: ${error.message}`);
-        setError2(`Error en la obtención de notas: ${error.message}`);
-        setError3(`Error en la obtención de notas: ${error.message}`);
+        setError1(`${t('errors.fetchError')}: ${error.message}`);
+        setError2(`${t('errors.fetchError')}: ${error.message}`);
+        setError3(`${t('errors.fetchError')}: ${error.message}`);
         setFetching(false); // Indicar que ha ocurrido un error al obtener las notas
       }
     };
@@ -83,7 +86,7 @@ const FileDownloadComponent = () => {
       });
 
       if (!response.ok) {
-        throw new Error(`Error al descargar el archivo desde ${endpoint}: ${response.statusText}`);
+        throw new Error(`${t('errors.downloadError')} ${endpoint}: ${response.statusText}`);
       }
 
       const blob = await response.blob();
@@ -97,42 +100,42 @@ const FileDownloadComponent = () => {
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
     } catch (error) {
-      console.error(`Error al descargar el archivo desde ${endpoint}:`, error);
+      console.error(`${t('errors.downloadError')} ${endpoint}:`, error);
       // Aquí podrías manejar el error de descarga si lo necesitas
     }
   };
 
   if (fetching) {
-    return <p>Cargando...</p>; // Mientras se obtienen las notas
+    return <p>{t('loading')}</p>; // Mientras se obtienen las notas
   }
 
   return (
     <div>
       <div>
-        <h3>Evaluación 1:</h3>
-        <p>Evaluación: {notas1.evaluacion}</p>
-        <p>Nota: {notas1.nota}</p>
+        <h3>{t('evaluation')} 1:</h3>
+        <p>{t('evaluationLabel')}: {notas1.evaluacion}</p>
+        <p>{t('gradeLabel')}: {notas1.nota}</p>
         <button onClick={() => downloadFile('rubrica1', 'Rubrica1.pdf')}>
-          Descargar Rubrica 1
+          {t('downloadRubric')} 1
         </button>
       </div>
       <div>
-        <h3>Evaluación 2:</h3>
-        <p>Evaluación: {notas2.evaluacion}</p>
-        <p>Nota: {notas2.nota}</p>
+        <h3>{t('evaluation')} 2:</h3>
+        <p>{t('evaluationLabel')}: {notas2.evaluacion}</p>
+        <p>{t('gradeLabel')}: {notas2.nota}</p>
 
         <button onClick={() => downloadFile('rubrica2', 'Rubrica2.pdf')}>
-          Descargar Rubrica 2
+          {t('downloadRubric')} 2
         </button>
       </div>
 
       <div>
-        <h3>Evaluación 3:</h3>
-        <p>Evaluación: {notas3.evaluacion}</p>
-        <p>Nota: {notas3.nota}</p>
+        <h3>{t('evaluation')} 3:</h3>
+        <p>{t('evaluationLabel')}: {notas3.evaluacion}</p>
+        <p>{t('gradeLabel')}: {notas3.nota}</p>
 
         <button onClick={() => downloadFile('rubrica3', 'Rubrica3.pdf')}>
-          Descargar Rubrica 3
+          {t('downloadRubric')} 3
         </button>
       </div>
     </div>
