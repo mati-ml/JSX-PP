@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 /* Login.css */
 .login-container {
@@ -5,6 +6,31 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+=======
+/* Login.css */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #4facfe, #ce0681); 
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+}
+
+.header-text {
+  color: white;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+>>>>>>> Login
 }
 
 .login-box {
@@ -12,5 +38,18 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+<<<<<<< HEAD
   background-color: #fff;
 }
+=======
+  background-color: rgba(255, 255, 255, 0.9); 
+}
+
+#boton-admin {
+  margin-right: 0.8rem; /* Ajusta el valor según necesites */
+}
+
+#register {
+  margin-left: 0.8rem; /* Ajusta el valor según necesites */
+}
+>>>>>>> Login

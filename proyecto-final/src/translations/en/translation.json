@@ -1,0 +1,79 @@
+
+{
+  "login": {
+    "title": "Log in",
+    "usernamePlaceholder": "Username",
+    "passwordPlaceholder": "Password",
+    "loginButton": "Log in",
+    "loading": "Loading...",
+    "error": "Error logging in. Please try again."
+  },
+  "errorMessages": {
+    "unauthorized": "Unauthorized user",
+    "generic": "Error in request"
+  },
+  "successMessages": {
+    "loginSuccess": "Login successful."
+  },
+  "buttons": {
+    "admin": "Are you an admin?",
+    "register": "Register"
+  },
+  "adminDashboardTitle": "Admin Dashboard",
+  "adminMenu": "Admin Menu",
+  "internshipStatus": "Internship Status",
+  "userManagement": "User Management",
+  "reports": "Reports",
+  "otherOptions": "Other Options",
+  "settings": "Settings",
+  "support": "Support",
+  "about": "About",
+  "selectStudentMail": "Select student email",
+  "internshipState": "Internship state",
+  "selectState": "Select state",
+  "rejected": "Rejected",
+  "approved": "Approved",
+  "pending": "Pending",
+  "studentData": "Student data",
+  "evaluationModified": "Evaluation modified successfully",
+  "evaluationModificationError": "Error modifying evaluation",
+  "requestError": "Request error",
+  "selectStudent": "Select student:",
+  "selectStudentPlaceholder": "Select a student",
+  "evaluationName": "Evaluation name:",
+  "evaluation1": "Evaluation 1",
+  "evaluation2": "Evaluation 2",
+  "evaluation3": "Evaluation 3",
+  "comments": "Comments:",
+  "grade": "Grade:",
+  "modifyEvaluation": "Modify evaluation",
+  "evaluationModifiedSuccessfully": "Evaluation modified successfully.",
+  "errorModifyingEvaluation": "Error modifying evaluation.",
+  "errorSendingRequest": "Error sending request.",
+  "uploadFile": "Upload file:",
+  "startDate": "Start Date",
+  "endDate": "End Date",
+  "companyName": "Company Name",
+  "companyRut": "Company Rut",
+  "supervisorEmail": "Supervisor Email",
+  "supervisorName": "Supervisor Name",
+  "supervisorRut": "Supervisor Rut",
+  "selectTeacher": "Select Teacher",
+  "selectTeacherPlaceholder": "Select a teacher",
+  "submitApplication": "Submit Application",
+  "applicationSubmitted": "Application submitted successfully.",
+  "errorSubmittingApplication": "Error submitting application.",
+  "errorSendingRequest": "Error sending request.",
+  "loading": "Loading...",
+  "errors": {
+    "cookieNotFound": "User ID cookie not found",
+    "fetchError": "Error fetching evaluation",
+    "downloadError": "Error downloading file from"
+  },
+  "evaluation": "Evaluation",
+  "evaluationLabel": "Evaluation",
+  "gradeLabel": "Grade",
+  "downloadRubric": "Download Rubric"
+
+}
+
