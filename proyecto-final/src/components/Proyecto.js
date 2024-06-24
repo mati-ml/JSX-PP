@@ -49,8 +49,10 @@ function Proyecto() {
 export default Proyecto;
 */
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const Proyecto = () => {
+  const { t } = useTranslation();
   const [file, setFile] = useState(null);
   const [uploadedFile, setUploadedFile] = useState(null);
   const [userId, setUserId] = useState(''); // Estado para almacenar user_id

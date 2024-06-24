@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next'; // Importa useTranslation desde react-i18next
 
 function Estado() {
+  const { t } = useTranslation(); // Usar la función de traducción
+
   const [user_email, setUser_email] = useState('');
   const [estado, setEstado] = useState('');
   const [profesores, setProfesores] = useState([]);
@@ -73,14 +76,14 @@ function Estado() {
         }),
       });
       if (response.ok) {
-        alert('Evaluación modificada correctamente.');
+        alert(t('evaluationModified')); // Traduce el mensaje de alerta
         fetch('http://127.0.0.1:8000/api2/formulario/'+user_email+'/')
       } else {
-        alert('Error al modificar la evaluación.');
+        alert(t('evaluationModificationError')); // Traduce el mensaje de error
       }
     } catch (error) {
       console.error('Error al enviar la solicitud:', error);
-      alert('Error al enviar la solicitud.');
+      alert(t('requestError')); // Traduce el mensaje de error
     }
   };
 
@@ -88,13 +91,13 @@ function Estado() {
     <div>
       <form onSubmit={handleSubmit}>
         <label>
-          Seleccionar Mail del Alumno:
+          {t('selectStudentMail')}: {/* Traduce el texto de selección de email del alumno */}
           <select
             value={user_email}
             onChange={handleEmailChange}
             required
           >
-            <option value="">Selecciona un alumno</option>
+            <option value="">{t('selectStudent')}</option>{/* Traduce el texto de selección de estudiante */}
             {profesores.map((prof, index) => (
               <option key={index} value={prof}>
                 {prof}
@@ -103,24 +106,24 @@ function Estado() {
           </select>
         </label>
         <label>
-          Estado de la Pasantia:
+          {t('internshipState')}: {/* Traduce el texto de estado de pasantía */}
           <select
             value={estado}
             onChange={(e) => setEstado(e.target.value)}
             required
           >
-            <option value="">Selecciona el estado</option>
-            <option value="Rechazado">Rechazado</option>
-            <option value="Aprobado">Aprobado</option>
-            <option value="Pendiente">Pendiente</option>
+            <option value="">{t('selectState')}</option>{/* Traduce el texto de selección de estado */}
+            <option value="Rechazado">{t('rejected')}</option>
+            <option value="Aprobado">{t('approved')}</option>
+            <option value="Pendiente">{t('pending')}</option>
           </select>
         </label>
-        <button type="submit">Modificar Evaluación</button>
+        <button type="submit">{t('modifyEvaluation')}</button>{/* Traduce el texto de modificar evaluación */}
       </form>
 
       {datosAlumno && (
         <div>
-          <h3>Datos del Alumno</h3>
+          <h3>{t('studentData')}</h3> {/* Traduce el título de datos del alumno */}
           <table>
             <thead>
               <tr>

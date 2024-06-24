@@ -16,6 +16,8 @@ import Sylabus from "./components/Sylabus";
 import Evaluacionesempresa from "./components/Evaluación-empresea";
 import Proyecto from "./components/Proyecto";
 import FileDownloadComponent from "./components/NotasAl";
+import LanguageSwitcher from "./components/LanguageSwitcher"; // Import the LanguageSwitcher component
+
 function App() {
   const [userRole, setUserRole] = useState(null);
   const navigate = useNavigate();
@@ -75,86 +77,73 @@ function App() {
           </ProtectedRoute>
         }
       />
-      <Route 
-        path="/inscripcion" 
+      <Route
+        path="/inscripcion"
         element={
           <ProtectedRoute role="student">
             <Inscripcion />
           </ProtectedRoute>
-        } 
+        }
       />
-      <Route 
-        path="/estado-reunion" 
+      <Route
+        path="/estado-reunion"
         element={
           <ProtectedRoute role="teacher">
             <Reunion />
           </ProtectedRoute>
-        } 
+        }
       />
-      <Route 
-        path="/estado-pasantia" 
+      <Route
+        path="/estado-pasantia"
         element={
           <ProtectedRoute role="admin">
             <Estado />
           </ProtectedRoute>
-        } 
+        }
       />
-      <Route 
-        path="/rubrica" 
+      <Route
+        path="/rubrica"
         element={
           <ProtectedRoute role="student">
             <Rubrica />
           </ProtectedRoute>
-        } 
+        }
       />
-      <Route 
-        path="/evaluaciones" 
+      <Route
+        path="/evaluaciones"
         element={
           <ProtectedRoute role="student">
             <FileDownloadComponent />
           </ProtectedRoute>
-        } 
+        }
       />
-      <Route 
-        path="/proyecto" 
+      <Route
+        path="/proyecto"
         element={
           <ProtectedRoute role="student">
             <Proyecto />
           </ProtectedRoute>
-        } 
+        }
       />
-      <Route 
-        path="/syllabus" 
+      <Route
+        path="/syllabus"
         element={
           <ProtectedRoute role="student">
             <Sylabus />
           </ProtectedRoute>
-        } 
+        }
       />
-      <Route 
-        path="/evaluar" 
+      <Route
+        path="/evaluar"
         element={
           <ProtectedRoute role="teacher">
-            <Evaluaciones/>
+            <Evaluaciones />
           </ProtectedRoute>
-        } 
+        }
       />
       <Route path="*" element={<Navigate to="/login" />} />
     </Routes>
   );
 }
 
-function AppWrapper() {
-  return (
-    <Router>
-      <App />
-    </Router>
-  );
-}
-
-export default AppWrapper;
-
-
-
-
-
+export default App;

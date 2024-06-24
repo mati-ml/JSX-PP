@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function Evaluaciones() {
+  const { t } = useTranslation();
   const [alumnos, setAlumnos] = useState([]);
   const [selectedAlumno, setSelectedAlumno] = useState('');
   const [evaluacion, setEvaluacion] = useState('Evaluación 1');

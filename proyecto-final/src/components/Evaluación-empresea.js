@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function Evaluacionesempresa() {
+  const { t } = useTranslation();
   // Estados para almacenar los valores del formulario
   const [alumnos, setAlumnos] = useState([]);
   const [selectedAlumno, setSelectedAlumno] = useState('');

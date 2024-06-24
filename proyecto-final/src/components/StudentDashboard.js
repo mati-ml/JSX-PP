@@ -2,8 +2,10 @@ import React from "react";
 import { Navigate, Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Dropdown } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 function StudentDashboard() {
+  const { t } = useTranslation();
   // Obtiene todas las cookies y las divide en un objeto
   const cookies = Object.fromEntries(document.cookie.split("; ").map(cookie => cookie.split("=")));
 

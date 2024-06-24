@@ -2,8 +2,10 @@ import React from "react";
 import { Navigate, Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Dropdown } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 function TeacherDashboard() {
+  const { t } = useTranslation();
   const cookies = Object.fromEntries(document.cookie.split("; ").map(cookie => cookie.split("=")));
 
   // Verifica si la cookie "user_role" existe y si su valor coincide con "teacher"

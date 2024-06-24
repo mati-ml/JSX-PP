@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function Reunion() {
+  const { t } = useTranslation();
   const [user_email, setUser_email] = useState('');
   const [reunion, setReunion] = useState('');
   const [profesores, setProfesores] = useState([]);

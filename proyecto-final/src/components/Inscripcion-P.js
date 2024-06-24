@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function Inscripcion() {
+  const { t } = useTranslation();
   // Estados para almacenar los valores del formulario
   const [fecha_ini, setFecha_ini] = useState('');
   const [fecha_ter, setFecha_ter] = useState('');
