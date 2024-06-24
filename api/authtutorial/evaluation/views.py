@@ -294,7 +294,7 @@ class Evaluar(APIView):
        
 
         # Envío de correo electrónico
-        send_email(user_email, f'La {evaluacion} ha sido subida', f'Su nota correspondiente es {nota} y la retroalimentación hecha por el profesor es:\n{comentario}')
+        send_email(user_email, f'La {evaluacion} ha sido subida', f'Su rubrica ha sido subida')
 
         return Response(status=status.HTTP_200_OK)
 
