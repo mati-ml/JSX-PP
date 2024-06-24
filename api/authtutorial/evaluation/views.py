@@ -665,3 +665,28 @@ def count_users_by_step(request):
     except Exception as e:
         # Handling exceptions and returning a JSON response with HTTP status 500 Internal Server Error
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+class EvaluarEmp(APIView):
+    def post(self, request):
+        user_email = request.data.get('user_email')
+        nota = request.data.get('nota')
+
+        if not user_email or nota is None:
+            return Response({'error': 'Todos los campos son requeridos.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            eval_instance = Eval.objects.get(user_email=user_email)
+            
+            if eval_instance:
+                print('se encontró')
+                personas = eval_instance.personas + 1
+                nota_promedio = (eval_instance.notapemp * eval_instance.personas + nota) / personas
+                eval_instance.personas = personas
+                eval_instance.notapemp = nota_promedio
+                eval_instance.save()
+            else:
+                return Response({'error': 'Evaluación no válida.'}, status=status.HTTP_400_BAD_REQUEST)
+        except Eval.DoesNotExist:
+            return Response({'error': 'Usuario no encontrado.'}, status=status.HTTP_404_NOT_FOUND)
+
+        return Response(status=status.HTTP_200_OK)

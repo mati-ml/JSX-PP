@@ -13,10 +13,10 @@ import Evaluaciones from "./components/Evaluación-profesores";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Rubrica from "./components/vistaRubrica";
 import Sylabus from "./components/Sylabus";
-import Evaluacionesempresa from "./components/Evaluación-empresea";
 import Proyecto from "./components/Proyecto";
 import FileDownloadComponent from "./components/NotasAl";
 import Dashboard from "./components/Estadistica";
+import EvaluarEmpForm from "./components/Evati";
 function App() {
   const [userRole, setUserRole] = useState(null);
   const navigate = useNavigate();
@@ -138,6 +138,13 @@ function App() {
           <ProtectedRoute role="teacher">
             <Evaluaciones/>
           </ProtectedRoute>
+        } 
+      />
+<Route 
+        path="/evaluarpas" 
+        element={
+          
+            <EvaluarEmpForm/>
         } 
       />
 <Route 
