@@ -80,7 +80,7 @@ function Inscripcion() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px' }}>
       <label>
         {t('startDate')}: {/* Traduce el texto de Fecha Inicial */}
         <input type="date" value={fecha_ini} onChange={(e) => setFecha_ini(e.target.value)} />

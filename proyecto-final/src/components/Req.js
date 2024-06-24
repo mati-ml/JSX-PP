@@ -88,7 +88,7 @@ function Requi() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px' }}>
         <label>
           {t('selectStudentMail')}: {/* Traduce el texto de selección de email del alumno */}
           <select

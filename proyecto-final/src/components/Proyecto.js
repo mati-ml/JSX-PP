@@ -48,7 +48,7 @@ function Proyecto() {
 
 export default Proyecto;
 */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const Proyecto = () => {
@@ -57,17 +57,30 @@ const Proyecto = () => {
   const [uploadedFile, setUploadedFile] = useState(null);
   const [userId, setUserId] = useState(''); // Estado para almacenar user_id
 
+  useEffect(() => {
+    const fetchUserIdFromCookie = () => {
+      const cookies = document.cookie.split(';');
+      let foundUserId = '';
+      cookies.forEach(cookie => {
+        const [name, value] = cookie.trim().split('=');
+        if (name === 'user_id') {
+          foundUserId = decodeURIComponent(value);
+        }
+      });
+      setUserId(foundUserId);
+    };
+
+    fetchUserIdFromCookie();
+  }, []); // Ejecutar una sola vez al montar el componente
+
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
-  };
-
-  const handleUserIdChange = (event) => {
-    setUserId(event.target.value); // Actualiza el estado de user_id
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
+    
     formData.append('file', file);
     formData.append('user_id', userId); // Añade user_id al FormData
 
@@ -90,13 +103,8 @@ const Proyecto = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input 
-          type="text" 
-          placeholder={t('enterUserId')} // Traduce el placeholder del input de user_id
-          value={userId} 
-          onChange={handleUserIdChange} 
-        />
+      <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px' }}>
+        <p>{t('userIdLabel')}: {userId}</p> {/* Mostrar el user_id obtenido de la cookie */}
         <input type="file" onChange={handleFileChange} />
         <button type="submit">{t('upload')}</button> {/* Traduce el texto del botón de subir */}
       </form>
@@ -111,3 +119,4 @@ const Proyecto = () => {
 };
 
 export default Proyecto;
+

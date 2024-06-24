@@ -39,9 +39,9 @@ function TeacherDashboard() {
               Menú de Profesor
             </Dropdown.Toggle>
             <Dropdown.Menu align="center">
-              <Dropdown.Item as={Link} to="/estado-reunion">Inscripción</Dropdown.Item>
+              <Dropdown.Item as={Link} to="/cerrar">Inscripción</Dropdown.Item>
               <Dropdown.Item as={Link} to="/evaluar">Evaluación</Dropdown.Item>
-              <Dropdown.Item as={Link} to="/reunion">Reuniones</Dropdown.Item>
+              <Dropdown.Item as={Link} to="/estado-reunion">Reuniones</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </Col>

@@ -20,6 +20,7 @@ import EvaluarEmpForm from "./components/Evati";
 import EvaluarEmp from "./components/Evaluación-empresea";
 import RegisterAdmin from "./pages/PagRNewAdmin";
 import Requi from "./components/Req";
+import Cerrar from "./components/Cerrar";
 function App() {
   const [userRole, setUserRole] = useState(null);
   const navigate = useNavigate();
@@ -79,6 +80,14 @@ function App() {
           </ProtectedRoute>
         }
       />
+<Route
+        path="/cerrar"
+        element={
+          <ProtectedRoute role="teacher">
+            <Cerrar />
+          </ProtectedRoute>
+        }
+      />
       <Route 
         path="/inscripcion" 
         element={
@@ -132,6 +141,14 @@ function App() {
         element={
           <ProtectedRoute role="student">
             <Sylabus />
+          </ProtectedRoute>
+        } 
+      />
+<Route 
+        path="/proyecto" 
+        element={
+          <ProtectedRoute role="student">
+            <Proyecto />
           </ProtectedRoute>
         } 
       />

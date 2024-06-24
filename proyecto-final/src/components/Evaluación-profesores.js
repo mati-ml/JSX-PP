@@ -26,7 +26,7 @@ function Evaluaciones() {
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ "user_teacher": user_email }),
+          body: JSON.stringify({ "user_email": user_email }),
           credentials: 'include'
         });
 
@@ -86,7 +86,7 @@ function Evaluaciones() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px' }}>
       <label>
         {t('selectStudent')} {/* Traduce el texto de selección de alumno */}
         <select

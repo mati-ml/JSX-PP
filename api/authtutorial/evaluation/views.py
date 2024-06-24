@@ -114,24 +114,38 @@ class PendientesListView(APIView):
 
         return Response(response_data)
 class ReunionListView(APIView):
-    def get(self, request):
-        # Filtra los usuarios por el nombre 'teacher'
-        teachers = Eval.objects.filter(reunion__iexact='Pendiente')
+    def post(self, request):
+        # Obtener el campo 'user_email' enviado en la solicitud POST
+        user_email = request.data.get('user_email')
 
-        if not teachers.exists():
-            raise NotFound('No hay pendientes')
+        # Verificar si se proporcionó el campo 'user_email'
+        if not user_email:
+            return Response({"error": "Se requiere proporcionar un 'user_email' en la solicitud POST."}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Serializa solo los nombres de los usuarios
-        Reunion_emails = [teacher.user_email for teacher in teachers]
+        try:
+            # Filtrar las instancias de Eval donde 'reunion' coincide con 'Pendiente',
+            # 'profesor' coincide con 'user_email' y 'pasos' es igual a 5
+            teachers = Eval.objects.filter(reunion__iexact='Pendiente', profesor=user_email, paso=5)
 
-        # Devuelve los nombres como JSON
-        response_data = {'Pendientes': Reunion_emails}
+            if not teachers.exists():
+                raise NotFound('No hay pendientes para el usuario con el correo electrónico proporcionado.')
 
-        # Imprime los nombres en la consola del servidor
-        print("Mail_de_pendientes", json.dumps(response_data))
+            # Serializa solo los correos electrónicos de los usuarios
+            reunion_emails = [teacher.user_email for teacher in teachers]
 
-        return Response(response_data)
+            # Devuelve los correos electrónicos como JSON
+            response_data = {'Pendientes': reunion_emails}
 
+            # Imprime los correos electrónicos en la consola del servidor
+            print("Mail_de_pendientes", json.dumps(response_data))
+
+            return Response(response_data)
+
+        except Eval.DoesNotExist:
+            return Response({"error": f"No se encontraron pendientes para el usuario con 'user_email' '{user_email}'."}, status=status.HTTP_404_NOT_FOUND)
+
+        except Exception as e:
+            return Response({"error": f"Error al procesar la solicitud: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 class UpdateReunionStatus(APIView):
     def post(self, request):
         # Obtener los datos de la solicitud
@@ -150,7 +164,7 @@ class UpdateReunionStatus(APIView):
 
         # Actualizar el estado de la reunión
         eval_instance.reunion = nuevo_estado
-
+        eval_instance.paso=6
         # Guardar los cambios en la base de datos
         eval_instance.save()
 
@@ -230,6 +244,7 @@ class Evaluar(APIView):
                 if evaluacion == 'Evaluación 1':
                     eval_instance.nota1=nota
                     eval_instance.evaluacion1=comentario
+                    eval_instance.paso=7
                     uploaded_file = request.data.get('file')
                     if uploaded_file:
                         # Define el directorio de uploads (asegúrate de que exista)
@@ -251,6 +266,7 @@ class Evaluar(APIView):
                 elif evaluacion == 'Evaluación 2':
                     eval_instance.nota2=nota
                     eval_instance.evaluacion2=comentario
+                    eval_instance.paso=8
                     uploaded_file = request.data.get('file')
                     if uploaded_file:
                         # Define el directorio de uploads (asegúrate de que exista)
@@ -273,6 +289,7 @@ class Evaluar(APIView):
                 elif evaluacion == 'Evaluación 3':
                     eval_instance.nota3=nota
                     eval_instance.evaluacion3=comentario
+                    eval_instance.paso=9
                     uploaded_file = request.data.get('file')
                     if uploaded_file:
                         # Define el directorio de uploads (asegúrate de que exista)
@@ -431,6 +448,7 @@ class FileUploadView(APIView):
             
             # Actualizar el campo 'resumen' en el objeto Eval
             eval_instance.resumen = file_path
+            eval_instance.paso=5
             eval_instance.save()
             
             # Crear un serializer específico para Eval
@@ -630,17 +648,23 @@ class Notas3(APIView):
 class GetUserEmailsByTeacher(APIView):
     def post(self, request):
         # Obtener el 'user' enviado en la solicitud POST
-        user = request.data.get('user_teacher')
+        user = request.data.get('user_email')
 
         if not user:
             return Response({"error": "Se requiere proporcionar un 'user' en la solicitud POST."}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             # Filtrar las instancias de Eval donde 'profesor' coincide con el 'user' proporcionado
-            evals = Eval.objects.filter(profesor=user).values_list('user_email', flat=True)
+            evals = Eval.objects.filter(profesor=user)
 
-            # Convertir los resultados en una lista plana de user_email
-            user_emails = list(evals)
+            # Filtrar las instancias donde 'pasos' es mayor o igual a 6 y menor que 10
+            evals_filtrados = evals.filter(paso__gte=6, paso__lt=10)
+
+            if not evals_filtrados.exists():
+                return Response({"error": f"No se encontraron instancias de Eval para '{user}' con pasos entre 6 y 9."}, status=status.HTTP_404_NOT_FOUND)
+
+            # Obtener los correos electrónicos de los usuarios filtrados
+            user_emails = list(evals_filtrados.values_list('user_email', flat=True))
 
             # Devolver los user_emails como respuesta JSON
             return Response({"user_emails": user_emails}, status=status.HTTP_200_OK)
@@ -746,9 +770,70 @@ class UpdateReq(APIView):
 
         # Actualizar el estado de la reunión
         eval_instance.requisitos = nuevo_estado
-
+        eval_instance.paso=1
         # Guardar los cambios en la base de datos
         eval_instance.save()
+
+        # Serializar la instancia modificada y devolverla como respuesta
+        serializer = OtherModelSerializer(eval_instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class Cerrar(APIView):
+    def post(self, request):
+        # Obtener el campo 'user_email' enviado en la solicitud POST
+        user_email = request.data.get('user_email')
+
+        # Verificar si se proporcionó el campo 'user_email'
+        if not user_email:
+            return Response({"error": "Se requiere proporcionar un 'user_email' en la solicitud POST."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            # Filtrar las instancias de Eval donde 'reunion' coincide con 'Pendiente',
+            # 'profesor' coincide con 'user_email' y 'pasos' es igual a 0
+            teachers = Eval.objects.filter(paso=9, profesor=user_email)
+
+            if not teachers.exists():
+                raise NotFound('No hay pendientes para el usuario con el correo electrónico proporcionado.')
+
+            # Serializa solo los correos electrónicos de los usuarios
+            reunion_emails = [teacher.user_email for teacher in teachers]
+
+            # Devuelve los correos electrónicos como JSON
+            response_data = {'Pendientes': reunion_emails}
+
+            # Imprime los correos electrónicos en la consola del servidor
+            print("Mail_de_pendientes", json.dumps(response_data))
+
+            return Response(response_data)
+
+        except Eval.DoesNotExist:
+            return Response({"error": f"No se encontraron pendientes para el usuario con 'user_email' '{user_email}'."}, status=status.HTTP_404_NOT_FOUND)
+
+        except Exception as e:
+            return Response({"error": f"Error al procesar la solicitud: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class UpdateCerr(APIView):
+    def post(self, request):
+        # Obtener los datos de la solicitud
+        user_email = request.data.get('user_email')
+        nuevo_estado = request.data.get('estado')
+
+        # Validar que se proporciona un email y un nuevo estado de la reunión
+        if not user_email or not nuevo_estado:
+            return Response({"error": "Se requieren un email y un nuevo estado de reunión válidos."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            # Obtener la instancia de evaluación asociada al correo electrónico proporcionado
+            eval_instance = Eval.objects.get(user_email=user_email)
+        except Eval.DoesNotExist:
+            return Response({"error": "No se encontró ninguna evaluación asociada al correo electrónico proporcionado."}, status=status.HTTP_404_NOT_FOUND)
+
+        # Actualizar el estado de la reunión
+        eval_instance.estado = nuevo_estado
+        eval_instance.paso=10
+        # Guardar los cambios en la base de datos
+        eval_instance.save()
+        send_email(user_email,'Su curso ha sido cerrado','Su curso a sido cerrado exitosamente')
 
         # Serializar la instancia modificada y devolverla como respuesta
         serializer = OtherModelSerializer(eval_instance)

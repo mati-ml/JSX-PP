@@ -25,5 +25,7 @@ urlpatterns = [
     path('testyou/',EvaluarEmp.as_view()),
     path('obevalpas/',ObtenerEvaluacionPas.as_view()),
     path('requisitos/',PendientesListViewRequ.as_view()),
-    path('editreq/',UpdateReq.as_view())
+    path('editreq/',UpdateReq.as_view()),
+    path('alcerrar/',Cerrar.as_view()),
+    path('cerrar/',UpdateCerr.as_view())
 ]

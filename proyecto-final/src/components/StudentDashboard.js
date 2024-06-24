@@ -46,7 +46,7 @@ function StudentDashboard() {
                 Reglamento de Pasantía versión 2023
               </Dropdown.Item>
               <Dropdown.Item>Estado de pasantía</Dropdown.Item>
-              <Dropdown.Item>Notas pasantía y feedbacks</Dropdown.Item>
+              <Dropdown.Item as={Link} to="/proyecto">Incripcion de Proyecto</Dropdown.Item>
               <Dropdown.Item>Profesores</Dropdown.Item>
               <Dropdown.Item>Subir archivos</Dropdown.Item>
               <Dropdown.Item as={Link} to="/rubrica">Rubrica</Dropdown.Item>

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-function Reunion() {
+function Cerrar() {
   const { t } = useTranslation();
   const [user_email, setUser_email] = useState('');
-  const [reunion, setReunion] = useState('');
   const [profesores, setProfesores] = useState([]);
 
   useEffect(() => {
@@ -21,7 +20,7 @@ function Reunion() {
         });
 
         // Configurar la solicitud con la cookie 'user_email'
-        const response = await fetch('http://127.0.0.1:8000/api2/reunion/', {
+        const response = await fetch('http://127.0.0.1:8000/api2/alcerrar/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -53,14 +52,14 @@ function Reunion() {
     event.preventDefault();
     try {
       // Realizar la solicitud POST a la API
-      const response = await fetch('http://127.0.0.1:8000/api2/estado-reunion/', {
+      const response = await fetch('http://127.0.0.1:8000/api2/cerrar/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           user_email,
-          reunion
+          estado: 'Cerrado'
         }),
       });
       if (response.ok) {
@@ -83,7 +82,7 @@ function Reunion() {
           onChange={(e) => setUser_email(e.target.value)}
           required
         >
-          <option value="">Selecciona un profesor</option>
+          <option value="">Selecciona un Alumno</option>
           {profesores.map((prof, index) => (
             <option key={index} value={prof}>
               {prof}
@@ -91,22 +90,9 @@ function Reunion() {
           ))}
         </select>
       </label>
-      <label>
-        Estado de la Reunión:
-        <select
-          value={reunion}
-          onChange={(e) => setReunion(e.target.value)}
-          required
-        >
-          <option value="">Selecciona el estado</option>
-          <option value="Pendiente">Pendiente</option>
-          <option value="Aprobado">Aprobado</option>
-        </select>
-      </label>
-      <button type="submit">Modificar Evaluación</button>
+      <button type="submit">Cerrar Curso</button>
     </form>
   );
 }
 
-export default Reunion;
-
+export default Cerrar;
