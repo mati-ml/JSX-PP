@@ -16,134 +16,140 @@ import Sylabus from "./components/Sylabus";
 import Evaluacionesempresa from "./components/Evaluación-empresea";
 import Proyecto from "./components/Proyecto";
 import FileDownloadComponent from "./components/NotasAl";
-import LanguageSwitcher from "./components/LanguageSwitcher"; // Import the LanguageSwitcher component
-
 function App() {
-  const [userRole, setUserRole] = useState(null);
-  const navigate = useNavigate();
+  const [userRole, setUserRole] = useState(null);
+  const navigate = useNavigate();
 
-  const handleLoginSuccess = (userData) => {
-    setUserRole(userData.user_role);
-    redirectToPage(userData.user_role);
-  };
+  const handleLoginSuccess = (userData) => {
+    setUserRole(userData.user_role);
+    redirectToPage(userData.user_role);
+  };
 
-  const redirectToPage = (role) => {
-    switch (role) {
-      case "admin":
-        navigate("/admin");
-        break;
-      case "student":
-        navigate("/student");
-        break;
-      case "teacher":
-        navigate("/teacher");
-        break;
-      default:
-        navigate("/login");
-        break;
-    }
-  };
+  const redirectToPage = (role) => {
+    switch (role) {
+      case "admin":
+        navigate("/admin");
+        break;
+      case "student":
+        navigate("/student");
+        break;
+      case "teacher":
+        navigate("/teacher");
+        break;
+      default:
+        navigate("/login");
+        break;
+    }
+  };
 
-  const ProtectedRoute = ({ role, children }) => {
-    return userRole === role ? children : <Navigate to="/login" />;
-  };
+  const ProtectedRoute = ({ role, children }) => {
+    return userRole === role ? children : <Navigate to="/login" />;
+  };
 
-  return (
-    <Routes>
-      <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/loginadmin" element={<LoginAdmin onLoginSuccess={handleLoginSuccess} />} />
-      <Route
-        path="/admin"
-        element={
-          <ProtectedRoute role="admin">
-            <AdminDashboard />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/student"
-        element={
-          <ProtectedRoute role="student">
-            <StudentDashboard />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/teacher"
-        element={
-          <ProtectedRoute role="teacher">
-            <TeacherDashboard />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/inscripcion"
-        element={
-          <ProtectedRoute role="student">
-            <Inscripcion />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/estado-reunion"
-        element={
-          <ProtectedRoute role="teacher">
-            <Reunion />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/estado-pasantia"
-        element={
-          <ProtectedRoute role="admin">
-            <Estado />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/rubrica"
-        element={
-          <ProtectedRoute role="student">
-            <Rubrica />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/evaluaciones"
-        element={
-          <ProtectedRoute role="student">
-            <FileDownloadComponent />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/proyecto"
-        element={
-          <ProtectedRoute role="student">
-            <Proyecto />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/syllabus"
-        element={
-          <ProtectedRoute role="student">
-            <Sylabus />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/evaluar"
-        element={
-          <ProtectedRoute role="teacher">
-            <Evaluaciones />
-          </ProtectedRoute>
-        }
-      />
-      <Route path="*" element={<Navigate to="/login" />} />
-    </Routes>
-  );
+  return (
+    <Routes>
+      <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/loginadmin" element={<LoginAdmin onLoginSuccess={handleLoginSuccess} />} />
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute role="admin">
+            <AdminDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/student"
+        element={
+          <ProtectedRoute role="student">
+            <StudentDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/teacher"
+        element={
+          <ProtectedRoute role="teacher">
+            <TeacherDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route 
+        path="/inscripcion" 
+        element={
+          <ProtectedRoute role="student">
+            <Inscripcion />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/estado-reunion" 
+        element={
+          <ProtectedRoute role="teacher">
+            <Reunion />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/estado-pasantia" 
+        element={
+          <ProtectedRoute role="admin">
+            <Estado />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/rubrica" 
+        element={
+          <ProtectedRoute role="student">
+            <Rubrica />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/evaluaciones" 
+        element={
+          <ProtectedRoute role="student">
+            <FileDownloadComponent />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/proyecto" 
+        element={
+          <ProtectedRoute role="student">
+            <Proyecto />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/syllabus" 
+        element={
+          <ProtectedRoute role="student">
+            <Sylabus />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/evaluar" 
+        element={
+          <ProtectedRoute role="teacher">
+            <Evaluaciones/>
+          </ProtectedRoute>
+        } 
+      />
+      <Route path="*" element={<Navigate to="/login" />} />
+    </Routes>
+  );
 }
 
-export default App;
+function AppWrapper() {
+  return (
+    <Router>
+      <App />
+    </Router>
+  );
+}
+
+export default AppWrapper;
