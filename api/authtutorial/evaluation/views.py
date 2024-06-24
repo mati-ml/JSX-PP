@@ -18,7 +18,6 @@ from datetime import datetime
 from pandas.tseries.offsets import CustomBusinessMonthEnd
 from rest_framework.parsers import MultiPartParser, FormParser
 import os
-from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Count
 from rest_framework.decorators import api_view
 # from.utils import ciclo_envio
@@ -79,15 +78,16 @@ class ModifyEvaluation(APIView):
 def delete_teachers_evaluations(request):
     # Obtener los usuarios con el rol de 'teacher'
     teachers = User.objects.filter(role='teacher')
-
+    admins=User.objects.filter(role='admin')
     # Obtener los correos electrónicos de estos usuarios
     teacher_emails = teachers.values_list('email', flat=True)
-
+    admin_mails=admins.values_list('email', flat=True)
     # Obtener los registros de Eval asociados con los usuarios 'teacher'
     evals_to_delete = Eval.objects.filter(user_email__in=teacher_emails)
-
+    evals_to_delete2 = Eval.objects.filter(user_email__in=admin_mails)
     # Eliminar los registros de Eval asociados con los usuarios 'teacher'
     evals_to_delete.delete()
+    evals_to_delete2.delete()
 
     return HttpResponse("Registros de usuarios con el rol 'teacher' eliminados de Eval.")
 

@@ -18,6 +18,7 @@ import FileDownloadComponent from "./components/NotasAl";
 import Dashboard from "./components/Estadistica";
 import EvaluarEmpForm from "./components/Evati";
 import EvaluarEmp from "./components/Evaluación-empresea";
+import RegisterAdmin from "./pages/PagRNewAdmin";
 function App() {
   const [userRole, setUserRole] = useState(null);
   const navigate = useNavigate();
@@ -146,6 +147,14 @@ function App() {
         element={
           <ProtectedRoute role="teacher">
             <Evaluaciones/>
+          </ProtectedRoute>
+        } 
+      />
+<Route 
+        path="/registrarNA" 
+        element={
+          <ProtectedRoute role="admin">
+            <RegisterAdmin/>
           </ProtectedRoute>
         } 
       />

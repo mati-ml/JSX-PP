@@ -8,6 +8,7 @@ from rest_framework.exceptions import AuthenticationFailed
 import jwt
 import datetime
 import json
+from .utils import send_email
 
 # Create your views here.
 
@@ -110,3 +111,16 @@ class TeacherListView(APIView):
         print("Nombres de profesores:", json.dumps(response_data))
 
         return Response(response_data)
+    
+class registerAPIViewAdmin(APIView):
+    def post(self, request):
+        data=request.data
+        print(data)
+        serializer = UserSerializer(data=request.data)
+        user_email=data['email']
+        user_pass=data['password']
+        mensaje= f'Su usuario es: {user_email}\n La contrasena es: {user_pass}'
+        send_email(user_email, f'Ha sido registrado como admin' , mensaje)
+        serializer.is_valid(raise_exception=True)   #if anything not valid, raise exception
+        serializer.save()
+        return Response(serializer.data)
