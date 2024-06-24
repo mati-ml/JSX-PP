@@ -12,7 +12,7 @@ function Estado() {
   useEffect(() => {
     const fetchProfesores = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api2/pendientes/');
+        const response = await fetch('http://48.216.215.72:8000/api2/pendientes/');
         
         if (response.ok) {
           const data = await response.json();
@@ -38,7 +38,7 @@ function Estado() {
     
     if (email) {
       try {
-        const response = await fetch('http://localhost:8000/api2/get-evaluation-details/', {
+        const response = await fetch('http://48.216.215.72:8000/api2/get-evaluation-details/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -10,7 +10,7 @@ const Dashboard = () => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch('http://localhost:8000/api2/pasos/');
+            const response = await fetch('http://48.216.215.72:8000/api2/pasos/');
             if (!response.ok) {
                 throw new Error('Error al obtener los datos');
             }

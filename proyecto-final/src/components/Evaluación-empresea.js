@@ -8,7 +8,7 @@ const EvaluarEmp = () => {
   useEffect(() => {
     const userEmail = getCookie('user_email');
     if (userEmail) {
-      fetch('http://localhost:8000/api2/obevalpas/', {
+      fetch('http://48.216.215.72:8000/api2/obevalpas/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

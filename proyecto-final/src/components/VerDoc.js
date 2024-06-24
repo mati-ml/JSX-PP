@@ -5,7 +5,7 @@ const FileDownloadComponent1 = () => {
 
   const handleDownload = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api2/document/', {
+      const response = await fetch('http://48.216.215.72:8000/api2/document/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

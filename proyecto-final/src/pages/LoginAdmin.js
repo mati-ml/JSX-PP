@@ -21,7 +21,7 @@ function LoginAdmin({ onLoginSuccess }) {
       };
 
       console.info('Enviando solicitud de inicio de sesión...');
-      const response = await fetch("http://localhost:8000/api/login/", {
+      const response = await fetch("http://48.216.215.72:8000/api/login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

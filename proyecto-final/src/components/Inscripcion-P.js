@@ -19,7 +19,7 @@ function Inscripcion() {
   useEffect(() => {
     const fetchProfesores = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/teachers/');
+        const response = await fetch('http://48.216.215.72:8000/api/teachers/');
         
         if (response.ok) {
           const data = await response.json();
@@ -49,7 +49,7 @@ function Inscripcion() {
       const user_id = parseInt(document.cookie.replace(/(?:(?:^|.*;\s*)user_id\s*=\s*([^;]*).*$)|^.*$/, "$1"), 10);
 
       // Realizar la solicitud POST a la API
-      const response = await fetch('http://localhost:8000/api2/inscripcion-pasantias/', {
+      const response = await fetch('http://48.216.215.72:8000/api2/inscripcion-pasantias/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

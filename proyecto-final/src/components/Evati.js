@@ -10,7 +10,7 @@ const EvaluarEmpForm = () => {
     setMessage('');
 
     try {
-      const response = await fetch('http://localhost:8000/api2/testyou/', {
+      const response = await fetch('http://48.216.215.72:8000/api2/testyou/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

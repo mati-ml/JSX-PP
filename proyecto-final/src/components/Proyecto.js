@@ -85,7 +85,7 @@ const Proyecto = () => {
     formData.append('user_id', userId); // Añade user_id al FormData
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api2/upload/', {
+      const response = await fetch('http://48.216.215.72:8000/api2/upload/', {
         method: 'POST',
         body: formData,
       });

@@ -31,9 +31,9 @@ const FileDownloadComponent = () => {
         };
 
         const [response1, response2, response3] = await Promise.all([
-          fetch(`http://localhost:8000/api2/eval1/`, fetchOptions),
-          fetch(`http://localhost:8000/api2/eval2/`, fetchOptions),
-          fetch(`http://localhost:8000/api2/eval3/`, fetchOptions),
+          fetch(`http://48.216.215.72:8000/api2/eval1/`, fetchOptions),
+          fetch(`http://48.216.215.72:8000/api2/eval2/`, fetchOptions),
+          fetch(`http://48.216.215.72:8000/api2/eval3/`, fetchOptions),
         ]);
 
         if (!response1.ok) {
@@ -77,7 +77,7 @@ const FileDownloadComponent = () => {
 
   const downloadFile = async (endpoint, fileName) => {
     try {
-      const response = await fetch(`http://localhost:8000/api2/${endpoint}/`, {
+      const response = await fetch(`http://48.216.215.72:8000/api2/${endpoint}/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

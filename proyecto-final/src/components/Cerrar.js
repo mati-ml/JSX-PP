@@ -20,7 +20,7 @@ function Cerrar() {
         });
 
         // Configurar la solicitud con la cookie 'user_email'
-        const response = await fetch('http://localhost:8000/api2/alcerrar/', {
+        const response = await fetch('http://48.216.215.72:8000/api2/alcerrar/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ function Cerrar() {
     event.preventDefault();
     try {
       // Realizar la solicitud POST a la API
-      const response = await fetch('http://localhost:8000/api2/cerrar/', {
+      const response = await fetch('http://48.216.215.72:8000/api2/cerrar/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
