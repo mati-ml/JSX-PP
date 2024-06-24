@@ -1,13 +1,8 @@
 import React, { useState } from "react";
-<<<<<<< HEAD
-import "./Login.css"; // Asegúrate de crear este archivo CSS y enlazarlo
-
-=======
 import { Link } from "react-router-dom";
 import "./Login.css"; // Asegúrate de crear este archivo CSS y enlazarlo
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from "./LanguageSwitcher";
->>>>>>> Login
 function Login({ onLoginSuccess }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -65,31 +60,6 @@ function Login({ onLoginSuccess }) {
   return (
     <div className="login-container">
       <div className="login-box">
-<<<<<<< HEAD
-        <h2>Iniciar sesión</h2>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleLogin();
-          }}
-        >
-          <input
-            type="text"
-            placeholder="Nombre de usuario"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {error && <p>{error}</p>}
-          <button type="submit" onClick={handleLogin}>Iniciar sesión</button>
-        </form>
-      </div>
-=======
         <h2>{t('login.title')}</h2>
         <form onSubmit={handleSubmit}>
           <input
@@ -128,7 +98,6 @@ function Login({ onLoginSuccess }) {
         
       </div>
       <div><LanguageSwitcher></LanguageSwitcher></div>
->>>>>>> Login
     </div>
   );
 }

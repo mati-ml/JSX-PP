@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-
-/* Login.css */
-.login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-=======
 /* Login.css */
 body {
   margin: 0;
@@ -30,7 +21,6 @@ body {
   text-align: center;
   font-size: 24px;
   font-weight: bold;
->>>>>>> Login
 }
 
 .login-box {
@@ -38,10 +28,6 @@ body {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-<<<<<<< HEAD
-  background-color: #fff;
-}
-=======
   background-color: rgba(255, 255, 255, 0.9); 
 }
 
@@ -52,4 +38,3 @@ body {
 #register {
   margin-left: 0.8rem; /* Ajusta el valor según necesites */
 }
->>>>>>> Login
