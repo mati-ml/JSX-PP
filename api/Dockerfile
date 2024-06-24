@@ -8,5 +8,5 @@ RUN pip install -r requirements.txt
 COPY . .
 
 EXPOSE 8000
-
+RUN ["python"."authtutorial/manage.py","migrate"]
 CMD ["python", "authtutorial/manage.py", "runserver"]
