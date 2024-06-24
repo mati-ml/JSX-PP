@@ -16,6 +16,7 @@ import Sylabus from "./components/Sylabus";
 import Evaluacionesempresa from "./components/Evaluación-empresea";
 import Proyecto from "./components/Proyecto";
 import FileDownloadComponent from "./components/NotasAl";
+import Dashboard from "./components/Estadistica";
 function App() {
   const [userRole, setUserRole] = useState(null);
   const navigate = useNavigate();
@@ -136,6 +137,14 @@ function App() {
         element={
           <ProtectedRoute role="teacher">
             <Evaluaciones/>
+          </ProtectedRoute>
+        } 
+      />
+<Route 
+        path="/estadisticas" 
+        element={
+          <ProtectedRoute role="admin">
+            <Dashboard/>
           </ProtectedRoute>
         } 
       />

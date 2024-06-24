@@ -40,6 +40,7 @@ function AdminDashboard() {
               <Dropdown.Item as={Link} to="/estado-pasantia">{t('internshipStatus')}</Dropdown.Item>
               <Dropdown.Item as={Link} to="/gestion-usuarios">{t('userManagement')}</Dropdown.Item>
               <Dropdown.Item as={Link} to="/reportes">{t('reports')}</Dropdown.Item>
+              <Dropdown.Item as={Link} to="/estadisticas">{t('stats')}</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </Col>

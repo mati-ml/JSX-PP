@@ -7,4 +7,5 @@ urlpatterns = [
     path('user/', UserView.as_view()),
     path('logout/', LogoutView.as_view()),
     path('teachers/', TeacherListView.as_view(), name='teacher-list')
+    
 ]

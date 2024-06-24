@@ -19,6 +19,8 @@ from pandas.tseries.offsets import CustomBusinessMonthEnd
 from rest_framework.parsers import MultiPartParser, FormParser
 import os
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Count
+from rest_framework.decorators import api_view
 # from.utils import ciclo_envio
 class ModifyEvaluation(APIView):
     def post(self, request):
@@ -641,3 +643,20 @@ class GetUserEmailsByTeacher(APIView):
 
         except Exception as e:
             return Response({"error": f"Error al procesar la solicitud: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(['GET'])
+def count_users_by_step(request):
+    try:
+        # Query to count users per step using Django ORM
+        steps_count = Eval.objects.values('paso').annotate(total_users=Count('id')).order_by('paso')
+        
+        # 'paso' should be the field where you store the step for each user
+        # Creating a list of dictionaries with 'step' and 'total_users' keys
+        data = [{'step': step['paso'], 'total_users': step['total_users']} for step in steps_count]
+        
+        # Returning the data as a JSON response with HTTP status 200 OK
+        return Response(data, status=status.HTTP_200_OK)
+    
+    except Exception as e:
+        # Handling exceptions and returning a JSON response with HTTP status 500 Internal Server Error
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
