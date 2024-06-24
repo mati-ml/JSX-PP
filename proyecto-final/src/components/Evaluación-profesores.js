@@ -7,6 +7,8 @@ function Evaluaciones() {
   const [selectedAlumno, setSelectedAlumno] = useState('');
   const [evaluacion, setEvaluacion] = useState('Evaluación 1');
   const [file, setFile] = useState(null);
+  const [nota, setNota] = useState(''); // Nuevo estado para "nota"
+  const [comentario, setComentario] = useState(''); // Nuevo estado para "comentario"
 
   const getUserEmailCookie = () => {
     const name = 'user_email=';
@@ -58,6 +60,8 @@ function Evaluaciones() {
     if (file) {
       formData.append('file', file);
     }
+    formData.append('nota', nota); // Añadir "nota" al FormData
+    formData.append('comentario', comentario); // Añadir "comentario" al FormData
 
     try {
       const response = await fetch('http://127.0.0.1:8000/api2/evaluacion/', {
@@ -70,6 +74,8 @@ function Evaluaciones() {
         setSelectedAlumno('');
         setEvaluacion('Evaluación 1');
         setFile(null);
+        setNota(''); // Resetear el campo "nota"
+        setComentario(''); // Resetear el campo "comentario"
       } else {
         alert(t('errorModifyingEvaluation')); // Traduce el mensaje de error
       }
@@ -115,9 +121,27 @@ function Evaluaciones() {
           onChange={(e) => setFile(e.target.files[0])}
         />
       </label>
+      <label>
+        {t('grade')} {/* Traduce el texto de "nota" */}
+        <input
+          type="number"
+          value={nota}
+          onChange={(e) => setNota(e.target.value)}
+          required
+        />
+      </label>
+      <label>
+        {t('comment')} {/* Traduce el texto de "comentario" */}
+        <textarea
+          value={comentario}
+          onChange={(e) => setComentario(e.target.value)}
+          required
+        />
+      </label>
       <button type="submit">{t('modifyEvaluation')}</button> {/* Traduce el texto de modificar evaluación */}
     </form>
   );
 }
 
 export default Evaluaciones;
+
