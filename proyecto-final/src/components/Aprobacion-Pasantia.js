@@ -89,7 +89,7 @@ function Estado() {
 
   return (
     <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px' }}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px' }}>
         <label>
           {t('selectStudentMail')}: {/* Traduce el texto de selección de email del alumno */}
           <select
@@ -123,8 +123,8 @@ function Estado() {
 
       {datosAlumno && (
         <div>
-          <h3>{t('studentData')}</h3> {/* Traduce el título de datos del alumno */}
-          <table>
+          <h3 style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px' }}>{t('studentData')}</h3> {/* Traduce el título de datos del alumno */}
+          <table style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px' }}>
             <thead>
               <tr>
                 {Object.keys(datosAlumno).map((key) => (
