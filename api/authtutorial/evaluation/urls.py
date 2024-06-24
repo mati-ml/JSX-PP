@@ -17,5 +17,8 @@ urlpatterns = [
     path('rubrica1/',DocumentDownloadView1.as_view()),
     path('rubrica2/',DocumentDownloadView2.as_view()),
     path('rubrica3/',DocumentDownloadView3.as_view()),
-    path('alumnos/',GetUserEmailsByTeacher.as_view())
+    path('alumnos/',GetUserEmailsByTeacher.as_view()),
+    path('eval1/',Notas1.as_view()),
+    path('eval2/',Notas2.as_view()),
+    path('eval3/',Notas3.as_view()),
 ]

@@ -539,6 +539,85 @@ class DocumentDownloadView3(APIView):
         except Exception as e:
             return HttpResponse(f"Error inesperado al procesar la solicitud: {str(e)}", status=500)
 
+class Notas1(APIView):
+    def post(self, request, *args, **kwargs):
+        try:
+            data = json.loads(request.body)
+            user_id = data.get('user_id')
+            
+            if not user_id:
+                return JsonResponse({'error': 'No se proporcionó user_id en la solicitud'}, status=400)
+            
+            eval_instance = get_object_or_404(Eval, user_id=user_id)
+
+            data = {
+                'evaluacion1': eval_instance.evaluacion1,
+                'nota1': eval_instance.nota1,
+            }
+            print(data)
+            return Response(data)
+        
+        except Eval.DoesNotExist:
+            return JsonResponse({'error': 'No se encontró la instancia de Eval para este user_id'}, status=404)
+        
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Datos no válidos en la solicitud JSON'}, status=400)
+        
+        except Exception as e:
+            return JsonResponse({'error': f'Error al procesar la solicitud: {str(e)}'}, status=500)
+
+class Notas2(APIView):
+    def post(self, request, *args, **kwargs):
+        try:
+            data = json.loads(request.body)
+            user_id = data.get('user_id')
+            
+            if not user_id:
+                return JsonResponse({'error': 'No se proporcionó user_id en la solicitud'}, status=400)
+            
+            eval_instance = get_object_or_404(Eval, user_id=user_id)
+
+            data = {
+                'evaluacion2': eval_instance.evaluacion2,
+                'nota2': eval_instance.nota2,
+            }
+            print(data)
+            return Response(data)
+        
+        except Eval.DoesNotExist:
+            return JsonResponse({'error': 'No se encontró la instancia de Eval para este user_id'}, status=404)
+        
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Datos no válidos en la solicitud JSON'}, status=400)
+        
+        except Exception as e:
+            return JsonResponse({'error': f'Error al procesar la solicitud: {str(e)}'}, status=500)
+class Notas3(APIView):
+    def post(self, request, *args, **kwargs):
+        try:
+            data = json.loads(request.body)
+            user_id = data.get('user_id')
+            
+            if not user_id:
+                return JsonResponse({'error': 'No se proporcionó user_id en la solicitud'}, status=400)
+            
+            eval_instance = get_object_or_404(Eval, user_id=user_id)
+
+            data = {
+                'evaluacion3': eval_instance.evaluacion3,
+                'nota3': eval_instance.nota3,
+            }
+            print(data)
+            return Response(data)
+        
+        except Eval.DoesNotExist:
+            return JsonResponse({'error': 'No se encontró la instancia de Eval para este user_id'}, status=404)
+        
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Datos no válidos en la solicitud JSON'}, status=400)
+        
+        except Exception as e:
+            return JsonResponse({'error': f'Error al procesar la solicitud: {str(e)}'}, status=500)
 class GetUserEmailsByTeacher(APIView):
     def post(self, request):
         # Obtener el 'user' enviado en la solicitud POST
