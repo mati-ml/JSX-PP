@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const FileDownloadComponent = () => {
+const FileDownloadComponent1 = () => {
   const [user_id, setUserId] = useState('');
 
   const handleDownload = async () => {
@@ -54,7 +54,7 @@ const FileDownloadComponent = () => {
   );
 };
 
-export default FileDownloadComponent;
+export default FileDownloadComponent1;
 
 
 

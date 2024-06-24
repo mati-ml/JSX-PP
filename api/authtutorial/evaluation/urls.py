@@ -14,6 +14,8 @@ urlpatterns = [
     path('formulario/<str:email>/',ciclo),
     path('proyecto/',ModifyResumen.as_view()),
     path('upload/',FileUploadView.as_view()),
-    path('document/',DocumentDownloadView.as_view()),
+    path('rubrica1/',DocumentDownloadView1.as_view()),
+    path('rubrica2/',DocumentDownloadView2.as_view()),
+    path('rubrica3/',DocumentDownloadView3.as_view()),
     path('alumnos/',GetUserEmailsByTeacher.as_view())
 ]

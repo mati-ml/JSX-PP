@@ -15,9 +15,7 @@ import Rubrica from "./components/vistaRubrica";
 import Sylabus from "./components/Sylabus";
 import Evaluacionesempresa from "./components/Evaluación-empresea";
 import Proyecto from "./components/Proyecto";
-import DocumentView from "./components/VerDoc";
-import DocumentDownloader from "./components/VerDoc";
-import FileDownloadComponent from "./components/VerDoc";
+import FileDownloadComponent from "./components/NotasAl";
 function App() {
   const [userRole, setUserRole] = useState(null);
   const navigate = useNavigate();
@@ -110,7 +108,7 @@ function App() {
         } 
       />
       <Route 
-        path="/verdoc" 
+        path="/evaluaciones" 
         element={
           <ProtectedRoute role="student">
             <FileDownloadComponent />

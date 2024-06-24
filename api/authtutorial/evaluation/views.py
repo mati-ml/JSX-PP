@@ -246,6 +246,7 @@ class Evaluar(APIView):
                 elif evaluacion == 'Evaluación 2':
                     eval_instance.nota2 = nota
                     eval_instance.evaluacion2 = comentario
+                    uploaded_file = request.data.get('file')
                     if uploaded_file:
                         # Define el directorio de uploads (asegúrate de que exista)
                         upload_dir = 'upload/'
@@ -267,6 +268,7 @@ class Evaluar(APIView):
                 elif evaluacion == 'Evaluación 3':
                     eval_instance.nota3 = nota
                     eval_instance.evaluacion3 = comentario
+                    uploaded_file = request.data.get('file')
                     if uploaded_file:
                         # Define el directorio de uploads (asegúrate de que exista)
                         upload_dir = 'upload/'
@@ -434,14 +436,85 @@ class FileUploadView(APIView):
         return Response({"error": "No file uploaded"}, status=400)
 
 
-class DocumentDownloadView(APIView):
+class DocumentDownloadView1(APIView):
     
     def post(self, request, *args, **kwargs):
         try:
             data = json.loads(request.body)
             user_id = data.get('user_id')
             eval_instance = get_object_or_404(Eval, user_id=user_id)
-            document_filename = eval_instance.resumen  # Obtén el nombre del archivo desde el modelo
+            document_filename = eval_instance.rubrica1  # Obtén el nombre del archivo desde el modelo
+            
+            # Define la ruta completa al archivo basado en la ruta relativa almacenada en el modelo
+            base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+            document_path = os.path.join(base_path, document_filename)
+            
+            print(f"Ruta completa al archivo: {document_path}")  # Imprime la ruta para depurar
+            
+            if os.path.exists(document_path):
+                with open(document_path, 'rb') as document:
+                    response = HttpResponse(document.read(), content_type='application/pdf')
+                    response['Content-Disposition'] = f'attachment; filename="{os.path.basename(document_path)}"'
+                    return response
+            else:
+                return HttpResponse("Documento no encontrado en la ruta especificada", status=404)
+        
+        except Eval.DoesNotExist:
+            return HttpResponse("No se encontró la instancia de Eval para este user_id", status=404)
+        
+        except json.JSONDecodeError:
+            return HttpResponse("Datos no válidos en la solicitud JSON", status=400)
+        
+        except OSError as e:
+            print(f"Error al abrir el archivo: {str(e)}")
+            return HttpResponse(f"Error al abrir el archivo: {str(e)}", status=500)
+        
+        except Exception as e:
+            return HttpResponse(f"Error inesperado al procesar la solicitud: {str(e)}", status=500)
+
+class DocumentDownloadView2(APIView):
+    
+    def post(self, request, *args, **kwargs):
+        try:
+            data = json.loads(request.body)
+            user_id = data.get('user_id')
+            eval_instance = get_object_or_404(Eval, user_id=user_id)
+            document_filename = eval_instance.rubrica2  # Obtén el nombre del archivo desde el modelo
+            
+            # Define la ruta completa al archivo basado en la ruta relativa almacenada en el modelo
+            base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+            document_path = os.path.join(base_path, document_filename)
+            
+            print(f"Ruta completa al archivo: {document_path}")  # Imprime la ruta para depurar
+            
+            if os.path.exists(document_path):
+                with open(document_path, 'rb') as document:
+                    response = HttpResponse(document.read(), content_type='application/pdf')
+                    response['Content-Disposition'] = f'attachment; filename="{os.path.basename(document_path)}"'
+                    return response
+            else:
+                return HttpResponse("Documento no encontrado en la ruta especificada", status=404)
+        
+        except Eval.DoesNotExist:
+            return HttpResponse("No se encontró la instancia de Eval para este user_id", status=404)
+        
+        except json.JSONDecodeError:
+            return HttpResponse("Datos no válidos en la solicitud JSON", status=400)
+        
+        except OSError as e:
+            print(f"Error al abrir el archivo: {str(e)}")
+            return HttpResponse(f"Error al abrir el archivo: {str(e)}", status=500)
+        
+        except Exception as e:
+            return HttpResponse(f"Error inesperado al procesar la solicitud: {str(e)}", status=500)
+class DocumentDownloadView3(APIView):
+    
+    def post(self, request, *args, **kwargs):
+        try:
+            data = json.loads(request.body)
+            user_id = data.get('user_id')
+            eval_instance = get_object_or_404(Eval, user_id=user_id)
+            document_filename = eval_instance.rubrica3  # Obtén el nombre del archivo desde el modelo
             
             # Define la ruta completa al archivo basado en la ruta relativa almacenada en el modelo
             base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
