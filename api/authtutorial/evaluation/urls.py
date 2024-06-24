@@ -23,5 +23,7 @@ urlpatterns = [
     path('eval3/',Notas3.as_view()),
     path('pasos/',count_users_by_step),
     path('testyou/',EvaluarEmp.as_view()),
-    path('obevalpas/',ObtenerEvaluacionPas.as_view())
+    path('obevalpas/',ObtenerEvaluacionPas.as_view()),
+    path('requisitos/',PendientesListViewRequ.as_view()),
+    path('editreq/',UpdateReq.as_view())
 ]

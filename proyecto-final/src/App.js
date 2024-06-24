@@ -19,6 +19,7 @@ import Dashboard from "./components/Estadistica";
 import EvaluarEmpForm from "./components/Evati";
 import EvaluarEmp from "./components/Evaluación-empresea";
 import RegisterAdmin from "./pages/PagRNewAdmin";
+import Requi from "./components/Req";
 function App() {
   const [userRole, setUserRole] = useState(null);
   const navigate = useNavigate();
@@ -155,6 +156,14 @@ function App() {
         element={
           <ProtectedRoute role="admin">
             <RegisterAdmin/>
+          </ProtectedRoute>
+        } 
+      />
+<Route 
+        path="/requisitos" 
+        element={
+          <ProtectedRoute role="admin">
+            <Requi />
           </ProtectedRoute>
         } 
       />

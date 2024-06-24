@@ -20,6 +20,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 import os
 from django.db.models import Count
 from rest_framework.decorators import api_view
+from django.db.models import Q
 # from.utils import ciclo_envio
 class ModifyEvaluation(APIView):
     def post(self, request):
@@ -93,23 +94,25 @@ def delete_teachers_evaluations(request):
 
 class PendientesListView(APIView):
     def get(self, request):
-        # Filtra los usuarios por el nombre 'teacher'
-        teachers = Eval.objects.filter(estado__iexact='Pendiente')
+        # Filtra los usuarios por el estado 'Pendiente'
+        teachers_pendientes = Eval.objects.filter(estado__iexact='Pendiente')
 
-        if not teachers.exists():
-            raise NotFound('No hay pendientes')
+        # Filtra los usuarios por requisitos 'Aprobados'
+        teachers_aprobados = teachers_pendientes.filter(requisitos__iexact='Aprobado')
 
-        # Serializa solo los nombres de los usuarios
-        Pendientes_emails = [teacher.user_email for teacher in teachers]
+        if not teachers_aprobados.exists():
+            raise NotFound('No hay pendientes con requisitos Aprobados')
 
-        # Devuelve los nombres como JSON
+        # Serializa solo los correos electrónicos de los usuarios
+        Pendientes_emails = [teacher.user_email for teacher in teachers_aprobados]
+
+        # Devuelve los correos electrónicos como JSON
         response_data = {'Pendientes': Pendientes_emails}
 
-        # Imprime los nombres en la consola del servidor
-        print("Mail de pendientes", json.dumps(response_data))
+        # Imprime los correos electrónicos en la consola del servidor
+        print("Mail de pendientes con requisitos Aprobados", json.dumps(response_data))
 
         return Response(response_data)
-    
 class ReunionListView(APIView):
     def get(self, request):
         # Filtra los usuarios por el nombre 'teacher'
@@ -203,8 +206,7 @@ class GetEvaluationDetails(APIView):
             'rut_emp': eval_instance.rut_emp,
             'sup_email': eval_instance.sup_email,
             'nombre_sup': eval_instance.nombre_sup,
-            'rut_sup': eval_instance.rut_sup,
-            'resumen': eval_instance.resumen,
+            'rut_sup': eval_instance.rut_sup
         }
 
         # Return the data as a JSON response
@@ -707,3 +709,47 @@ class ObtenerEvaluacionPas(APIView):
             return Response(data, status=status.HTTP_200_OK)
         except Eval.DoesNotExist:
             return Response({'error': 'Usuario no encontrado.'}, status=status.HTTP_404_NOT_FOUND)
+class PendientesListViewRequ(APIView):
+    def get(self, request):
+        # Filtra los usuarios por el nombre 'teacher'
+        teachers = Eval.objects.filter(requisitos__iexact='Pendiente')
+
+        if not teachers.exists():
+            raise NotFound('No hay pendientes')
+
+        # Serializa solo los nombres de los usuarios
+        Pendientes_emails = [teacher.user_email for teacher in teachers]
+
+        # Devuelve los nombres como JSON
+        response_data = {'Pendientes': Pendientes_emails}
+
+        # Imprime los nombres en la consola del servidor
+        print("Mail de pendientes", json.dumps(response_data))
+
+        return Response(response_data)
+
+class UpdateReq(APIView):
+    def post(self, request):
+        # Obtener los datos de la solicitud
+        user_email = request.data.get('user_email')
+        nuevo_estado = request.data.get('requisitos')
+
+        # Validar que se proporciona un email y un nuevo estado de la reunión
+        if not user_email or not nuevo_estado:
+            return Response({"error": "Se requieren un email y un nuevo estado de reunión válidos."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            # Obtener la instancia de evaluación asociada al correo electrónico proporcionado
+            eval_instance = Eval.objects.get(user_email=user_email)
+        except Eval.DoesNotExist:
+            return Response({"error": "No se encontró ninguna evaluación asociada al correo electrónico proporcionado."}, status=status.HTTP_404_NOT_FOUND)
+
+        # Actualizar el estado de la reunión
+        eval_instance.requisitos = nuevo_estado
+
+        # Guardar los cambios en la base de datos
+        eval_instance.save()
+
+        # Serializar la instancia modificada y devolverla como respuesta
+        serializer = OtherModelSerializer(eval_instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)

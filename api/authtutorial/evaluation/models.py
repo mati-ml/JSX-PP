@@ -32,6 +32,7 @@ class Eval(models.Model):
     rubrica3=models.CharField(max_length=100, null=True, blank=True)
     notapemp= models.DecimalField(max_digits=3, decimal_places=2,default=0)
     personas=models.IntegerField(default=0)
+    requisitos= models.CharField(max_length=10, default='Pendiente')
     def __str__(self):
         return f"{self.pasantia} - {self.user_email}"
 
