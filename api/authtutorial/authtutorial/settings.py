@@ -59,6 +59,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'authtutorial.urls'
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
+    
 ]
 
 
