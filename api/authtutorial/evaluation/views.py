@@ -70,7 +70,7 @@ class ModifyEvaluation(APIView):
             eval_instance.estado= estado
         # Guardar los cambios en la base de datos
         eval_instance.save()
-        send_email(sup_email,'Nuevo alumno', f'El alumno {nombre_alumno} solicito hacer la pasantia en su empresa \n Para aceptar al alumno haga click aqui: \n http://48.216.215.7:8000/api2/update/{email}')
+        send_email(sup_email,'Nuevo alumno', f'El alumno {nombre_alumno} solicito hacer la pasantia en su empresa \n Para aceptar al alumno haga click aqui: \n http://48.216.215.72:8000/api2/update/{email}/')
         # Serializar la instancia modificada y devolverla como respuesta
         serializer = OtherModelSerializer(eval_instance)
         return Response(serializer.data)
