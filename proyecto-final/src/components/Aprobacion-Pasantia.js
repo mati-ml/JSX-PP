@@ -65,7 +65,7 @@ function Estado() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('http://localhost:8000/api2/estado-pasantia/', {
+      const response = await fetch('http://48.216.215.72:8000/api2/estado-pasantia/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ function Estado() {
       });
       if (response.ok) {
         alert(t('evaluationModified')); // Traduce el mensaje de alerta
-        fetch('http://localhost:8000/api2/formulario/'+user_email+'/')
+        fetch('http://48.216.215.72:8000/api2/formulario/'+user_email+'/')
       } else {
         alert(t('evaluationModificationError')); // Traduce el mensaje de error
       }
