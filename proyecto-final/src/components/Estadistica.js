@@ -10,7 +10,7 @@ const Dashboard = () => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch('http://localhost:8000/api2/count_users_by_step/');
+            const response = await fetch('http://localhost:8000/api2/pasos/');
             if (!response.ok) {
                 throw new Error('Error al obtener los datos');
             }
@@ -21,10 +21,25 @@ const Dashboard = () => {
         }
     };
 
+    const containerStyle = {
+        backgroundColor: 'white',
+        padding: '20px',
+        borderRadius: '10px',
+        boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+        maxWidth: '800px',
+        margin: '20px auto',
+        textAlign: 'center',
+    };
+
+    const chartContainerStyle = {
+        width: '100%',
+        height: '400px',
+    };
+
     return (
-        <div style={{ backgroundColor: 'white', padding: '20px' }}>
+        <div style={containerStyle}>
             <h2>Gráfico de usuarios por paso</h2>
-            <div style={{ width: '100%', height: '400px' }}>
+            <div style={chartContainerStyle}>
                 <ResponsiveContainer>
                     <LineChart data={data}>
                         <CartesianGrid stroke="#009846" />
@@ -41,5 +56,6 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
 
 
