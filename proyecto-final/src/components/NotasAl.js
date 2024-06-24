@@ -112,7 +112,6 @@ const FileDownloadComponent = () => {
         <h3>Evaluación 1:</h3>
         <p>Evaluación: {notas1.evaluacion}</p>
         <p>Nota: {notas1.nota}</p>
-        {error1 && <p>{error1}</p>}
         <button onClick={() => downloadFile('rubrica1', 'Rubrica1.pdf')}>
           Descargar Rubrica 1
         </button>
@@ -121,7 +120,7 @@ const FileDownloadComponent = () => {
         <h3>Evaluación 2:</h3>
         <p>Evaluación: {notas2.evaluacion}</p>
         <p>Nota: {notas2.nota}</p>
-        {error2 && <p>{error2}</p>}
+
         <button onClick={() => downloadFile('rubrica2', 'Rubrica2.pdf')}>
           Descargar Rubrica 2
         </button>
@@ -131,7 +130,7 @@ const FileDownloadComponent = () => {
         <h3>Evaluación 3:</h3>
         <p>Evaluación: {notas3.evaluacion}</p>
         <p>Nota: {notas3.nota}</p>
-        {error3 && <p>{error3}</p>}
+
         <button onClick={() => downloadFile('rubrica3', 'Rubrica3.pdf')}>
           Descargar Rubrica 3
         </button>
