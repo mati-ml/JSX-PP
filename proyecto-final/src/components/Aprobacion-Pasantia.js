@@ -88,7 +88,7 @@ function Estado() {
   };
 
   return (
-    <div>
+    <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px' }}>
       <form onSubmit={handleSubmit}>
         <label>
           {t('selectStudentMail')}: {/* Traduce el texto de selección de email del alumno */}
