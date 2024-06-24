@@ -212,10 +212,9 @@ class Evaluar(APIView):
     def post(self, request):
         user_email = request.data.get('user_email')
         evaluacion = request.data.get('evaluacion')
-        nota = request.data.get('nota')
-        comentario = request.data.get('comentarios')  # Ajustado para coincidir con el nombre del campo
+  # Ajustado para coincidir con el nombre del campo
 
-        if not user_email or not evaluacion or not nota or not comentario:
+        if not user_email or not evaluacion :
             return Response({'error': 'Todos los campos son requeridos.'}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
@@ -223,8 +222,7 @@ class Evaluar(APIView):
             if eval_instance:
                 print('se encontro')
                 if evaluacion == 'Evaluación 1':
-                    eval_instance.nota1 = nota
-                    eval_instance.evaluacion1 = comentario
+
                     uploaded_file = request.data.get('file')
                     if uploaded_file:
                         # Define el directorio de uploads (asegúrate de que exista)
@@ -244,8 +242,7 @@ class Evaluar(APIView):
                         eval_instance.rubrica1 = file_path
                         eval_instance.save()
                 elif evaluacion == 'Evaluación 2':
-                    eval_instance.nota2 = nota
-                    eval_instance.evaluacion2 = comentario
+
                     uploaded_file = request.data.get('file')
                     if uploaded_file:
                         # Define el directorio de uploads (asegúrate de que exista)
@@ -266,8 +263,7 @@ class Evaluar(APIView):
                         eval_instance.save()
 
                 elif evaluacion == 'Evaluación 3':
-                    eval_instance.nota3 = nota
-                    eval_instance.evaluacion3 = comentario
+
                     uploaded_file = request.data.get('file')
                     if uploaded_file:
                         # Define el directorio de uploads (asegúrate de que exista)

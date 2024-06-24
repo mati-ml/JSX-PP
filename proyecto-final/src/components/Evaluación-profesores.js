@@ -4,8 +4,6 @@ function Evaluaciones() {
   const [alumnos, setAlumnos] = useState([]);
   const [selectedAlumno, setSelectedAlumno] = useState('');
   const [evaluacion, setEvaluacion] = useState('Evaluación 1');
-  const [comentarios, setComentarios] = useState('');
-  const [nota, setNota] = useState('');
   const [file, setFile] = useState(null);
 
   const getUserEmailCookie = () => {
@@ -55,8 +53,6 @@ function Evaluaciones() {
     const formData = new FormData();
     formData.append('user_email', selectedAlumno);
     formData.append('evaluacion', evaluacion);
-    formData.append('comentarios', comentarios);
-    formData.append('nota', nota);
     if (file) {
       formData.append('file', file);
     }
@@ -71,8 +67,6 @@ function Evaluaciones() {
         alert('Evaluación modificada correctamente.');
         setSelectedAlumno('');
         setEvaluacion('Evaluación 1');
-        setComentarios('');
-        setNota('');
         setFile(null);
       } else {
         alert('Error al modificar la evaluación.');
@@ -111,25 +105,6 @@ function Evaluaciones() {
           <option value="Evaluación 2">Evaluación 2</option>
           <option value="Evaluación 3">Evaluación 3</option>
         </select>
-      </label>
-      <label>
-        Comentarios:
-        <textarea
-          value={comentarios}
-          onChange={(e) => setComentarios(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Nota:
-        <input
-          type="number"
-          value={nota}
-          onChange={(e) => setNota(e.target.value)}
-          min="1"
-          max="7"
-          required
-        />
       </label>
       <label>
         Subir Archivo:
