@@ -345,8 +345,7 @@ def ciclo_envio(fechaini, fechater, emailsup):
                             'Haz la evaluación acá:\n https://forms.gle/ct9U4rNqJSzSebmL8',
                             int(ultimo_dia_habil.year), int(ultimo_dia_habil.month), int(ultimo_dia_habil.day),
                             8, 0)
-            pass
-        pass
+
     except Exception as e:
         print(f"Error en ciclo_envio: {e}")
         raise e
