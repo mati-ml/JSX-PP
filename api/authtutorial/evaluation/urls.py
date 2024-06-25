@@ -11,7 +11,7 @@ urlpatterns = [
     path('get-evaluation-details/', GetEvaluationDetails.as_view(), name='get-evaluation-details'),
     path('evaluacion/',Evaluar.as_view()),
     path('update/<str:email>/', update_data, name='update_data'),
-    path('formulario/<str:email>/',ciclo),
+    path('formulario/<str:email>/',ciclo_envio,name='envio'),
     path('proyecto/',ModifyResumen.as_view()),
     path('upload/',FileUploadView.as_view()),
     path('rubrica1/',DocumentDownloadView1.as_view()),
