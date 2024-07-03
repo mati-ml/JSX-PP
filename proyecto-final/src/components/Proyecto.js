@@ -104,7 +104,6 @@ const Proyecto = () => {
   return (
     <div>
       <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px' }}>
-        <p>{t('userIdLabel')}: {userId}</p> {/* Mostrar el user_id obtenido de la cookie */}
         <input type="file" onChange={handleFileChange} />
         <button type="submit">{t('upload')}</button> {/* Traduce el texto del botón de subir */}
       </form>
