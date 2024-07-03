@@ -46,7 +46,11 @@ function TeacherDashboard() {
           </Dropdown>
         </Col>
       </Row>
+      <div>
+      <LogOutButton />
+    </div>
     </Container>
+    
   );
 }
 

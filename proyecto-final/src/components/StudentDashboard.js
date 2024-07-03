@@ -55,6 +55,9 @@ function StudentDashboard() {
           </Dropdown>
         </Col>
       </Row>
+      <div>
+      <LogOutButton />
+    </div>
     </Container>
   );
 }
