@@ -1,5 +1,4 @@
 import React from 'react';
-import Cookies from 'js-cookie';
 import { useNavigate } from "react-router-dom"
 
 const LogOutButton = () => {
@@ -16,9 +15,10 @@ const LogOutButton = () => {
 
       if (response.ok) {
         // Eliminar las cookies
-        Cookies.remove('user_id');
-        Cookies.remove('user_email');
-        Cookies.remove('csrftoken')
+        document.cookie = 'user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        document.cookie = 'user_email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        document.cookie = 'csrftoken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
 
         // Opcionalmente, redirigir al usuario a la página de inicio de sesión
         navigate("/login");
