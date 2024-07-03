@@ -1,9 +1,10 @@
 import React from 'react';
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from 'react-router-dom';
 
 const LogOutButton = () => {
+  const navigate = useNavigate();
+
   const handleLogOut = async () => {
-    const navigate = useNavigate();
     try {
       const response = await fetch('https://48.216.215.72:8000/api/logout/', {
         method: 'POST',
@@ -19,9 +20,8 @@ const LogOutButton = () => {
         document.cookie = 'user_email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         document.cookie = 'csrftoken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 
-
-        // Opcionalmente, redirigir al usuario a la página de inicio de sesión
-        navigate("/login");
+        // Redirigir al usuario a la página de inicio de sesión
+        navigate('/login');
       } else {
         console.error('Error en el logout');
       }
@@ -34,3 +34,4 @@ const LogOutButton = () => {
 };
 
 export default LogOutButton;
+
