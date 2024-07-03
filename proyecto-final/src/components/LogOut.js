@@ -6,7 +6,7 @@ const LogOutButton = () => {
 
   const handleLogOut = async () => {
     try {
-      const response = await fetch('http://48.216.215.72:8000/api/logout/', {
+      const response = await fetch('http://48.216.215.72:8000/api/logout/' , {
         method: 'POST',
         credentials: 'include', // Incluye las cookies en la petición
         headers: {
