@@ -83,15 +83,22 @@ class UserView(APIView):
         return Response(serializer.data)
         #cookies accessed if preserved
 
+
 class LogoutView(APIView):
     def post(self, request):
         response = Response()
-        response.delete_cookie('jwt')
+        # Eliminar cookies
+        response.delete_cookie('user_id')
+        response.delete_cookie('user_email')
+        response.delete_cookie('csrftoken')
+        response.delete_cookie('user_role')
+        
         response.data = {
-            'message': 'successful'
+            'message': 'Logout successful'
         }
-
+        
         return response
+
 
 class TeacherListView(APIView):
     def get(self, request):
