@@ -3,6 +3,7 @@ import { Navigate, Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Dropdown } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import LogOutButton from "./LogOut";
 
 function StudentDashboard() {
   const { t } = useTranslation();
