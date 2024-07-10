@@ -61,13 +61,13 @@ function LoginAdmin({ onLoginSuccess }) {
     <>
       <div className="container-fluid d-flex flex-column justify-content-center align-items-center vh-100 shadow">
         <div className="card p-4" style={{ maxWidth: '400px', width: '100%' }}>
-          <h2 className="card-title text-center mb-4">{t('loginTitle')}</h2>
+          <h2 className="card-title text-center mb-4">{t('login.title2')}</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
               <input
                 type="text"
                 className="form-control"
-                placeholder={t('usernamePlaceholder')}
+                placeholder={t('login.usernamePlaceholder')}
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 disabled={isLoading}
@@ -78,7 +78,7 @@ function LoginAdmin({ onLoginSuccess }) {
               <input
                 type="password"
                 className="form-control"
-                placeholder={t('passwordPlaceholder')}
+                placeholder={t('login.passwordPlaceholder')}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={isLoading}
@@ -87,7 +87,7 @@ function LoginAdmin({ onLoginSuccess }) {
             </div>
             {error && <p className="text-danger">{error}</p>}
             <button type="submit" className="btn btn-primary w-100" disabled={isLoading}>
-              {isLoading ? t('loading') : t('login')}
+              {isLoading ? t('loading') : t('login.loginButton')}
             </button>
           </form>
           <div className="mt-3">

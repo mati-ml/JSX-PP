@@ -50,6 +50,9 @@ export default Proyecto;
 */
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import NavbarEst from './navbarest';
+import { Container, Form, Button } from 'react-bootstrap';
+import backgroundImage from '../pages/PENANOLEN_Universidad-Adolfo-Ibanez_2-1035x690-1-1035x687.jpg';
 
 const Proyecto = () => {
   const { t } = useTranslation();
@@ -101,19 +104,51 @@ const Proyecto = () => {
     }
   };
 
-  return (
-    <div>
-      <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px' }}>
-        <input type="file" onChange={handleFileChange} />
-        <button type="submit">{t('upload')}</button> {/* Traduce el texto del botón de subir */}
-      </form>
+  return(
+    <>
+  <NavbarEst />
+
+  <div className="d-flex align-items-center justify-content-center min-vh-100">
+    <Container className="p-4 shadow-lg rounded bg-white" style={{ maxWidth: '400px' }}>
+      <Form onSubmit={handleSubmit} className="text-center">
+        <Form.Group controlId="formFile" className="mb-3">
+          <Form.Label>{t('selectFile')}</Form.Label> {/* Traduce el texto de selección de archivo */}
+          <Form.Control
+            type="file"
+            onChange={handleFileChange}
+            size="m" // Tamaño pequeño
+            style={{ width: '100%' }} // Ancho al 100% dentro del formulario
+          />
+        </Form.Group>
+
+        <Button variant="primary" type="submit">
+          {t('upload')}
+        </Button> {/* Traduce el texto del botón de subir */}
+      </Form>
+
       {uploadedFile && (
-        <div>
+        <div className="mt-3">
           <p>{t('fileUploaded')}:</p> {/* Traduce el mensaje de archivo subido */}
-          <p>{uploadedFile.filename}</p>
+          <p>{uploadedFile.name}</p>
         </div>
       )}
-    </div>
+    </Container>
+  </div>
+  {/* Estilo de fondo para cubrir toda la página */}
+  <style>
+        {`
+          body {
+            background-image: url(${backgroundImage});
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+          }
+        `}
+      </style>
+</> 
   );
 };
 

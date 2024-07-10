@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next'; // Importa useTranslation desde react-i18next
-
+import backgroundImage from '../pages/PENANOLEN_Universidad-Adolfo-Ibanez_2-1035x690-1-1035x687.jpg';
+import NavbarAdmin from './navbaradmin';
 function Estado() {
   const { t } = useTranslation(); // Usar la función de traducción
 
@@ -87,63 +88,91 @@ function Estado() {
     }
   };
 
-  return (
-    <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px' }}>
-      <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px' }}>
-        <label>
-          {t('selectStudentMail')}: {/* Traduce el texto de selección de email del alumno */}
-          <select
-            value={user_email}
-            onChange={handleEmailChange}
-            required
-          >
-            <option value="">{t('selectStudent')}</option>{/* Traduce el texto de selección de estudiante */}
-            {profesores.map((prof, index) => (
-              <option key={index} value={prof}>
-                {prof}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          {t('internshipState')}: {/* Traduce el texto de estado de pasantía */}
-          <select
-            value={estado}
-            onChange={(e) => setEstado(e.target.value)}
-            required
-          >
-            <option value="">{t('selectState')}</option>{/* Traduce el texto de selección de estado */}
-            <option value="Rechazado">{t('rejected')}</option>
-            <option value="Aprobado">{t('approved')}</option>
-            <option value="Pendiente">{t('pending')}</option>
-          </select>
-        </label>
-        <button type="submit">{t('modifyEvaluation')}</button>{/* Traduce el texto de modificar evaluación */}
-      </form>
+  return (<>
+  <NavbarAdmin></NavbarAdmin>
+    <div className="container mt-4">
+      <div className="card p-4 shadow-sm">
+        <h2>Aprobacion de Pasantia</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label className="form-label">{t('selectStudentMail')}:</label>
+            <select
+              className="form-select"
+              value={user_email}
+              onChange={handleEmailChange}
+              required
+            >
+              <option value="">{t('selectStudent')}</option>
+              {profesores.map((prof, index) => (
+                <option key={index} value={prof}>
+                  {prof}
+                </option>
+              ))}
+            </select>
+          </div>
 
-      {datosAlumno && (
-        <div>
-          <h3 style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px' }}>{t('studentData')}</h3> {/* Traduce el título de datos del alumno */}
-          <table style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px' }}>
-            <thead>
-              <tr>
-                {Object.keys(datosAlumno).map((key) => (
-                  <th key={key}>{key}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                {Object.values(datosAlumno).map((value, index) => (
-                  <td key={index}>{value}</td>
-                ))}
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      )}
+          <div className="mb-3">
+            <label className="form-label">{t('internshipState')}:</label>
+            <select
+              className="form-select"
+              value={estado}
+              onChange={(e) => setEstado(e.target.value)}
+              required
+            >
+              <option value="">{t('selectState')}</option>
+              <option value="Rechazado">{t('rejected')}</option>
+              <option value="Aprobado">{t('approved')}</option>
+              <option value="Pendiente">{t('pending')}</option>
+            </select>
+          </div>
+
+          <button type="submit" className="btn btn-primary">
+            {t('modifyEvaluation')}
+          </button>
+        </form>
+
+        {datosAlumno && (
+          <div className="mt-4">
+            <h3 className="card-title">{t('studentData')}</h3>
+            <div className="card">
+              <table className="table table-bordered">
+                <thead>
+                  <tr>
+                    {Object.keys(datosAlumno).map((key) => (
+                      <th key={key}>{key}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    {Object.values(datosAlumno).map((value, index) => (
+                      <td key={index}>{value}</td>
+                    ))}
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
+    {/* Estilo de fondo para cubrir toda la página */}
+    <style>
+        {`
+          body {
+            background-image: url(${backgroundImage});
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+          }
+        `}
+      </style>
+    </>
   );
-}
+};
+
 
 export default Estado;

@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next'; // Importa useTranslation desde react-i18next
+import { useTranslation } from 'react-i18next';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Form, Button, Col } from 'react-bootstrap';
+import backgroundImage from '../pages/PENANOLEN_Universidad-Adolfo-Ibanez_2-1035x690-1-1035x687.jpg';
+import LanguageSwitcher from '../pages/LanguageSwitcher';
+import NavbarAdmin from './navbaradmin';
 
 function Requi() {
-  const { t } = useTranslation(); // Usar la función de traducción
+  const { t } = useTranslation();
 
   const [user_email, setUser_email] = useState('');
   const [requisitos, setRequisitos] = useState('');
@@ -76,50 +81,76 @@ function Requi() {
         }),
       });
       if (response.ok) {
-        alert(t('evaluationModified')); // Traduce el mensaje de alerta
+        alert(t('evaluationModified'));
       } else {
-        alert(t('evaluationModificationError')); // Traduce el mensaje de error
+        alert(t('evaluationModificationError'));
       }
     } catch (error) {
       console.error('Error al enviar la solicitud:', error);
-      alert(t('requestError')); // Traduce el mensaje de error
+      alert(t('requestError'));
     }
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px' }}>
-        <label>
-          {t('selectStudentMail')}: {/* Traduce el texto de selección de email del alumno */}
-          <select
-            value={user_email}
-            onChange={handleEmailChange}
-            required
-          >
-            <option value="">{t('selectStudent')}</option>{/* Traduce el texto de selección de estudiante */}
-            {profesores.map((prof, index) => (
-              <option key={index} value={prof}>
-                {prof}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          {t('internshipState')}: {/* Traduce el texto de estado de pasantía */}
-          <select
-            value={requisitos}
-            onChange={(e) => setRequisitos(e.target.value)}
-            required
-          >
-            <option value="">{t('selectState')}</option>{/* Traduce el texto de selección de estado */}
-            <option value="Aprobado">{t('approved')}</option>
-            <option value="Pendiente">{t('pending')}</option>
-          </select>
-        </label>
-        <button type="submit">{t('modifyEvaluation')}</button>{/* Traduce el texto de modificar evaluación */}
-      </form>
+    <>
+    <NavbarAdmin></NavbarAdmin>
+      <div className="container-fluid d-flex flex-column justify-content-center align-items-center vh-100">
+      <div className="card p-4 shadow-sm center "style={{ maxWidth: '600px', width: '100%', backgroundColor: 'white' }}>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group className="mb-3" controlId="formSelectStudent">
+            <Form.Label>{t('selectStudentMail')}:</Form.Label>
+            <Form.Control
+              as="select"
+              value={user_email}
+              onChange={handleEmailChange}
+              required
+            >
+              <option value="">{t('selectStudent')}</option>
+              {profesores.map((prof, index) => (
+                <option key={index} value={prof}>
+                  {prof}
+                </option>
+              ))}
+            </Form.Control>
+          </Form.Group>
 
-    </div>
+          <Form.Group className="mb-3" controlId="formSelectInternshipState">
+            <Form.Label>{t('internshipState')}:</Form.Label>
+            <Form.Control
+              as="select"
+              value={requisitos}
+              onChange={(e) => setRequisitos(e.target.value)}
+              required
+            >
+              <option value="">{t('selectState')}</option>
+              <option value="Aprobado">{t('approved')}</option>
+              <option value="Pendiente">{t('pending')}</option>
+            </Form.Control>
+          </Form.Group>
+
+          <Button variant="primary" type="submit">
+            {t('Subir estado')}
+          </Button>
+        </Form>
+        </div>
+        
+      </div>
+
+    {/* Estilo de fondo para cubrir toda la página */}
+    <style>
+        {`
+          body {
+            background-image: url(${backgroundImage});
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+          }
+        `}
+      </style>
+    </>
   );
 }
 

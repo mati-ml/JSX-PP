@@ -6,7 +6,8 @@
     "passwordPlaceholder": "Contraseña",
     "loginButton": "Iniciar sesión",
     "loading": "Cargando...",
-    "error": "Error al iniciar sesión. Por favor, inténtalo de nuevo."
+    "error": "Error al iniciar sesión. Por favor, inténtalo de nuevo.",
+    "title2": "Iniciar Sesion Admin"
   },
   "errorMessages": {
     "unauthorized": "Usuario no autorizado",
@@ -108,10 +109,14 @@
   "Ing. Civil en Biotecnología": "Ing Civil en Medicina",
   "Register": "Registrarse",
   "Mensaje de Éxito": "¡Registro exitoso!",
-  "loginTitle": "Iniciar sesión Admin",
-    "usernamePlaceholder": "Nombre de usuario",
-    "passwordPlaceholder": "Contraseña",
-    "loading": "Cargando...",
-    "login": "Iniciar sesión"
+  "register": {
+    "title": "Registrar Nuevo Admin",
+    "firstNameLabel": "Nombre:",
+    "lastNamePaternoLabel": "Apellido Paterno:",
+    "lastNameMaternoLabel": "Apellido Materno:",
+    "emailLabel": "Email:",
+    "passwordLabel": "Contraseña:",
+    "registerButton": "Registrar"
+  }
   
 }

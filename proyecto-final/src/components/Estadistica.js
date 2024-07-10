@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import backgroundImage from '../pages/PENANOLEN_Universidad-Adolfo-Ibanez_2-1035x690-1-1035x687.jpg';
+import NavbarAdmin from './navbaradmin';
 const Dashboard = () => {
     const [data, setData] = useState([]);
 
@@ -21,41 +23,46 @@ const Dashboard = () => {
         }
     };
 
-    const containerStyle = {
-        backgroundColor: 'white',
-        padding: '20px',
-        borderRadius: '10px',
-        boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-        maxWidth: '800px',
-        margin: '20px auto',
-        textAlign: 'center',
-    };
-
-    const chartContainerStyle = {
-        width: '100%',
-        height: '400px',
-    };
-
     return (
-        <div style={containerStyle}>
-            <h2>Gráfico de usuarios por paso</h2>
-            <div style={chartContainerStyle}>
-                <ResponsiveContainer>
-                    <LineChart data={data}>
-                        <CartesianGrid stroke="#009846" />
-                        <XAxis dataKey="step" interval={2} />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-                        <Line type="monotone" dataKey="total_users" stroke="#009846" activeDot={{ r: 1 }} />
-                    </LineChart>
-                </ResponsiveContainer>
+        <>
+       <nav> <NavbarAdmin></NavbarAdmin></nav> 
+        <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
+            <div className="card mt-4 p-4" style={{ maxWidth: '800px', width: '100%' }}>
+                <h2 className="text-center mb-4">Gráfico de usuarios por paso</h2>
+                <div className="chart-container" style={{ height: 400 }}>
+                    <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={data}>
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="step" />
+                            <YAxis />
+                            <Tooltip />
+                            <Legend />
+                            <Bar dataKey="total_users" fill="#009846" />
+                        </BarChart>
+                    </ResponsiveContainer>
+                </div>
             </div>
         </div>
+        <style>
+        {`
+          body {
+            background-image: url(${backgroundImage});
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+          }
+        `}
+      </style>
+      </>
     );
 };
 
 export default Dashboard;
+
+
 
 
 

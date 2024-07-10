@@ -6,7 +6,8 @@
     "passwordPlaceholder": "Password",
     "loginButton": "Log in",
     "loading": "Loading...",
-    "error": "Error logging in. Please try again."
+    "error": "Error logging in. Please try again.",
+    "title2": "Login for Admin "
   },
   "errorMessages": {
     "unauthorized": "Unauthorized user",
@@ -102,7 +103,17 @@
   "usernamePlaceholder": "Username",
   "passwordPlaceholder": "Password",
   "loading": "Loading...",
-  "login": "Login"
+  
+    "register": {
+      "title": "Register New Admin",
+      "firstNameLabel": "First Name:",
+      "lastNamePaternoLabel": "Last Name (Paternal):",
+      "lastNameMaternoLabel": "Last Name (Maternal):",
+      "emailLabel": "Email:",
+      "passwordLabel": "Password:",
+      "registerButton": "Register"
+    }
+  
 
 }
 

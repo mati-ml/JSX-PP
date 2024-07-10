@@ -1,12 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const LogOutButton = () => {
   const navigate = useNavigate();
 
   const handleLogOut = async () => {
     try {
-      const response = await fetch('http://48.216.215.72:8000/api/logout/' , {
+      const response = await fetch('http://48.216.215.72:8000/api/logout/', {
         method: 'POST',
         credentials: 'include', // Incluye las cookies en la petición
         headers: {
@@ -15,12 +16,6 @@ const LogOutButton = () => {
       });
 
       if (response.ok) {
-        // Eliminar las cookies
-        //document.cookie = 'user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-        //document.cookie = 'user_email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-        //document.cookie = 'csrftoken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-        //document.cookie = 'user_role=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-
         // Redirigir al usuario a la página de inicio de sesión
         navigate('/login');
       } else {
@@ -31,8 +26,13 @@ const LogOutButton = () => {
     }
   };
 
-  return <button onClick={handleLogOut}>Log Out</button>;
+  return (
+    <button className="btn btn-danger" onClick={handleLogOut}>
+      Log Out
+    </button>
+  );
 };
 
 export default LogOutButton;
+
 

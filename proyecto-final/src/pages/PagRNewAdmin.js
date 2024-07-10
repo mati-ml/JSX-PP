@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import backgroundImage from './PENANOLEN_Universidad-Adolfo-Ibanez_2-1035x690-1-1035x687.jpg';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
+import { Navigate } from 'react-router-dom';
+import NavbarAdmin from '../components/navbaradmin';
 
 const RegisterAdmin = () => {
   const [firstName, setFirstName] = useState('');
@@ -7,23 +12,20 @@ const RegisterAdmin = () => {
   const [lastNameMaterno, setLastNameMaterno] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const role= 'admin'
-  const carrera= 'admin'
   const [message, setMessage] = useState('');
-
+  const { t } = useTranslation();
+  const [navigate, setNavigate] = useState(false);
 
   const handleSubmit = async (e) => {
-    console.debug("corriendo función para llamar a la api");
     e.preventDefault();
 
     const name = `${firstName} ${lastNamePaterno} ${lastNameMaterno}`;
-
     const user = {
       name,
       password,
       email,
-      role,
-      carrera,
+      role: 'admin',
+      carrera: 'admin',
     };
 
     try {
@@ -34,17 +36,17 @@ const RegisterAdmin = () => {
         },
         body: JSON.stringify(user),
       });
-      console.info("Enviando datos...");
-      const data = await response.json();
 
       if (response.ok) {
-        setMessage('Registration successful!');
+        const data = await response.json();
         console.info('Registration successful!', data);
-        fetch('http://loclahost:8000/api2/delete-teachers-evaluations/')
-
-        // Aquí puedes realizar la solicitud GET a otra API
-        
-
+        setMessage('Registration successful!');
+        alert('Se ha registrado correctamente');
+        setNavigate(true);
+      } else {
+        const errorData = await response.json();
+        setMessage(`Registration failed: ${errorData.message || 'Unknown error'}`);
+        console.error('Registration failed:', errorData);
       }
     } catch (error) {
       setMessage(`Registration failed: ${error.message}`);
@@ -52,69 +54,101 @@ const RegisterAdmin = () => {
     }
   };
 
+  if (navigate) {
+    return <Navigate to="/admin" />;
+  }
+
   return (
-    <div className="container mt-5">
-      <h2>Registrar Nuevo Admin</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="row mb-3">
-          <div className="col-md-6">
-            <label className="form-label">First Name:</label>
-            <input
-              type="text"
-              className="form-control"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="col-md-6">
-            <label className="form-label">Apellido Paterno:</label>
-            <input
-              type="text"
-              className="form-control"
-              value={lastNamePaterno}
-              onChange={(e) => setLastNamePaterno(e.target.value)}
-              required
-            />
+    <>
+    <NavbarAdmin></NavbarAdmin>
+      <div className="container-fluid d-flex flex-column justify-content-center align-items-center vh-100">
+        <div className="card p-4 shadow-lg w-100" style={{ maxWidth: '600px' }}>
+          <h2>{t('register.title')}</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="row mb-3">
+              <div className="col-md-6">
+                <label className="form-label">{t('register.firstNameLabel')}</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="col-md-6">
+                <label className="form-label">{t('register.lastNamePaternoLabel')}</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={lastNamePaterno}
+                  onChange={(e) => setLastNamePaterno(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+            <div className="row mb-3">
+              <div className="col-md-6">
+                <label className="form-label">{t('register.lastNameMaternoLabel')}</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={lastNameMaterno}
+                  onChange={(e) => setLastNameMaterno(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="col-md-6">
+                <label className="form-label">{t('register.emailLabel')}</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+            <div className="row mb-3">
+              <div className="col-md-6">
+                <label className="form-label">{t('register.passwordLabel')}</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+            <button type="submit" className="btn btn-primary">
+              {t('register.registerButton')}
+            </button>
+          </form>
+          {message && <p className="mt-3">{message}</p>}
+          <div className="mt-3 d-flex justify-content-center">
+            <LanguageSwitcher />
           </div>
         </div>
-        <div className="row mb-3">
-          <div className="col-md-6">
-            <label className="form-label">Apellido Materno:</label>
-            <input
-              type="text"
-              className="form-control"
-              value={lastNameMaterno}
-              onChange={(e) => setLastNameMaterno(e.target.value)}
-              required
-            />
-          </div>
-          <div className="col-md-6">
-            <label className="form-label">Email:</label>
-            <input
-              type="email"
-              className="form-control"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-        </div>
-        <div className="row mb-3">
-          <div className="col-md-6">
-            <label className="form-label">Password:</label>
-            <input
-              type="password"
-              className="form-control"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-        </div>
-        <button type="submit" className="btn btn-primary">Register</button>
-      </form>
-      {message && <p className="mt-3">{message}</p>}
-    </div>
-  );}
+      </div>
+
+      {/* Estilo de fondo para cubrir toda la página */}
+      <style>
+        {`
+          body {
+            background-image: url(${backgroundImage});
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+          }
+        `}
+      </style>
+    </>
+  );
+};
+
 export default RegisterAdmin;
+

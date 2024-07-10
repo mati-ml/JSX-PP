@@ -79,54 +79,86 @@ function Inscripcion() {
     }
   };
 
-  return (
-    <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px' }}>
-      <label>
-        {t('startDate')}: {/* Traduce el texto de Fecha Inicial */}
-        <input type="date" value={fecha_ini} onChange={(e) => setFecha_ini(e.target.value)} />
-      </label>
-      <label>
-        {t('endDate')}: {/* Traduce el texto de Fecha Final */}
-        <input type="date" value={fecha_ter} onChange={(e) => setFecha_ter(e.target.value)} />
-      </label>
-      <label>
-        {t('companyName')}: {/* Traduce el texto de Nombre Empresa */}
-        <input type="text" value={nombre_emp} onChange={(e) => setNombre_emp(e.target.value)} />
-      </label>
-      <label>
-        {t('companyRut')}: {/* Traduce el texto de Rut Empresa */}
-        <input type="text" value={rut_emp} onChange={(e) => setRut_emp(e.target.value)} />
-      </label>
-      <label>
-        {t('supervisorEmail')}: {/* Traduce el texto de Email Supervisor */}
-        <input type="email" value={sup_email} onChange={(e) => setSup_email(e.target.value)} />
-      </label>
-      <label>
-        {t('supervisorName')}: {/* Traduce el texto de Nombre Supervisor */}
-        <input type="text" value={nombre_sup} onChange={(e) => setNombre_sup(e.target.value)} />
-      </label>
-      <label>
-        {t('supervisorRut')}: {/* Traduce el texto de Rut Supervisor */}
-        <input type="text" value={rut_sup} onChange={(e) => setRut_sup(e.target.value)} />
-      </label>
-      <label>
-        {t('selectTeacher')}: {/* Traduce el texto de Seleccionar Profesor */}
-        <select
-          value={teacher}
-          onChange={(e) => setTeacher(e.target.value)}
-          required
-        >
-          <option value="">{t('selectTeacherPlaceholder')}</option> {/* Traduce el texto de selección de profesor */}
-          {profesores.map((prof, index) => (
-            <option key={index} value={prof}>
-              {prof}
-            </option>
-          ))}
-        </select>
-      </label>
-      <button type="submit">{t('submitApplication')}</button> {/* Traduce el texto de enviar la solicitud */}
+  return(
+  <><div className="d-flex align-items-center justify-content-center ">
+    <form onSubmit={handleSubmit} className="p-4" style={{ backgroundColor: 'white', borderRadius: '10px', maxWidth: '600px', width: '100%' }}>
+      <div >
+    <label className="form-label">
+    {t('startDate')}: {/* Traduce el texto de Fecha Inicial */}
+    <input type="date" className="form-control" value={fecha_ini} onChange={(e) => setFecha_ini(e.target.value)} />
+  </label>
+  
+  <label className="form-label ms-3">
+    {t('endDate')}: {/* Traduce el texto de Fecha Final */}
+    <input type="date" className="form-control" value={fecha_ter} onChange={(e) => setFecha_ter(e.target.value)} />
+  </label>
+  </div>
+  <div className="mb-3 d-flex align-items-center">
+  <div className="me-3">
+    <label className="form-label">
+      {t('companyName')}: {/* Traduce el texto de Nombre Empresa */}
+      <input type="text" className="form-control" value={nombre_emp} onChange={(e) => setNombre_emp(e.target.value)} />
+    </label>
+  </div>
+  
+  <div>
+    <label className="form-label">
+      {t('companyRut')}: {/* Traduce el texto de Rut Empresa */}
+      <input type="text" className="form-control" value={rut_emp} onChange={(e) => setRut_emp(e.target.value)} />
+    </label>
+  </div>
+</div>
+  
+<div className="mb-3 d-flex align-items-center">
+  <div className="me-3 flex-fill">
+    <label className="form-label">
+      {t('supervisorEmail')}: {/* Traduce el texto de Email Supervisor */}
+      <input type="email" className="form-control" value={sup_email} onChange={(e) => setSup_email(e.target.value)} />
+    </label>
+  </div>
+  
+  <div className="me-3 flex-fill">
+    <label className="form-label">
+      {t('supervisorName')}: {/* Traduce el texto de Nombre Supervisor */}
+      <input type="text" className="form-control" value={nombre_sup} onChange={(e) => setNombre_sup(e.target.value)} />
+    </label>
+  </div>
+  
+  <div className="flex-fill">
+    <label className="form-label">
+      {t('supervisorRut')}: {/* Traduce el texto de Rut Supervisor */}
+      <input type="text" className="form-control" value={rut_sup} onChange={(e) => setRut_sup(e.target.value)} />
+    </label>
+  </div>
+</div>
+  
+      <div className="mb-3">
+        <label className="form-label">
+          {t('selectTeacher')}: {/* Traduce el texto de Seleccionar Profesor */}
+          <select
+            className="form-select"
+            value={teacher}
+            onChange={(e) => setTeacher(e.target.value)}
+            required
+          >
+            <option value="">{t('selectTeacherPlaceholder')}</option> {/* Traduce el texto de selección de profesor */}
+            {profesores.map((prof, index) => (
+              <option key={index} value={prof}>
+                {prof}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+  
+      <button type="submit" className="btn btn-primary">
+        {t('submitApplication')}
+      </button> {/* Traduce el texto de enviar la solicitud */}
     </form>
-  );
+  </div>
+
+  </>
+);
 }
 
 export default Inscripcion;
