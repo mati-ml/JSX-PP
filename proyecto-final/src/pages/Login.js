@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./Login.css"; // Asegúrate de crear este archivo CSS y enlazarlo
+// import "./Login.css"; // Asegúrate de crear este archivo CSS y enlazarlo
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from "./LanguageSwitcher";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import backgroundImage from './PENANOLEN_Universidad-Adolfo-Ibanez_2-1035x690-1-1035x687.jpg'; // Replace with your actual image path
 function Login({ onLoginSuccess }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -58,58 +60,69 @@ function Login({ onLoginSuccess }) {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-box">
-        <h2>{t('login.title')}</h2>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder={t('login.usernamePlaceholder')}
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            disabled={isLoading}
-          />
-          <input
-            type="password"
-            placeholder={t('login.passwordPlaceholder')}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            disabled={isLoading}
-          />
-          {error && <p className="error">{error}</p>}
-          <button type="submit" disabled={isLoading}>
-            {isLoading ? t('login.loading') : t('login.loginButton')}
-          </button>
-        </form>
-        
-        <div className="button-container">
-          <Link to="/loginadmin">
-            <button className="admin" id="boton-admin">
-              {t('buttons.admin')}
+    <>
+      <div className="container-fluid d-flex flex-column justify-content-center align-items-center vh-100">
+        <div className="card p-4 shadow-lg" style={{ maxWidth: '400px' }}>
+          <h2 className="text-center mb-4">{t('login.title')}</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <input
+                type="text"
+                className="form-control"
+                placeholder={t('login.usernamePlaceholder')}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                disabled={isLoading}
+              />
+            </div>
+            <div className="mb-3">
+              <input
+                type="password"
+                className="form-control"
+                placeholder={t('login.passwordPlaceholder')}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                disabled={isLoading}
+              />
+            </div>
+            {error && <p className="text-danger">{error}</p>}
+            <button type="submit" className="btn btn-primary w-100 mb-3" disabled={isLoading}>
+              {isLoading ? t('login.loading') : t('login.loginButton')}
             </button>
-          </Link>
+          </form>
 
-          <Link to="/register">
-            <button id="register">
+          <div className="d-flex justify-content-between">
+            <Link to="/loginadmin" className="btn btn-secondary me-2">
+              {t('buttons.admin')}
+            </Link>
+            <Link to="/register" className="btn btn-secondary ml-2">
               {t('buttons.register')}
-            </button>
-          </Link>
+            </Link>
+          </div>
+
+          <div className="mt-3 d-flex justify-content-center">
+            <LanguageSwitcher />
+          </div>
         </div>
-        
       </div>
-      <div><LanguageSwitcher></LanguageSwitcher></div>
-    </div>
+
+      {/* Estilo de fondo para cubrir toda la página */}
+      <style>
+        {`
+          body {
+            background-image: url(${backgroundImage});
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+          }
+        `}
+      </style>
+    </>
   );
-}
+};
+
 
 export default Login;
-
-
-
-
-
-
-
-
-
-

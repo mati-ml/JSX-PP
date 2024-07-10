@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import './Register.css'; // importar el archivo CSS
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useTranslation } from 'react-i18next';
+import backgroundImage from './PENANOLEN_Universidad-Adolfo-Ibanez_2-1035x690-1-1035x687.jpg'; // Ruta de tu imagen de fondo
+import LanguageSwitcher from './LanguageSwitcher';
 const Register = () => {
   const [firstName, setFirstName] = useState('');
   const [lastNamePaterno, setLastNamePaterno] = useState('');
@@ -10,8 +12,7 @@ const Register = () => {
   const [role, setRole] = useState('');
   const [carrera, setCarrera] = useState('');
   const [message, setMessage] = useState('');
-
-
+  const { t } = useTranslation(); // Función de traducción
   const handleSubmit = async (e) => {
     console.debug("corriendo función para llamar a la api");
     e.preventDefault();
@@ -51,93 +52,123 @@ const Register = () => {
       console.error('Registration failed:', error);
     }
   };
-
   return (
-    <div className="container"> {/* aplicar la clase */}
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>First Name:</label>
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
+    <>
+      <div className="container-fluid d-flex flex-column justify-content-center align-items-center vh-100" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+        <div className="card p-4 shadow-lg w-100" style={{ maxWidth: '600px' }}>
+          <h2 className="text-center mb-4">{t('Register')}</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="row mb-3">
+              <div className="col-md-4">
+                <label className="form-label">{t('First Name')}</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="col-md-4">
+                <label className="form-label">{t('Last Name (Paternal)')}</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={lastNamePaterno}
+                  onChange={(e) => setLastNamePaterno(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="col-md-4">
+                <label className="form-label">{t('Last Name (Maternal)')}</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={lastNameMaterno}
+                  onChange={(e) => setLastNameMaterno(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+            <div className="mb-3">
+              <label className="form-label">{t('Email')}</label>
+              <input
+                type="email"
+                className="form-control"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <label className="form-label">{t('Password')}</label>
+              <input
+                type="password"
+                className="form-control"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <label className="form-label">{t('Role')}</label>
+              <select
+                className="form-select"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                required
+              >
+                <option value="">{t('Select Role')}</option>
+                <option value="teacher">{t('Teacher')}</option>
+                <option value="student">{t('Student')}</option>
+              </select>
+            </div>
+            <div className="mb-3">
+              <label className="form-label">{t('Career')}</label>
+              <select
+                className="form-select"
+                value={carrera}
+                onChange={(e) => setCarrera(e.target.value)}
+                required
+              >
+                <option value="">{t('Select Career')}</option>
+                <option value="Derecho">{t('Law')}</option>
+                <option value="Periodismo">{t('Journalism')}</option>
+                <option value="Ing. civil Informática">{t('Computer Engineering')}</option>
+                <option value="Ing. Comercial">{t('Business Administration')}</option>
+                <option value="Ing. Civil Industrial">{t('Industrial Engineering')}</option>
+                <option value="Ing. Civil en Obras Civiles">{t('Civil Engineering')}</option>
+                <option value="Ing. Civil en Energía">{t('Energy Engineering')}</option>
+                <option value="Ing. Civil Mecánica">{t('Mechanical Engineering')}</option>
+                <option value="Ing. en Diseño">{t('Design Engineering')}</option>
+                <option value="Ing. Civil en Biotecnología">{t('Biomedical Engineering')}</option>
+              </select>
+            </div>
+            <button type="submit" className="btn btn-primary w-100">{t('Register')}</button>
+          </form>
+          <div className="mt-3 d-flex justify-content-center">
+            <LanguageSwitcher />
+          </div>
+          {message && <p className="mt-3 text-center">{message}</p>}
         </div>
-        <div>
-          <label>Apellido Paterno:</label>
-          <input
-            type="text"
-            value={lastNamePaterno}
-            onChange={(e) => setLastNamePaterno(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Apellido Materno:</label>
-          <input
-            type="text"
-            value={lastNameMaterno}
-            onChange={(e) => setLastNameMaterno(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Role:</label>
-          <select
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-            required
-          >
-            <option value="">Select Role</option>
-            <option value="teacher">Teacher</option>
-            <option value="student">Student</option>
-          </select>
-        </div>
-        <div>
-          <label>Carrera:</label>
-          <select
-            value={carrera}
-            onChange={(e) => setCarrera(e.target.value)}
-            required
-          >
-            <option value="">Select Carrera</option>
-            <option value="Derecho">Derecho</option>
-            <option value="Periodismo">Periodismo</option>
-            <option value="Ing. civil Informática">Ing Civil Informática</option>
-            <option value="Ing. Comercial">Ing Comercial</option>
-            <option value="Ing. Civil Industrial">Ing Civil Industrial</option>
-            <option value="Ing. Civil en Obras Civiles">Ing Civil en Obras Civiles</option>
-            <option value="Ing. Civil en Energía">Ing Civil en Energía</option>
-            <option value="Ing. Civil Mecánica">Ing Civil Mecánica</option>
-            <option value="Ing. en Diseño">Ing en Diseño</option>
-            <option value="Ing. Civil en Biotecnología">Ing Civil en Medicina</option>
-          </select>
-        </div>
-        <button type="submit">Register</button>
-      </form>
-      {message && <p>{message}</p>}
-    </div>
+      </div>
+  
+      {/* Estilo de fondo para cubrir toda la página */}
+      <style>
+        {`
+          body {
+            background-image: url(${backgroundImage});
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+          }
+        `}
+      </style>
+    </>
   );
-};
+}
 
 export default Register;

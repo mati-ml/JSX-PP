@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Register.css'; // importar el archivo CSS
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const RegisterAdmin = () => {
   const [firstName, setFirstName] = useState('');
@@ -53,60 +53,68 @@ const RegisterAdmin = () => {
   };
 
   return (
-    <div className="container"> {/* aplicar la clase */}
-      <h2>Registrar Nuevo Admnin</h2>
+    <div className="container mt-5">
+      <h2>Registrar Nuevo Admin</h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>First Name:</label>
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
+        <div className="row mb-3">
+          <div className="col-md-6">
+            <label className="form-label">First Name:</label>
+            <input
+              type="text"
+              className="form-control"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="col-md-6">
+            <label className="form-label">Apellido Paterno:</label>
+            <input
+              type="text"
+              className="form-control"
+              value={lastNamePaterno}
+              onChange={(e) => setLastNamePaterno(e.target.value)}
+              required
+            />
+          </div>
         </div>
-        <div>
-          <label>Apellido Paterno:</label>
-          <input
-            type="text"
-            value={lastNamePaterno}
-            onChange={(e) => setLastNamePaterno(e.target.value)}
-            required
-          />
+        <div className="row mb-3">
+          <div className="col-md-6">
+            <label className="form-label">Apellido Materno:</label>
+            <input
+              type="text"
+              className="form-control"
+              value={lastNameMaterno}
+              onChange={(e) => setLastNameMaterno(e.target.value)}
+              required
+            />
+          </div>
+          <div className="col-md-6">
+            <label className="form-label">Email:</label>
+            <input
+              type="email"
+              className="form-control"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
         </div>
-        <div>
-          <label>Apellido Materno:</label>
-          <input
-            type="text"
-            value={lastNameMaterno}
-            onChange={(e) => setLastNameMaterno(e.target.value)}
-            required
-          />
+        <div className="row mb-3">
+          <div className="col-md-6">
+            <label className="form-label">Password:</label>
+            <input
+              type="password"
+              className="form-control"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
         </div>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-
-        <button type="submit">Register</button>
+        <button type="submit" className="btn btn-primary">Register</button>
       </form>
-      {message && <p>{message}</p>}
+      {message && <p className="mt-3">{message}</p>}
     </div>
-  );
-};
-
+  );}
 export default RegisterAdmin;
