@@ -112,7 +112,8 @@
       "emailLabel": "Email:",
       "passwordLabel": "Password:",
       "registerButton": "Register"
-    }
+    },
+    "studentDashboardTitle": "Student Dashboard"
   
 
 }

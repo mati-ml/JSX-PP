@@ -117,6 +117,7 @@
     "emailLabel": "Email:",
     "passwordLabel": "Contraseña:",
     "registerButton": "Registrar"
-  }
+  },
+  "studentDashboardTitle": "Menu de estudiante"
   
 }
