@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import NavbarEst from './navbarest';
+import backgroundImage from '../pages/PENANOLEN_Universidad-Adolfo-Ibanez_2-1035x690-1-1035x687.jpg';
 
 function Inscripcion() {
   const { t } = useTranslation();
@@ -80,8 +82,12 @@ function Inscripcion() {
   };
 
   return(
-  <><div className="d-flex align-items-center justify-content-center ">
-    <form onSubmit={handleSubmit} className="p-4" style={{ backgroundColor: 'white', borderRadius: '10px', maxWidth: '600px', width: '100%' }}>
+  <>
+  <NavbarEst></NavbarEst>
+  <div className="d-flex align-items-center justify-content-center min-vh-100" >
+    
+    <form onSubmit={handleSubmit} className="p-4 " style={{ backgroundColor: 'white', borderRadius: '10px', maxWidth: '600px', width: '100%' }}>
+    <h2 className='pb-2 d-flex align-items-center'>Menu de Inscripción</h2>
       <div >
     <label className="form-label">
     {t('startDate')}: {/* Traduce el texto de Fecha Inicial */}
@@ -156,7 +162,20 @@ function Inscripcion() {
       </button> {/* Traduce el texto de enviar la solicitud */}
     </form>
   </div>
-
+  {/* Estilo de fondo para cubrir toda la página */}
+  <style>
+        {`
+          body {
+            background-image: url(${backgroundImage});
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+          }
+        `}
+      </style>
   </>
 );
 }

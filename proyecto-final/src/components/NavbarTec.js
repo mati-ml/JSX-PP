@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-const NavbarEst = () => {
+const NavbarTec = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -30,7 +30,7 @@ const NavbarEst = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-secondary">
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/student">
+        <Link className="navbar-brand" to="/teacher">
           Inicio
         </Link>
         <button
@@ -48,43 +48,18 @@ const NavbarEst = () => {
         <div className={`collapse navbar-collapse ${isOpen ? 'show' : ''}`} id="navbarNav">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <Link className="nav-link" to="/rubrica">
-                Rubrica
+              <Link className="nav-link" to="/cerrar">
+                Cerrar curso
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/inscripcion">
-                Menu de Inscripcion
+              <Link className="nav-link" to="/Evaluar">
+                Evaluar alumnos
               </Link>
             </li>
             <li className="nav-item">
-              <a
-                className="nav-link"
-                href="https://alumnosfic.uai.cl/static/media/Reglamentopasantia2023.03a7175a58d5eebf27ea.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Reglamento
-              </a>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/proyecto">
-                Proyecto
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/syllabus">
-                Syllabus
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/evaluaciones">
-                Tus evaluaciones
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/tusevalpas">
-                Evaluaciones de la empresa
+              <Link className="nav-link" to="/estado-reunion">
+                Reuniones
               </Link>
             </li>
             <li className="nav-item">
@@ -99,4 +74,4 @@ const NavbarEst = () => {
   );
 };
 
-export default NavbarEst;
+export default NavbarTec;

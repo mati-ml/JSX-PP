@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import { Form, Button } from 'react-bootstrap';
+import backgroundImage from '../pages/PENANOLEN_Universidad-Adolfo-Ibanez_2-1035x690-1-1035x687.jpg';
 const EvaluarEmpForm = () => {
   const [userEmail, setUserEmail] = useState('');
   const [nota, setNota] = useState('');
@@ -36,35 +37,54 @@ const EvaluarEmpForm = () => {
   };
 
   return (
-    <div>
-      <h2>Evaluar Pasante</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="userEmail">Correo Electrónico:</label>
-          <input
-            type="email"
-            id="userEmail"
-            value={userEmail}
-            onChange={(e) => setUserEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="nota">Nota:</label>
-          <input
-            type="number"
-            id="nota"
-            value={nota}
-            onChange={(e) => setNota(e.target.value)}
-            required
-            min="0"
-            max="10"
-            step="0.1"
-          />
-        </div>
-        <button type="submit">Enviar Evaluación</button>
-      </form>
+    <>
+    <div className="container d-flex justify-content-center align-items-center min-vh-100">
+      <div className="border p-4 rounded shadow-sm bg-white" style={{ maxWidth: '400px', width: '100%' }}>
+        <h2 className="mb-4 text-center">Evaluar Pasante</h2>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="userEmail">
+            <Form.Label>Correo Electrónico:</Form.Label>
+            <Form.Control
+              type="email"
+              value={userEmail}
+              onChange={(e) => setUserEmail(e.target.value)}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group controlId="nota">
+            <Form.Label>Nota:</Form.Label>
+            <Form.Control
+              type="number"
+              value={nota}
+              onChange={(e) => setNota(e.target.value)}
+              required
+              min="0"
+              max="10"
+              step="0.1"
+            />
+          </Form.Group>
+
+          <Button variant="primary" type="submit" className="w-100 mt-3">
+            Enviar Evaluación
+          </Button>
+        </Form>
+      </div>
     </div>
+    <style>
+        {`
+          body {
+            background-image: url(${backgroundImage});
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+          }
+        `}
+      </style>
+    </>
   );
 };
 

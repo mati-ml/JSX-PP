@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import NavbarTec from './NavbarTec';
+import backgroundImage from '../pages/PENANOLEN_Universidad-Adolfo-Ibanez_2-1035x690-1-1035x687.jpg';
 function Evaluaciones() {
   const { t } = useTranslation();
   const [alumnos, setAlumnos] = useState([]);
@@ -86,62 +88,72 @@ function Evaluaciones() {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px' }}>
-      <label>
-        {t('selectStudent')} {/* Traduce el texto de selección de alumno */}
-        <select
-          value={selectedAlumno}
-          onChange={(e) => setSelectedAlumno(e.target.value)}
-          required
-        >
-          <option value="">{t('selectStudentPlaceholder')}</option> {/* Traduce el texto de selección de alumno */}
-          {alumnos.map((alumno) => (
-            <option key={alumno.id} value={alumno.id}>
-              {alumno.nombre}
-            </option>
-          ))}
-        </select>
-      </label>
-      <label>
-        {t('evaluationName')} {/* Traduce el texto de nombre de la evaluación */}
-        <select
-          value={evaluacion}
-          onChange={(e) => setEvaluacion(e.target.value)}
-          required
-        >
-          <option value="Evaluación 1">{t('evaluation1')}</option> {/* Traduce el nombre de la evaluación */}
-          <option value="Evaluación 2">{t('evaluation2')}</option> {/* Traduce el nombre de la evaluación */}
-          <option value="Evaluación 3">{t('evaluation3')}</option> {/* Traduce el nombre de la evaluación */}
-        </select>
-      </label>
-      <label>
-        {t('uploadFile')} {/* Traduce el texto de subir archivo */}
-        <input
-          type="file"
-          onChange={(e) => setFile(e.target.files[0])}
-        />
-      </label>
-      <label>
-        {t('grade')} {/* Traduce el texto de "nota" */}
-        <input
-          type="number"
-          value={nota}
-          onChange={(e) => setNota(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        {t('comment')} {/* Traduce el texto de "comentario" */}
-        <textarea
-          value={comentario}
-          onChange={(e) => setComentario(e.target.value)}
-          required
-        />
-      </label>
-      <button type="submit">{t('modifyEvaluation')}</button> {/* Traduce el texto de modificar evaluación */}
-    </form>
+    <>
+    <NavbarTec></NavbarTec>
+    <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
+      <Form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px', minWidth: '300px', maxWidth: '600px' }}>
+        <Form.Group controlId="selectedAlumno">
+          <Form.Label>{t('selectStudent')}</Form.Label>
+          <Form.Control as="select" value={selectedAlumno} onChange={(e) => setSelectedAlumno(e.target.value)} required>
+            <option value="">{t('selectStudentPlaceholder')}</option>
+            {alumnos.map((alumno) => (
+              <option key={alumno.id} value={alumno.id}>
+                {alumno.nombre}
+              </option>
+            ))}
+          </Form.Control>
+        </Form.Group>
+
+        <Form.Group controlId="evaluacion">
+          <Form.Label>{t('evaluationName')}</Form.Label>
+          <Form.Control as="select" value={evaluacion} onChange={(e) => setEvaluacion(e.target.value)} required>
+            <option value="Evaluación 1">{t('evaluation1')}</option>
+            <option value="Evaluación 2">{t('evaluation2')}</option>
+            <option value="Evaluación 3">{t('evaluation3')}</option>
+          </Form.Control>
+        </Form.Group>
+
+        <Form.Group controlId="file">
+          <Form.Label>{t('uploadFile')}</Form.Label>
+          <Form.Control type="file" onChange={(e) => setFile(e.target.files[0])} />
+        </Form.Group>
+
+        <Row>
+          <Col>
+            <Form.Group controlId="nota">
+              <Form.Label>{t('grade')}</Form.Label>
+              <Form.Control type="number" value={nota} onChange={(e) => setNota(e.target.value)} required />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group controlId="comentario">
+              <Form.Label>{t('comment')}</Form.Label>
+              <Form.Control as="textarea" value={comentario} onChange={(e) => setComentario(e.target.value)} required />
+            </Form.Group>
+          </Col>
+        </Row>
+
+        <Button variant="primary" type="submit">{t('modifyEvaluation')}</Button>
+      </Form>
+    </Container>
+    <style>
+        {`
+          body {
+            background-image: url(${backgroundImage});
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+          }
+        `}
+      </style>
+    </>
   );
-}
+};
+
+
 
 export default Evaluaciones;
 

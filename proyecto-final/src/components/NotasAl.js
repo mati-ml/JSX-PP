@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { Button } from 'react-bootstrap';
+import backgroundImage from '../pages/PENANOLEN_Universidad-Adolfo-Ibanez_2-1035x690-1-1035x687.jpg';
+import NavbarEst from './navbarest';
 const FileDownloadComponent = () => {
   const { t } = useTranslation();
 
@@ -105,63 +107,65 @@ const FileDownloadComponent = () => {
     }
   };
 
-  const containerStyle = {
-    backgroundColor: 'white',
-    padding: '20px',
-    borderRadius: '10px',
-    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-    maxWidth: '600px',
-    margin: '20px auto',
-    textAlign: 'center',
-  };
-
-  const evaluationStyle = {
-    marginBottom: '10px',
-  };
-
-  const buttonStyle = {
-    backgroundColor: '#007bff',
-    color: 'white',
-    border: 'none',
-    padding: '10px 20px',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    marginTop: '10px',
-  };
 
   if (fetching) {
     return <p>{t('loading')}</p>; // Mientras se obtienen las notas
   }
 
   return (
-    <div style={containerStyle}>
-      <div style={evaluationStyle}>
-        <h3>{t('evaluation')} 1:</h3>
-        <p>{t('evaluationLabel')}: {notas1.evaluacion}</p>
-        <p>{t('gradeLabel')}: {notas1.nota}</p>
-        <button style={buttonStyle} onClick={() => downloadFile('rubrica1', 'Rubrica1.pdf')}>
-          {t('downloadRubric')} 1
-        </button>
-      </div>
-      <div style={evaluationStyle}>
-        <h3>{t('evaluation')} 2:</h3>
-        <p>{t('evaluationLabel')}: {notas2.evaluacion}</p>
-        <p>{t('gradeLabel')}: {notas2.nota}</p>
-        <button style={buttonStyle} onClick={() => downloadFile('rubrica2', 'Rubrica2.pdf')}>
-          {t('downloadRubric')} 2
-        </button>
-      </div>
-      <div style={evaluationStyle}>
-        <h3>{t('evaluation')} 3:</h3>
-        <p>{t('evaluationLabel')}: {notas3.evaluacion}</p>
-        <p>{t('gradeLabel')}: {notas3.nota}</p>
-        <button style={buttonStyle} onClick={() => downloadFile('rubrica3', 'Rubrica3.pdf')}>
-          {t('downloadRubric')} 3
-        </button>
+    <>
+    <NavbarEst></NavbarEst>
+    <div className="container d-flex justify-content-center align-items-center min-vh-100">
+      <div className="row">
+        <div className="col-md-4 mb-4">
+          <div className="border p-3 text-center bg-white">
+            <h3>{t('evaluation')} 1:</h3>
+            <p>{t('evaluationLabel')}: {notas1.evaluacion}</p>
+            <p>{t('gradeLabel')}: {notas1.nota}</p>
+            <Button variant="primary" onClick={() => downloadFile('rubrica1', 'Rubrica1.pdf')}>
+              {t('downloadRubric')} 1
+            </Button>
+          </div>
+        </div>
+        <div className="col-md-4 mb-4">
+          <div className="border p-3 text-center bg-white">
+            <h3>{t('evaluation')} 2:</h3>
+            <p>{t('evaluationLabel')}: {notas2.evaluacion}</p>
+            <p>{t('gradeLabel')}: {notas2.nota}</p>
+            <Button variant="primary" onClick={() => downloadFile('rubrica2', 'Rubrica2.pdf')}>
+              {t('downloadRubric')} 2
+            </Button>
+          </div>
+        </div>
+        <div className="col-md-4 mb-4">
+          <div className="border p-3 text-center bg-white">
+            <h3>{t('evaluation')} 3:</h3>
+            <p>{t('evaluationLabel')}: {notas3.evaluacion}</p>
+            <p>{t('gradeLabel')}: {notas3.nota}</p>
+            <Button variant="primary" onClick={() => downloadFile('rubrica3', 'Rubrica3.pdf')}>
+              {t('downloadRubric')} 3
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
+    <style>
+        {`
+          body {
+            background-image: url(${backgroundImage});
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+          }
+        `}
+      </style>
+    </>
   );
 };
+
 
 export default FileDownloadComponent;
 

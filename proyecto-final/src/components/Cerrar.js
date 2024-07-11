@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { Form, Button } from 'react-bootstrap';
+import NavbarTec from './NavbarTec';
+import backgroundImage from '../pages/PENANOLEN_Universidad-Adolfo-Ibanez_2-1035x690-1-1035x687.jpg';
 function Cerrar() {
   const { t } = useTranslation();
   const [user_email, setUser_email] = useState('');
@@ -74,25 +76,41 @@ function Cerrar() {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px' }}>
-      <label>
-        Seleccionar Mail del Alumno:
-        <select
-          value={user_email}
-          onChange={(e) => setUser_email(e.target.value)}
-          required
-        >
-          <option value="">Selecciona un Alumno</option>
-          {profesores.map((prof, index) => (
-            <option key={index} value={prof}>
-              {prof}
-            </option>
-          ))}
-        </select>
-      </label>
-      <button type="submit">Cerrar Curso</button>
-    </form>
+    <>
+      <NavbarTec /> {/* Asumiendo que Navbartec es tu componente de Navbar */}
+      <div className="d-flex justify-content-center align-items-center min-vh-100">
+        <Form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px', maxWidth: '600px', width: '100%' }}>
+          <Form.Group controlId="userEmail">
+            <Form.Label>Seleccionar Mail del Alumno:</Form.Label>
+            <Form.Control as="select" className="mb-3" value={user_email} onChange={(e) => setUser_email(e.target.value)} required>
+              <option value="">Selecciona un Alumno</option>
+              {profesores.map((prof, index) => (
+                <option key={index} value={prof}>
+                  {prof}
+                </option>
+              ))}
+            </Form.Control>
+          </Form.Group>
+          <Button variant="primary" className="px-5 py-3" type="submit">
+            Cerrar Curso
+          </Button>
+        </Form>
+      </div>
+      <style>
+        {`
+          body {
+            background-image: url(${backgroundImage});
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+          }
+        `}
+      </style>
+    </>
   );
-}
+};
 
 export default Cerrar;

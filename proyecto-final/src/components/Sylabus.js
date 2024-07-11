@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-
+import { Container } from 'react-bootstrap';
+import NavbarEst from './navbarest';
+import backgroundImage from '../pages/PENANOLEN_Universidad-Adolfo-Ibanez_2-1035x690-1-1035x687.jpg';
 const Sylabus = () => {
     const [pdfData, setPdfData] = useState(null);
 
@@ -17,17 +19,34 @@ const Sylabus = () => {
     }, []);
 
     return (
-        <div>
+        <>
+        <NavbarEst></NavbarEst>
+        <Container className="d-flex justify-content-center align-items-center min-vh-100">
             {pdfData && (
                 <embed
                     src={URL.createObjectURL(pdfData)}
                     type="application/pdf"
-                    width="1000px" // Ancho del visor de PDF, ajusta según tus necesidades
-                    height="800px" // Alto del visor de PDF, ajusta según tus necesidades
+                    style={{ width: '50%', height: '80vh' }} // Ancho y alto responsivos
                 />
             )}
-        </div>
+        </Container>
+    {/* Estilo de fondo para cubrir toda la página */}
+  <style>
+        {`
+          body {
+            background-image: url(${backgroundImage});
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+          }
+        `}
+      </style>
+        </>
     );
+
 };
 
 export default Sylabus;

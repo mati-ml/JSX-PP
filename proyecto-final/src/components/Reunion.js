@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { Form, Button } from 'react-bootstrap';
+import NavbarTec from './NavbarTec';
+import backgroundImage from '../pages/PENANOLEN_Universidad-Adolfo-Ibanez_2-1035x690-1-1035x687.jpg';
 function Reunion() {
   const { t } = useTranslation();
   const [user_email, setUser_email] = useState('');
@@ -74,39 +76,51 @@ function Reunion() {
     }
   };
 
-  return (
-    <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px' }}>
-      <label>
-        Seleccionar Mail del Alumno:
-        <select
-          value={user_email}
-          onChange={(e) => setUser_email(e.target.value)}
-          required
-        >
-          <option value="">Selecciona un profesor</option>
-          {profesores.map((prof, index) => (
-            <option key={index} value={prof}>
-              {prof}
-            </option>
-          ))}
-        </select>
-      </label>
-      <label>
-        Estado de la Reunión:
-        <select
-          value={reunion}
-          onChange={(e) => setReunion(e.target.value)}
-          required
-        >
-          <option value="">Selecciona el estado</option>
-          <option value="Pendiente">Pendiente</option>
-          <option value="Aprobado">Aprobado</option>
-        </select>
-      </label>
-      <button type="submit">Modificar Evaluación</button>
-    </form>
+  return( <>
+  <NavbarTec></NavbarTec>
+    <div className="d-flex justify-content-center align-items-center min-vh-100">
+      <Form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '20px', borderRadius: '10px', maxWidth: '600px' }}>
+        <Form.Group controlId="user_email">
+          <Form.Label>Seleccionar Mail del Alumno:</Form.Label>
+          <Form.Control as="select" value={user_email} onChange={(e) => setUser_email(e.target.value)} required>
+            <option value="">Selecciona un profesor</option>
+            {profesores.map((prof, index) => (
+              <option key={index} value={prof}>
+                {prof}
+              </option>
+            ))}
+          </Form.Control>
+        </Form.Group>
+
+        <Form.Group controlId="reunion">
+          <Form.Label>Estado de la Reunión:</Form.Label>
+          <Form.Control as="select" className='mb-3' value={reunion} onChange={(e) => setReunion(e.target.value)} required>
+            <option value="">Selecciona el estado</option>
+            <option value="Pendiente">Pendiente</option>
+            <option value="Aprobado">Aprobado</option>
+          </Form.Control>
+        </Form.Group>
+
+        <Button variant="primary" type="submit">Modificar Evaluación</Button>
+      </Form>
+    </div>
+    <style>
+        {`
+          body {
+            background-image: url(${backgroundImage});
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+          }
+        `}
+      </style>
+    </>
   );
-}
+};
+
 
 export default Reunion;
 

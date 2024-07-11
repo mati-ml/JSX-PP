@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import NavbarEst from './navbarest';
+import backgroundImage from '../pages/PENANOLEN_Universidad-Adolfo-Ibanez_2-1035x690-1-1035x687.jpg';
 
 const EvaluarEmp = () => {
   const [personas, setPersonas] = useState(null);
@@ -20,6 +22,8 @@ const EvaluarEmp = () => {
         if (data.personas !== undefined && data.notapemp !== undefined) {
           setPersonas(data.personas);
           setNotapemp(data.notapemp);
+          console.log(personas);
+          console.log(notapemp)
         }
       })
       .catch(error => {
@@ -28,15 +32,6 @@ const EvaluarEmp = () => {
     }
   }, []);
 
-  const containerStyle = {
-    backgroundColor: 'white',
-    padding: '20px',
-    borderRadius: '10px',
-    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-    maxWidth: '400px',
-    margin: '20px auto',
-    textAlign: 'center',
-  };
 
   const linkStyle = {
     color: '#007bff',
@@ -50,29 +45,51 @@ const EvaluarEmp = () => {
     textDecoration: 'underline',
   };
 
-  return (
-    <div style={containerStyle}>
-      {personas >= 3 ? (
-        <Link
-          to="/evaluarpas"
-          style={linkStyle}
-          onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
-          onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
-        >
-          Mande el link Adjunto a los trabajadores
-        </Link>
-      ) : (
-        <p>Menos de 3 personas han evaluado.</p>
-      )}
-      {personas !== null && (
-        <div>
-          <p>Personas: {personas}</p>
-          <p>Nota Promedio: {notapemp}</p>
+  
+return(<>
+      <NavbarEst />
+      
+      <div className="container d-flex justify-content-center align-items-center min-vh-100">
+        <div className="bg-white p-4 rounded shadow-sm text-center">
+          <h2 className="mb-3">Evaluaciones de la empresa</h2>
+          <Link
+            to="/evaluarpas"
+            className="d-block text-decoration-none mb-3"
+            style={linkStyle}
+            onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
+            onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
+          >
+            Mande el link Adjunto a los trabajadores
+          </Link>
+          {personas < 3 ? (
+            <p className="mb-3">Menos de 3 personas han evaluado.</p>
+          ) : (
+            personas !== null && (
+              <div className="text-center">
+                <p className="mb-1">Personas: {personas}</p>
+                <p className="mb-1">Nota Promedio: {notapemp}</p>
+              </div>
+            )
+          )}
         </div>
-      )}
-    </div>
+      </div>
+          <style>
+        {`
+          body {
+            background-image: url(${backgroundImage});
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+          }
+        `}
+      </style>
+    </>
   );
 };
+
 
 function getCookie(name) {
   const value = `; ${document.cookie}`;
