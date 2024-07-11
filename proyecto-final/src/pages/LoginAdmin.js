@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-//import "./Login.css"; // Asegúrate de crear este archivo CSS y enlazarlo
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useTranslation } from 'react-i18next';
 import backgroundImage from './PENANOLEN_Universidad-Adolfo-Ibanez_2-1035x690-1-1035x687.jpg';
