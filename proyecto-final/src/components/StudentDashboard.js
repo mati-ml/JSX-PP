@@ -26,7 +26,7 @@ function StudentDashboard() {
     <Container fluid className="d-flex flex-column align-items-center justify-content-center min-vh-100">
       <div className="bg-white"></div>
       <div className="p-5 shadow-lg bg-white" style={{ maxWidth: '600px', zIndex: 1 }}>
-        <h2 className="p-2 rounded text-center mb-4">{t('studentDashboardTitle')}</h2>
+        <h2 className="p-2 rounded text-center mb-4">Menu de Estudiantes</h2>
 
         <Row className="w-100 justify-content-center">
           <Col xs={12} md={5} lg={4} className="mb-3 d-flex justify-content-center">
